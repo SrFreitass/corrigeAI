@@ -1,1 +1,1 @@
-# corrigiAI
+# corrigiAI 📚
