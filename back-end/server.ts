@@ -1,12 +1,12 @@
 import fastify from 'fastify';
 import { Router } from './src/routers/router';
-import { PrismaClient } from '@prisma/client';
 
 // Instace Fastify
 const app = fastify();
 
 // Initialization Routes
-new Router(app).handle();
+const router = new Router();
+app.register(router.handle);
 
 app.listen({ port: 8080 }, (err, address) => {
   try {

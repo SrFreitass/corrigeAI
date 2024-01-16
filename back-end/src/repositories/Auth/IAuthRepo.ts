@@ -1,5 +1,7 @@
-export interface IAuthRepo<R, L> {
-  register({}: R): Promise<string>;
+export interface IAuthRepo<R, L, K> {
+  create({}: R): Promise<string>;
 
-  login({}: L): Promise<string>;
+  findOneByEmail({}: L): Promise<K>;
+
+  findOneById({ userId }: { userId: string }): Promise<K | null>;
 }

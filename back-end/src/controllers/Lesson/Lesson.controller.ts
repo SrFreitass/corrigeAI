@@ -2,7 +2,7 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 import { LessonService } from '../../services/Lesson/Lesson.service';
 import { ILesson } from '../../models/Lesson.model';
 
-export class LessonController {
+class LessonController {
   async getAllLessons(req: FastifyRequest, reply: FastifyReply) {
     try {
       const data = new LessonService().getAllLessons();
@@ -42,3 +42,5 @@ export class LessonController {
     reply.send({});
   }
 }
+
+export default new LessonController();

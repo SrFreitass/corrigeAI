@@ -11,13 +11,14 @@ datasource db {
 }
 
 model Users {
-  id        String     @id @default(uuid())
-  name      String
-  email     String     @unique
-  password  String
-  role      String     @default("student")
-  Lectures  Lectures[]
-  createdAt DateTime   @default(now())
+  id             String     @id @default(uuid())
+  name           String
+  email          String     @unique
+  email_verified Boolean    @default(false)
+  password       String
+  role           String     @default("student")
+  Lectures       Lectures[]
+  createdAt      DateTime   @default(now())
 }
 
 model Lectures {

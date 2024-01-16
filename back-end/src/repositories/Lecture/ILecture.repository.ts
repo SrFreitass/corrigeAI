@@ -1,5 +1,5 @@
-export interface ILessonRepo<T> {
-  find(lecture_id: string): Promise<T[]>;
+export interface ILectureRepo<T> {
+  find(): Promise<T[]>;
 
   findOne(id: string): Promise<T>;
 

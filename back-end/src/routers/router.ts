@@ -1,21 +1,25 @@
 import { FastifyInstance } from 'fastify';
-import { LessonRouters } from './Lesson.routes';
-import { LessonController } from '../controllers/Lesson/Lesson.controller';
-import { AuthController } from '../controllers/Auth/Auth.controller';
-import { AuthRouters } from './Auth.routes';
+import AuthController from '../controllers/Auth/Auth.controller';
+import LectureController from '../controllers/Lecture/Lecture.controller';
+import { auth } from '../middlewares/Auth.middleware';
 
 export class Router {
-  constructor(private readonly fastify: FastifyInstance) {}
+  async handle(fastify: FastifyInstance) {
+    fastify.get('/api/v1/status', () => {
+      return { status: 'OK' };
+    });
 
-  async handle() {
-    const lessonRouters = new LessonRouters(
-      this.fastify,
-      new LessonController(),
+    fastify.post('/api/v1/auth/register', AuthController.register);
+    fastify.post('/api/v1/auth/login', AuthController.login);
+    fastify.get(
+      '/api/v1/lectures',
+      { preHandler: [auth] },
+      LectureController.getAllLessons,
     );
-
-    const authRouters = new AuthRouters(this.fastify, new AuthController());
-
-    authRouters.handle('/api/v1/auth');
-    lessonRouters.handle('/api/v1');
+    fastify.post(
+      '/api/v1/lecture',
+      { preHandler: [auth] },
+      LectureController.createLecture,
+    );
   }
 }
