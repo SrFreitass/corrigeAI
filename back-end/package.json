@@ -11,7 +11,7 @@
   "author": "srfreitass",
   "license": "MIT",
   "dependencies": {
-    "@prisma/client": "^5.8.0",
+    "@prisma/client": "^5.8.1",
     "axios": "^1.6.5",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.3.1",
@@ -27,7 +27,7 @@
     "@types/node": "^20.10.8",
     "@types/nodemailer": "^6.4.14",
     "@types/pg": "^8.10.9",
-    "prisma": "^5.8.0",
+    "prisma": "^5.8.1",
     "typescript": "^5.3.3"
   }
 }

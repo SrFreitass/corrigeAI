@@ -1,42 +1,67 @@
-import { ILesson } from '../../models/Lesson.model';
 import { prisma } from '../../../prisma';
-import { ILessonRepo } from './ILessonRepo';
+import { BaseClassRepository } from '../BaseClass.repository';
+import { Lesson } from '../../database/schemas/lesson.schema';
 
-export class LessonRepository implements ILessonRepo<ILesson> {
-  async find(lecture_id: string): Promise<ILesson[]> {
-    const lessons = await prisma.lessons.findMany({
-      where: {
-        lecture_id,
-      },
-    });
+export class LessonRepository implements BaseClassRepository<Lesson> {
+    async find(): Promise<Lesson[]> {
+        const lessons = await prisma.lessons.findMany();
 
-    return lessons;
-  }
+        return lessons;
+    }
 
-  async findOne(id: string): Promise<ILesson> {
-    return {} as ILesson;
-  }
+    async findManyWithWhere(where: { item: string }): Promise<Lesson[]> {
+        const lessons = await prisma.lessons.findMany({
+            where: {
+                lecture_id: where.item,
+            },
+        });
 
-  async create(item: ILesson): Promise<ILesson> {
-    const lesson = await prisma.lessons.create({
-      data: {
-        title: item.title,
-        description: item.description,
-        options: item.options,
-        image_url: item.image_url,
-        matter: item.matter,
-        lecture_id: item.lecture_id,
-      },
-    });
+        return lessons;
+    }
 
-    return lesson;
-  }
+    findOne({
+        id,
+        item,
+    }: {
+        id?: string | undefined;
+        item?: string | undefined;
+    }): Promise<Lesson | null> {
+        throw new Error('Method not implemented.');
+    }
 
-  async update(item: ILesson): Promise<ILesson> {
-    return {} as ILesson;
-  }
+    async create(item: Lesson): Promise<Lesson> {
+        throw new Error('Method not implemented.');
+    }
 
-  async delete(id: string): Promise<ILesson> {
-    return {} as ILesson;
-  }
+    async createMany(item: Lesson[]): Promise<Lesson[]> {
+        await prisma.lessons.createMany({
+            data: item,
+        });
+
+        return item;
+    }
+
+    async update(
+        id: string,
+        { item }: { item?: {} | Lesson },
+    ): Promise<Lesson> {
+        const lessonUpdated = await prisma.lessons.update({
+            where: {
+                id,
+            },
+            data: {
+                ...item,
+            },
+        });
+
+        return lessonUpdated;
+    }
+
+    async updateMany(): Promise<Lesson[]> {
+        throw new Error('Method not implemented.');
+    }
+
+    async delete(id: string): Promise<Lesson> {
+        return {} as Lesson;
+    }
 }

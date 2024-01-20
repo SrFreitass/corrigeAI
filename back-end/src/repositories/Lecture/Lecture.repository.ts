@@ -1,36 +1,94 @@
 import { prisma } from '../../../prisma';
-import { ILecture } from '../../models/Lecure.model';
-import { ILectureRepo } from './ILecture.repository';
+import { Lecture } from '../../database/schemas/lecture.schema';
+import { BaseClassRepository } from '../BaseClass.repository';
 
-export class LectureRepository implements ILectureRepo<ILecture> {
-  async create(item: ILecture): Promise<ILecture> {
-    const { title, description, teacher_id, matter } = item;
+export class LectureRepository extends BaseClassRepository<Lecture> {
+    async create(item: Lecture): Promise<Lecture> {
+        const lectureCreated = await prisma.lectures.create({
+            data: {
+                ...item,
+            },
+        });
 
-    const lecture = await prisma.lectures.create({
-      data: {
-        title,
-        description,
-        matter,
-        teacher_id,
-      },
-    });
+        return lectureCreated;
+    }
 
-    return lecture;
-  }
+    async updateMany(): Promise<Lecture[]> {
+        throw new Error('Method not implemented.');
+    }
 
-  async delete(id: string): Promise<ILecture> {
-    return {} as ILecture;
-  }
+    async delete(id: string): Promise<Lecture> {
+        const lectureDeleted = await prisma.lectures.delete({
+            where: {
+                id,
+            },
+        });
 
-  async update(item: ILecture): Promise<ILecture> {
-    return {} as ILecture;
-  }
+        return lectureDeleted;
+    }
 
-  async find(): Promise<ILecture[]> {
-    return {} as ILecture[];
-  }
+    async update(
+        id: string,
+        { item }: { item?: {} | Lecture | undefined },
+    ): Promise<Lecture> {
+        const lectureUpdated = await prisma.lectures.update({
+            where: {
+                id,
+            },
+            data: {
+                ...item,
+            },
+        });
 
-  async findOne(id: string): Promise<ILecture> {
-    return {} as ILecture;
-  }
+        return lectureUpdated;
+    }
+
+    async createMany(item: Lecture[]): Promise<Lecture[]> {
+        throw new Error('Method not implemented');
+    }
+
+    async find(offset: number, limit: number): Promise<Lecture[]> {
+        const lectures = await prisma.lectures.findMany({
+            skip: offset,
+            take: limit,
+        });
+
+        return lectures;
+    }
+
+    async findManyWithWhere(where: { item: string }): Promise<Lecture[]> {
+        const lectures = await prisma.lectures.findMany({
+            where: {
+                OR: [
+                    {
+                        enemSubject_id: where.item,
+                    },
+                    {
+                        schoolSubject_id: where.item,
+                    },
+                ],
+            },
+        });
+
+        return lectures;
+    }
+
+    async findOne({
+        id,
+        item,
+    }: {
+        id?: string;
+        item?: string;
+    }): Promise<Lecture | null> {
+        const lecture = await prisma.lectures.findUnique({
+            where: {
+                id: id,
+            },
+            include: {
+                Lessons: true,
+            },
+        });
+
+        return lecture;
+    }
 }
