@@ -8,7 +8,10 @@ export class VerifyEmailUseCase {
     constructor(private readonly userRepository: BaseClassRepository<User>) {}
 
     async execute(userId: string) {
+        z.string().uuid({ message: 'Invalid user' });
         const user = await this.userRepository.findOne({ id: userId });
+
+        if (user?.email_verified) throw 'User is not valid';
 
         const userVerfied = await this.userRepository.update(userId, {
             item: { email_verified: true },

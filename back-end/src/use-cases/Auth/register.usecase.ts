@@ -25,9 +25,9 @@ export class RegisterUserUseCase {
         userSchema.parse({ email, password, name });
 
         const emailExists = await this.userRepository.findOne({ item: email });
-        z.literal(null, {
+        z.literal(undefined, {
             errorMap: () => ({ message: 'E-mail already exists' }),
-        }).parse(emailExists);
+        }).parse(emailExists?.email);
 
         const salt = genSaltSync(10);
         const passwordHashing = hashSync(password, salt);

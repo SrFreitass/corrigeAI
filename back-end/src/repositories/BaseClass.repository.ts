@@ -1,7 +1,7 @@
 export abstract class BaseClassRepository<T> {
     abstract find(offset: number, limit: number): Promise<T[]>;
 
-    abstract findManyWithWhere(where: { item: string }): Promise<T[]>;
+    abstract findManyWithWhere(where: { item: string }): Promise<T[] | null>;
 
     abstract findOne({
         id,

@@ -12,6 +12,7 @@ export class UpdateLessonUseCase {
                 ...data,
             },
         });
+
         return lesson;
     }
 }

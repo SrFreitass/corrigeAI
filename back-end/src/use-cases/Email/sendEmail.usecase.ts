@@ -36,8 +36,6 @@ export class SendEmailUseCase {
             if (!err) {
                 console.error(err);
             }
-
-            console.log(info, err);
         });
     }
 }

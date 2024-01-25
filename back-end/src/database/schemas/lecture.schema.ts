@@ -10,7 +10,6 @@ export interface Lecture {
     schoolSubject_id: string;
     enemSubject_id: string;
     teacher_id: string;
-    lessons?: Lesson[];
     createdAt: Date;
     updateAt: Date | null;
 }

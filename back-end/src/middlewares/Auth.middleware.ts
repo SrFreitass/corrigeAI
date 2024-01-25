@@ -2,9 +2,11 @@ import { FastifyReply, FastifyRequest, HookHandlerDoneFunction } from 'fastify';
 import { verify } from 'jsonwebtoken';
 import { UserRepository } from '../repositories/User/User.repository';
 import { User } from '../database/schemas/user.schema';
+import { z } from 'zod';
 
 interface IcaseRole {
     user: User | null;
+    req: FastifyRequest;
     reply: FastifyReply;
     method: string;
     done: HookHandlerDoneFunction;
@@ -19,11 +21,15 @@ const notAuthorized = (reply: FastifyReply) => {
 };
 
 const caseRole = {
-    dev: ({ reply, method, done }: IcaseRole) => {
+    dev: ({ user, req, reply, method, done }: IcaseRole) => {
+        req.headers['userId'] = user?.id;
         done();
     },
-    student: ({ user, reply, method, done }: IcaseRole) => {
-        if (method.includes('GET')) return done();
+    student: ({ user, req, reply, method, done }: IcaseRole) => {
+        if (method.includes('GET')) {
+            req.headers['userId'] = user?.id;
+            return done();
+        }
 
         reply.code(403);
         reply.send({
@@ -32,7 +38,8 @@ const caseRole = {
                 'Forbidden: Students are only allowed to perform GET requests.',
         });
     },
-    teacher: ({ reply, method, done }: IcaseRole) => {
+    teacher: ({ user, req, reply, method, done }: IcaseRole) => {
+        req.headers['userId'] = user?.id;
         done();
     },
 };
@@ -51,13 +58,30 @@ export const auth = (
                 token,
                 `${process.env.SECRET_TOKEN}`,
                 async (err, decoded) => {
-                    console.log(err, decoded);
                     if (err) return notAuthorized(reply);
+                    const tokenVerify = z
+                        .object({
+                            data: z.object({
+                                userId: z.string().uuid(),
+                                email: z.string().email(),
+                            }),
+                        })
+                        .safeParse(decoded);
 
-                    const { data } = decoded as { data: { userId: string } };
+                    if (!tokenVerify.success) return notAuthorized(reply);
+
+                    const { data } = decoded as {
+                        data: {
+                            userId: string;
+                            email: string;
+                        };
+                    };
+
+                    const { userId } = data;
+
                     const userRepository = new UserRepository();
                     const currentUser = await userRepository.findOne({
-                        id: data.userId,
+                        id: userId,
                     });
 
                     if (!currentUser) return notAuthorized(reply);
@@ -71,7 +95,13 @@ export const auth = (
                         notAuthorized(reply);
                     }
 
-                    caseRole[role]({ user: currentUser, reply, method, done });
+                    caseRole[role]({
+                        user: currentUser,
+                        req,
+                        reply,
+                        method,
+                        done,
+                    });
                 },
             );
         } catch (error) {

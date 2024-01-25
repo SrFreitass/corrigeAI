@@ -9,17 +9,16 @@ export class LoginUserUseCase {
     constructor(private readonly userRepository: BaseClassRepository<User>) {}
 
     async execute({ email, password }: LoginInputDTO): Promise<LoginOutputDTO> {
-        const userSchema = z.object({
-            email: z.string().email(),
-            password: z.string().min(8),
-        });
+        const userSchema = z
+            .object({
+                email: z.string().email(),
+                password: z.string().min(8),
+            })
+            .strict();
 
         userSchema.parse({ email, password });
 
         const user = await this.userRepository.findOne({ item: email });
-        z.literal(!null, {
-            errorMap: () => ({ message: 'Email Has Already Been Taken' }),
-        }).parse(user);
 
         z.string({ errorMap: () => ({ message: 'Email is incorrect' }) }).parse(
             user?.email,
@@ -37,7 +36,7 @@ export class LoginUserUseCase {
                 email: user?.email,
             },
             `${process.env.SECRET_TOKEN}`,
-            { expiresIn: '24h' },
+            { expiresIn: '1Y' },
         );
 
         if (!token) throw 'Token was not generated';

@@ -1,13 +1,13 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { CreateLectureUseCase } from '../../use-cases/Lecture/createLecture.usecase';
 import { LectureRepository } from '../../repositories/Lecture/Lecture.repository';
-import { ZodError } from 'zod';
 import { LectureInputDTO } from '../../dto/Lecure.dto';
 import { UpdateLectureUseCase } from '../../use-cases/Lecture/updateLecture.usecase';
 import { GetLectureByIdUseCase } from '../../use-cases/Lecture/getLectureById.usecase';
 import { errorHandling } from '../../utils/error/error.function';
 import { DeleteLectureUseCase } from '../../use-cases/Lecture/deleteLecture.usecase';
 import { getLecturesByPagesUseCase } from '../../use-cases/Lecture/getLecturesByPages.usecase';
+import { GetLectureSubjectsUseCase } from '../../use-cases/Lecture/getLectureBySchoolSubjects.usecase';
 
 class LectureController {
     async getLecturesByPages(req: FastifyRequest, reply: FastifyReply) {
@@ -22,6 +22,40 @@ class LectureController {
                 message: 'OK',
                 data: output,
             });
+        } catch (error) {
+            errorHandling(error, reply);
+        }
+    }
+
+    async getLecture(req: FastifyRequest, reply: FastifyReply) {
+        try {
+            const { lectureId } = req.params as { lectureId: string };
+            const usecase = new GetLectureByIdUseCase(new LectureRepository());
+            const output = await usecase.execute(lectureId);
+            return {
+                statusCode: 200,
+                message: 'OK',
+                data: output,
+            };
+        } catch (error) {
+            errorHandling(error, reply);
+        }
+    }
+
+    async getLectureBySubjects(req: FastifyRequest, reply: FastifyReply) {
+        try {
+            const { subjectId } = req.params as {
+                subjectId: string;
+            };
+            const usecase = new GetLectureSubjectsUseCase(
+                new LectureRepository(),
+            );
+            const output = await usecase.execute(subjectId);
+            return {
+                statusCode: 200,
+                message: 'OK',
+                data: output,
+            };
         } catch (error) {
             errorHandling(error, reply);
         }
@@ -49,11 +83,11 @@ class LectureController {
             const { lectureId } = req.params as { lectureId: string };
             const usecase = new UpdateLectureUseCase(new LectureRepository());
             const output = await usecase.execute(lectureId, body);
-            reply.send({
+            return {
                 statusCode: 200,
                 message: 'Updated Lecture',
                 data: output,
-            });
+            };
         } catch (error) {
             errorHandling(error, reply);
         }
@@ -63,25 +97,11 @@ class LectureController {
             const { lectureId } = req.params as { lectureId: string };
             const usecase = new DeleteLectureUseCase(new LectureRepository());
             const output = await usecase.execute(lectureId);
-            reply.send({
+            return {
                 statusCode: 200,
                 message: 'Deleted Lecture',
                 data: output,
-            });
-        } catch (error) {
-            errorHandling(error, reply);
-        }
-    }
-    async getLecture(req: FastifyRequest, reply: FastifyReply) {
-        try {
-            const { lectureId } = req.params as { lectureId: string };
-            const usecase = new GetLectureByIdUseCase(new LectureRepository());
-            const output = await usecase.execute(lectureId);
-            reply.send({
-                statusCode: 200,
-                message: 'OK',
-                data: output,
-            });
+            };
         } catch (error) {
             errorHandling(error, reply);
         }

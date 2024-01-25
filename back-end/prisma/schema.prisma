@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,43 +8,46 @@ datasource db {
 }
 
 model Users {
-  id             String     @id @default(uuid())
+  id             String           @id @default(uuid())
   name           String
-  email          String     @unique
-  email_verified Boolean    @default(false)
+  email          String           @unique
   password       String
-  role           String     @default("student")
+  role           String           @default("student")
+  createdAt      DateTime         @default(now())
+  email_verified Boolean          @default(false)
+  Answers        Answers[]
   Lectures       Lectures[]
-  createdAt      DateTime   @default(now())
 }
 
 model Lectures {
   id               String         @id @default(uuid())
   title            String
   description      String
-  schoolSubject    SchoolSubjects @relation(fields: [schoolSubject_id], references: [id])
-  schoolSubject_id String
-  enemSubject      EnemSubjects   @relation(fields: [enemSubject_id], references: [id])
-  enemSubject_id   String
-  Teacher          Users          @relation(fields: [teacher_id], references: [id])
   teacher_id       String
-  Lessons          Lessons[]
   createdAt        DateTime       @default(now())
   updateAt         DateTime?
+  schoolSubject_id String
+  enemSubject_id   String
+  Answers          Answers[]
+  enemSubject      EnemSubjects   @relation(fields: [enemSubject_id], references: [id])
+  schoolSubject    SchoolSubjects @relation(fields: [schoolSubject_id], references: [id])
+  Teacher          Users          @relation(fields: [teacher_id], references: [id])
+  Lessons          Lessons[]
 }
 
 model Lessons {
-  id             String   @id @default(uuid())
+  id             String    @id @default(uuid())
   title          String
   description    String
-  lecture        Lectures @relation(fields: [lecture_id], references: [id])
   lecture_id     String
   image_url      String?
   options        String[]
-  createdAt      DateTime @default(now())
+  createdAt      DateTime  @default(now())
   answer         Int
-  answer_text    String?
   answer_img_url String?
+  answer_text    String?
+  Answers        Answers[]
+  lecture        Lectures  @relation(fields: [lecture_id], references: [id])
 }
 
 model EnemSubjects {
@@ -58,9 +58,36 @@ model EnemSubjects {
 }
 
 model SchoolSubjects {
-  id             String       @id @default(uuid())
+  id             String           @id @default(uuid())
   name           String
-  enemsubjects   EnemSubjects @relation(fields: [enemSubject_id], references: [id])
   enemSubject_id String
   Lectures       Lectures[]
+  enemsubjects   EnemSubjects     @relation(fields: [enemSubject_id], references: [id])
 }
+
+model Answers {
+  id         String   @id @default(uuid())
+  lesson_id  String
+  lecture_id String
+  user_id    String
+  correct    Boolean
+  createdAt  DateTime @default(now())
+  option     Int
+  Lectures   Lectures @relation(fields: [lecture_id], references: [id])
+  Lesson     Lessons  @relation(fields: [lesson_id], references: [id])
+  Users      Users    @relation(fields: [user_id], references: [id])
+}
+
+// model UserStatistics {
+//   id                    String         @id @default(uuid())
+//   user_id               String
+//   enemSubject_id        String
+//   schoolSubject_id      String
+//   total_answers         Int            @default(0)
+//   total_correct_answers Int            @default(0)
+//   total_wrong_answers   Int            @default(0)
+//   createdAt             DateTime       @default(now())
+//   EnemSubjects          EnemSubjects   @relation(fields: [enemSubject_id], references: [id])
+//   SchoolSubjects        SchoolSubjects @relation(fields: [schoolSubject_id], references: [id])
+//   Users                 Users          @relation(fields: [user_id], references: [id])
+// }

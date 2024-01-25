@@ -84,9 +84,6 @@ export class LectureRepository extends BaseClassRepository<Lecture> {
             where: {
                 id: id,
             },
-            include: {
-                Lessons: true,
-            },
         });
 
         return lecture;

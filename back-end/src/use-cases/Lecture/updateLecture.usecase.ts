@@ -12,14 +12,17 @@ export class UpdateLectureUseCase {
         lectureId: string,
         lecture: LectureInputDTO,
     ): Promise<LectureOutputDTO> {
-        const lectureUpdateSchema = z.object({
-            title: z.string().min(6).optional(),
-            description: z.string().min(6).optional(),
-            teacher_id: z.string().uuid().optional(),
-            enemSubject_id: z.string().uuid().optional(),
-            schoolSubject_id: z.string().uuid().optional(),
-            image_url: z.string().optional(),
-        });
+        const lectureUpdateSchema = z
+            .object({
+                id: z.null(),
+                title: z.string().min(6).optional(),
+                description: z.string().min(6).optional(),
+                teacher_id: z.string().uuid().optional(),
+                enemSubject_id: z.string().uuid().optional(),
+                schoolSubject_id: z.string().uuid().optional(),
+                image_url: z.string().optional(),
+            })
+            .strict();
 
         lectureUpdateSchema.parse(lecture);
 

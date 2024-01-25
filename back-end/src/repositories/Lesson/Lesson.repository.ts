@@ -14,6 +14,9 @@ export class LessonRepository implements BaseClassRepository<Lesson> {
             where: {
                 lecture_id: where.item,
             },
+            include: {
+                lecture: true,
+            },
         });
 
         return lessons;
