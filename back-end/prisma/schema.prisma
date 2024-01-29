@@ -17,6 +17,7 @@ model Users {
   email_verified Boolean          @default(false)
   Answers        Answers[]
   Lectures       Lectures[]
+  Essays          Essays[]
 }
 
 model Lectures {
@@ -78,16 +79,12 @@ model Answers {
   Users      Users    @relation(fields: [user_id], references: [id])
 }
 
-// model UserStatistics {
-//   id                    String         @id @default(uuid())
-//   user_id               String
-//   enemSubject_id        String
-//   schoolSubject_id      String
-//   total_answers         Int            @default(0)
-//   total_correct_answers Int            @default(0)
-//   total_wrong_answers   Int            @default(0)
-//   createdAt             DateTime       @default(now())
-//   EnemSubjects          EnemSubjects   @relation(fields: [enemSubject_id], references: [id])
-//   SchoolSubjects        SchoolSubjects @relation(fields: [schoolSubject_id], references: [id])
-//   Users                 Users          @relation(fields: [user_id], references: [id])
-// }
+model Essays {
+  id         String   @id @default(uuid())
+  user_id    String
+  createdAt  DateTime @default(now())
+  theme      String
+  essay      String
+  points     Int
+  Users      Users    @relation(fields: [user_id], references: [id])
+}

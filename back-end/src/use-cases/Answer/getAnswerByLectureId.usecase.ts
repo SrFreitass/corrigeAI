@@ -1,10 +1,10 @@
 import { z } from 'zod';
-import { Answer } from '../../database/schemas/answer.schema';
 import { BaseClassRepository } from '../../repositories/BaseClass.repository';
+import { Answers } from '@prisma/client';
 
 export class getAnswerByLectureIdUseCase {
     constructor(
-        private readonly AnswerRepository: BaseClassRepository<Answer>,
+        private readonly AnswerRepository: BaseClassRepository<Answers>,
     ) {}
 
     async execute(userId: string) {

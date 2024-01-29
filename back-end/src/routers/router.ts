@@ -90,12 +90,14 @@ export class Router {
             EmailController.verifyEmail,
         );
 
+
         fastify.get(
             '/api/v1/user/',
             { preHandler: [auth] },
             UserController.getUsersStatistics,
         );
 
+        /* Essay Routers */
         fastify.post(
             '/api/v1/essay',
             { preHandler: [auth] },

@@ -1,11 +1,11 @@
 import { z } from 'zod';
-import { Lesson } from '../../database/schemas/lesson.schema';
+import { Lessons } from '@prisma/client';
 import { BaseClassRepository } from '../../repositories/BaseClass.repository';
 import { LessonOutputDTO } from '../../dto/Lesson.dto';
 
 export class GetLessonByIdUseCase {
     constructor(
-        private readonly lessonRepository: BaseClassRepository<Lesson>,
+        private readonly lessonRepository: BaseClassRepository<Lessons>,
     ) {}
 
     async execute(lessonId: string): Promise<LessonOutputDTO | null> {

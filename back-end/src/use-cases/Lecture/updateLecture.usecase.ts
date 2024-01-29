@@ -1,11 +1,11 @@
 import { z } from 'zod';
-import { Lecture } from '../../database/schemas/lecture.schema';
+import { Lectures } from '@prisma/client';
 import { LectureInputDTO, LectureOutputDTO } from '../../dto/Lecure.dto';
 import { BaseClassRepository } from '../../repositories/BaseClass.repository';
 
 export class UpdateLectureUseCase {
     constructor(
-        private readonly lectureRepository: BaseClassRepository<Lecture>,
+        private readonly lectureRepository: BaseClassRepository<Lectures>,
     ) {}
 
     async execute(

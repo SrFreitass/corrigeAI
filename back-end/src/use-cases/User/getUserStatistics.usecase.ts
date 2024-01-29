@@ -1,22 +1,18 @@
 import { z } from 'zod';
-import { User } from '../../database/schemas/user.schema';
 import { BaseClassRepository } from '../../repositories/BaseClass.repository';
-import { Lecture } from '../../database/schemas/lecture.schema';
-import { Answer } from '../../database/schemas/answer.schema';
-import {
-    EnemSubject,
-    SchoolSubject,
-} from '../../database/schemas/subjects.schema';
-import { AnswersRepository } from '../../repositories/Answers/Answers.repository';
+import { Answers, Users } from '@prisma/client';
+import { EssayRepository } from '../../repositories/Essay/Essay.repository';
 
 export class GetUsersStatisticsUseCase {
     constructor(
-        private readonly userRepository: BaseClassRepository<User>,
-        private readonly answerRepository: BaseClassRepository<Answer>,
+        private readonly userRepository: BaseClassRepository<Users>,
+        private readonly answerRepository: BaseClassRepository<Answers>,
+        private readonly essaysRepository: BaseClassRepository<EssayRepository>,
     ) {}
 
     async execute(userId: string) {
-        interface IanswersUser extends Answer {
+        interface IanswersUser extends Answers {
+            correct: boolean;
             Lectures: {
                 enemSubject: {
                     name: string;
@@ -73,7 +69,7 @@ export class GetUsersStatisticsUseCase {
         });
 
         return {
-            lessonsReplieds: answersUser?.length,
+            lessonsReplied: answersUser?.length,
             corrects: answersUser?.filter((item) => item.correct).length,
             wrongs: answersUser?.filter((item) => !item.correct).length,
             subjects,

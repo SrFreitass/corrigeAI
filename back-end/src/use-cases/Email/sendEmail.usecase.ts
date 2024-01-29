@@ -33,7 +33,7 @@ export class SendEmailUseCase {
         sendEmailSchema.parse(mailOptions);
 
         this.transporter.sendMail(mailOptions, (err, info) => {
-            if (!err) {
+            if (err) {
                 console.error(err);
             }
         });

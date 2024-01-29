@@ -1,15 +1,14 @@
 import { z } from 'zod';
 import { RegisterInputDTO, RegisterOutputDTO } from '../../dto/Auth.dto';
 import { BaseClassRepository } from '../../repositories/BaseClass.repository';
-import { randomUUID } from 'crypto';
 import { sign } from 'jsonwebtoken';
 import { genSaltSync, hashSync } from 'bcrypt';
-import { SendEmailUseCase } from '../Email/sendEmail.usecase';
 import { readFileSync } from 'fs';
-import { User } from '../../database/schemas/user.schema';
+import { Users } from '@prisma/client';
+import { SendEmailUseCase } from '../Email/sendEmail.usecase';
 
 export class RegisterUserUseCase {
-    constructor(private readonly userRepository: BaseClassRepository<User>) {}
+    constructor(private readonly userRepository: BaseClassRepository<Users>) {}
 
     async execute({
         email,
@@ -36,7 +35,7 @@ export class RegisterUserUseCase {
             name,
             email,
             password: passwordHashing,
-        } as User;
+        } as Users;
 
         const userCreated = await this.userRepository.create(user);
 
@@ -51,7 +50,7 @@ export class RegisterUserUseCase {
         if (!token) throw 'Token was not generated';
 
         const emailTemplate = readFileSync(
-            '/home/freitasarch/dev/corrigiAI/back-end/src/templates/AuthEmail/index.html',
+            '/home/freitasarch/dev/corrigeAI/back-end/src/templates/AuthEmail/index.html',
         )
             .toString()
             .replace('[name]', user.name)

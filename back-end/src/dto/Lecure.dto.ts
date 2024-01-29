@@ -1,4 +1,4 @@
-import { Lesson } from '../database/schemas/lesson.schema';
+import { Lessons } from '@prisma/client'
 
 export interface LectureInputDTO {
     title: string;
@@ -15,7 +15,7 @@ export interface LectureOutputDTO {
     description: string;
     enemSubject_id: string;
     schoolSubject_id: string;
-    lessons?: Lesson[];
+    lessons?: Lessons[];
     image_url?: string;
     createdAt: Date;
     updateAt: Date | null;

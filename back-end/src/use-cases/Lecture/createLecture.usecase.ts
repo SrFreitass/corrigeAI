@@ -1,12 +1,12 @@
 import { z } from 'zod';
-import { Lecture } from '../../database/schemas/lecture.schema';
+import { Lectures } from '@prisma/client';
 import { LectureInputDTO, LectureOutputDTO } from '../../dto/Lecure.dto';
 import { BaseClassRepository } from '../../repositories/BaseClass.repository';
 import { SchoolSubjectRepository } from '../../repositories/SchoolSubjects/SchoolSubjects.repository';
 
 export class CreateLectureUseCase {
     constructor(
-        private readonly lectureRepository: BaseClassRepository<Lecture>,
+        private readonly lectureRepository: BaseClassRepository<Lectures>,
     ) {}
 
     async execute(lecture: LectureInputDTO): Promise<LectureOutputDTO> {
@@ -37,7 +37,7 @@ export class CreateLectureUseCase {
         }).parse(false);
 
         const lectureCreated = await this.lectureRepository.create(
-            lecture as Lecture,
+            lecture as Lectures,
         );
 
         return lectureCreated;

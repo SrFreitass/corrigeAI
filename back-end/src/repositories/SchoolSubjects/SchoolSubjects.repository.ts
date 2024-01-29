@@ -1,14 +1,14 @@
 import { prisma } from '../../../prisma';
-import { SchoolSubject } from '../../database/schemas/subjects.schema';
+import { SchoolSubjects } from '@prisma/client';
 import { BaseClassRepository } from '../BaseClass.repository';
 
-export class SchoolSubjectRepository extends BaseClassRepository<SchoolSubject> {
-    find(offset: number, limit: number): Promise<SchoolSubject[]> {
+export class SchoolSubjectRepository extends BaseClassRepository<SchoolSubjects> {
+    find(offset: number, limit: number): Promise<SchoolSubjects[]> {
         throw new Error('Method not implemented.');
     }
     async findManyWithWhere(where: {
         item: string;
-    }): Promise<SchoolSubject[] | null> {
+    }): Promise<SchoolSubjects[] | null> {
         throw new Error('Method not implemented');
     }
     async findOne({
@@ -17,7 +17,7 @@ export class SchoolSubjectRepository extends BaseClassRepository<SchoolSubject> 
     }: {
         id?: string | undefined;
         item?: string | undefined;
-    }): Promise<SchoolSubject | null> {
+    }): Promise<SchoolSubjects | null> {
         const subject = await prisma.schoolSubjects.findUnique({
             where: {
                 id,
@@ -28,20 +28,20 @@ export class SchoolSubjectRepository extends BaseClassRepository<SchoolSubject> 
     }
     update(
         id: string,
-        { item }: { item?: {} | SchoolSubject | undefined },
-    ): Promise<SchoolSubject> {
+        { item }: { item?: {} | SchoolSubjects | undefined },
+    ): Promise<SchoolSubjects> {
         throw new Error('Method not implemented.');
     }
-    updateMany(): Promise<SchoolSubject[]> {
+    updateMany(): Promise<SchoolSubjects[]> {
         throw new Error('Method not implemented.');
     }
     delete(id: string): void {
         throw new Error('Method not implemented.');
     }
-    create(item: SchoolSubject): Promise<SchoolSubject> {
+    create(item: SchoolSubjects): Promise<SchoolSubjects> {
         throw new Error('Method not implemented.');
     }
-    createMany(item: SchoolSubject[]): void {
+    createMany(item: SchoolSubjects[]): void {
         throw new Error('Method not implemented.');
     }
 }

@@ -1,11 +1,11 @@
 import { readFile, readFileSync } from 'fs';
 import { Transporter, createTransport } from 'nodemailer';
-import { User } from '../../database/schemas/user.schema';
+import { Users } from '@prisma/client';
 import { BaseClassRepository } from '../../repositories/BaseClass.repository';
 import { z } from 'zod';
 
 export class VerifyEmailUseCase {
-    constructor(private readonly userRepository: BaseClassRepository<User>) {}
+    constructor(private readonly userRepository: BaseClassRepository<Users>) {}
 
     async execute(userId: string) {
         z.string().uuid({ message: 'Invalid user' });

@@ -1,9 +1,9 @@
 import { prisma } from '../../../prisma';
-import { Lecture } from '../../database/schemas/lecture.schema';
+import { Lectures } from '@prisma/client';
 import { BaseClassRepository } from '../BaseClass.repository';
 
-export class LectureRepository extends BaseClassRepository<Lecture> {
-    async create(item: Lecture): Promise<Lecture> {
+export class LectureRepository extends BaseClassRepository<Lectures> {
+    async create(item: Lectures): Promise<Lectures> {
         const lectureCreated = await prisma.lectures.create({
             data: {
                 ...item,
@@ -13,11 +13,11 @@ export class LectureRepository extends BaseClassRepository<Lecture> {
         return lectureCreated;
     }
 
-    async updateMany(): Promise<Lecture[]> {
+    async updateMany(): Promise<Lectures[]> {
         throw new Error('Method not implemented.');
     }
 
-    async delete(id: string): Promise<Lecture> {
+    async delete(id: string): Promise<Lectures> {
         const lectureDeleted = await prisma.lectures.delete({
             where: {
                 id,
@@ -29,8 +29,8 @@ export class LectureRepository extends BaseClassRepository<Lecture> {
 
     async update(
         id: string,
-        { item }: { item?: {} | Lecture | undefined },
-    ): Promise<Lecture> {
+        { item }: { item?: {} | Lectures | undefined },
+    ): Promise<Lectures> {
         const lectureUpdated = await prisma.lectures.update({
             where: {
                 id,
@@ -43,11 +43,11 @@ export class LectureRepository extends BaseClassRepository<Lecture> {
         return lectureUpdated;
     }
 
-    async createMany(item: Lecture[]): Promise<Lecture[]> {
+    async createMany(item: Lectures[]): Promise<Lectures[]> {
         throw new Error('Method not implemented');
     }
 
-    async find(offset: number, limit: number): Promise<Lecture[]> {
+    async find(offset: number, limit: number): Promise<Lectures[]> {
         const lectures = await prisma.lectures.findMany({
             skip: offset,
             take: limit,
@@ -56,7 +56,7 @@ export class LectureRepository extends BaseClassRepository<Lecture> {
         return lectures;
     }
 
-    async findManyWithWhere(where: { item: string }): Promise<Lecture[]> {
+    async findManyWithWhere(where: { item: string }): Promise<Lectures[]> {
         const lectures = await prisma.lectures.findMany({
             where: {
                 OR: [
@@ -79,7 +79,7 @@ export class LectureRepository extends BaseClassRepository<Lecture> {
     }: {
         id?: string;
         item?: string;
-    }): Promise<Lecture | null> {
+    }): Promise<Lectures | null> {
         const lecture = await prisma.lectures.findUnique({
             where: {
                 id: id,

@@ -1,15 +1,15 @@
 import { prisma } from '../../../prisma';
 import { BaseClassRepository } from '../BaseClass.repository';
-import { Lesson } from '../../database/schemas/lesson.schema';
+import { Lessons } from '@prisma/client';
 
-export class LessonRepository implements BaseClassRepository<Lesson> {
-    async find(): Promise<Lesson[]> {
+export class LessonRepository implements BaseClassRepository<Lessons> {
+    async find(): Promise<Lessons[]> {
         const lessons = await prisma.lessons.findMany();
 
         return lessons;
     }
 
-    async findManyWithWhere(where: { item: string }): Promise<Lesson[]> {
+    async findManyWithWhere(where: { item: string }): Promise<Lessons[]> {
         const lessons = await prisma.lessons.findMany({
             where: {
                 lecture_id: where.item,
@@ -28,15 +28,15 @@ export class LessonRepository implements BaseClassRepository<Lesson> {
     }: {
         id?: string | undefined;
         item?: string | undefined;
-    }): Promise<Lesson | null> {
+    }): Promise<Lessons | null> {
         throw new Error('Method not implemented.');
     }
 
-    async create(item: Lesson): Promise<Lesson> {
+    async create(item: Lessons): Promise<Lessons> {
         throw new Error('Method not implemented.');
     }
 
-    async createMany(item: Lesson[]): Promise<Lesson[]> {
+    async createMany(item: Lessons[]): Promise<Lessons[]> {
         await prisma.lessons.createMany({
             data: item,
         });
@@ -46,8 +46,8 @@ export class LessonRepository implements BaseClassRepository<Lesson> {
 
     async update(
         id: string,
-        { item }: { item?: {} | Lesson },
-    ): Promise<Lesson> {
+        { item }: { item?: {} | Lessons },
+    ): Promise<Lessons> {
         const lessonUpdated = await prisma.lessons.update({
             where: {
                 id,
@@ -60,11 +60,11 @@ export class LessonRepository implements BaseClassRepository<Lesson> {
         return lessonUpdated;
     }
 
-    async updateMany(): Promise<Lesson[]> {
+    async updateMany(): Promise<Lessons[]> {
         throw new Error('Method not implemented.');
     }
 
-    async delete(id: string): Promise<Lesson> {
-        return {} as Lesson;
+    async delete(id: string): Promise<Lessons> {
+        return {} as Lessons;
     }
 }

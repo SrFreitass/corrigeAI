@@ -1,12 +1,12 @@
 import { z } from 'zod';
 import { LoginInputDTO, LoginOutputDTO } from '../../dto/Auth.dto';
-import { User } from '../../database/schemas/user.schema';
+import { Users } from '@prisma/client';
 import { compareSync } from 'bcrypt';
 import { BaseClassRepository } from '../../repositories/BaseClass.repository';
 import { sign } from 'jsonwebtoken';
 
 export class LoginUserUseCase {
-    constructor(private readonly userRepository: BaseClassRepository<User>) {}
+    constructor(private readonly userRepository: BaseClassRepository<Users>) {}
 
     async execute({ email, password }: LoginInputDTO): Promise<LoginOutputDTO> {
         const userSchema = z
@@ -39,8 +39,10 @@ export class LoginUserUseCase {
             { expiresIn: '1Y' },
         );
 
-        if (!token) throw 'Token was not generated';
+        if (!token) throw new Error('Token was not generated');
 
-        return { token };
+        return {
+            token,
+        };
     }
 }

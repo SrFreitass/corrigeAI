@@ -1,9 +1,9 @@
-import { User } from '../../database/schemas/user.schema';
+import { Users } from '@prisma/client';
 import { prisma } from '../../../prisma';
 import { BaseClassRepository } from '../BaseClass.repository';
 
-export class UserRepository extends BaseClassRepository<User> {
-    async create(item: User) {
+export class UserRepository extends BaseClassRepository<Users> {
+    async create(item: Users) {
         const userCreated = await prisma.users.create({
             data: {
                 ...item,
@@ -13,11 +13,11 @@ export class UserRepository extends BaseClassRepository<User> {
         return userCreated;
     }
 
-    async createMany(item: User[]) {
+    async createMany(item: Users[]) {
         throw new Error('Method not implemented.');
     }
 
-    async update(id: string, { item }: { item?: User }): Promise<User> {
+    async update(id: string, { item }: { item?: Users }): Promise<Users> {
         const userUpdated = await prisma.users.update({
             where: {
                 id,
@@ -30,7 +30,7 @@ export class UserRepository extends BaseClassRepository<User> {
         return userUpdated;
     }
 
-    async updateMany(): Promise<User[]> {
+    async updateMany(): Promise<Users[]> {
         throw new Error('Method not implemented.');
     }
 
@@ -43,7 +43,7 @@ export class UserRepository extends BaseClassRepository<User> {
         return userFind;
     }
 
-    async findManyWithWhere(where: { item: string }): Promise<User[]> {
+    async findManyWithWhere(where: { item: string }): Promise<Users[]> {
         throw new Error('Method not implemented.');
     }
 
@@ -53,7 +53,7 @@ export class UserRepository extends BaseClassRepository<User> {
     }: {
         id?: string;
         item?: string;
-    }): Promise<User | null> {
+    }): Promise<Users | null> {
         console.log(id, item);
         const user = await prisma.users.findFirst({
             where: {
