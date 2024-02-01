@@ -1,5 +1,5 @@
 export interface EssayInputDTO {
-    essayContent: string;
-    userId: string;
-    theme: string;
+  essayContent: string;
+  userId: string;
+  theme: string;
 }

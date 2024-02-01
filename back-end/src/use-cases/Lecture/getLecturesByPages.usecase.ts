@@ -3,18 +3,18 @@ import { Lectures } from '@prisma/client';
 import { BaseClassRepository } from '../../repositories/BaseClass.repository';
 
 export class getLecturesByPagesUseCase {
-    constructor(
-        private readonly lectureRepository: BaseClassRepository<Lectures>,
-    ) {}
+  constructor(
+    private readonly lectureRepository: BaseClassRepository<Lectures>,
+  ) {}
 
-    async execute(page: number) {
-        z.number().positive().parse(page);
+  async execute(page: number) {
+    z.number().positive().parse(page);
 
-        const lectures = await this.lectureRepository.find(
-            page * 20 - 20,
-            page * 20,
-        );
+    const lectures = await this.lectureRepository.find(
+      page * 20 - 20,
+      page * 20,
+    );
 
-        return lectures;
-    }
+    return lectures;
+  }
 }

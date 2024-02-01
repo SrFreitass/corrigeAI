@@ -5,41 +5,41 @@ import { BaseClassRepository } from '../../repositories/BaseClass.repository';
 import { SchoolSubjectRepository } from '../../repositories/SchoolSubjects/SchoolSubjects.repository';
 
 export class CreateLectureUseCase {
-    constructor(
-        private readonly lectureRepository: BaseClassRepository<Lectures>,
-    ) {}
+  constructor(
+    private readonly lectureRepository: BaseClassRepository<Lectures>,
+  ) {}
 
-    async execute(lecture: LectureInputDTO): Promise<LectureOutputDTO> {
-        console.log(lecture);
+  async execute(lecture: LectureInputDTO): Promise<LectureOutputDTO> {
+    console.log(lecture);
 
-        const lectureSchema = z
-            .object({
-                title: z.string().min(6),
-                description: z.string().min(6),
-                teacher_id: z.string().uuid(),
-                enemSubject_id: z.string().uuid(),
-                schoolSubject_id: z.string().uuid(),
-                image_url: z.string().min(8).optional(),
-            })
-            .strict();
+    const lectureSchema = z
+      .object({
+        title: z.string().min(6),
+        description: z.string().min(6),
+        teacher_id: z.string().uuid(),
+        enemSubject_id: z.string().uuid(),
+        schoolSubject_id: z.string().uuid(),
+        image_url: z.string().min(8).optional(),
+      })
+      .strict();
 
-        lectureSchema.parse(lecture);
+    lectureSchema.parse(lecture);
 
-        const schoolSubjectRepository = new SchoolSubjectRepository();
-        const subject = await schoolSubjectRepository.findOne({
-            id: lecture.schoolSubject_id,
-        });
+    const schoolSubjectRepository = new SchoolSubjectRepository();
+    const subject = await schoolSubjectRepository.findOne({
+      id: lecture.schoolSubject_id,
+    });
 
-        z.literal(subject?.enemSubject_id != lecture.enemSubject_id, {
-            errorMap: () => ({
-                message: "School Subject don't match with ENEM subject",
-            }),
-        }).parse(false);
+    z.literal(subject?.enemSubject_id !== lecture.enemSubject_id, {
+      errorMap: () => ({
+        message: "School Subject don't match with ENEM subject",
+      }),
+    }).parse(false);
 
-        const lectureCreated = await this.lectureRepository.create(
-            lecture as Lectures,
-        );
+    const lectureCreated = await this.lectureRepository.create(
+      lecture as Lectures,
+    );
 
-        return lectureCreated;
-    }
+    return lectureCreated;
+  }
 }

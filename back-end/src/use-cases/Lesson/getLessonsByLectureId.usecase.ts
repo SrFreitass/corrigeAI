@@ -3,15 +3,15 @@ import { Lessons } from '@prisma/client';
 import { BaseClassRepository } from '../../repositories/BaseClass.repository';
 
 export class GetLessonsByLectureIdUseCase {
-    constructor(private lessonRepository: BaseClassRepository<Lessons>) {}
+  constructor(private lessonRepository: BaseClassRepository<Lessons>) {}
 
-    async execute(lecture_id: string): Promise<Lessons[] | null> {
-        z.string().uuid().parse(lecture_id);
+  async execute(lectureId: string): Promise<Lessons[] | null> {
+    z.string().uuid().parse(lectureId);
 
-        const lessons = await this.lessonRepository.findManyWithWhere({
-            item: lecture_id,
-        });
+    const lessons = await this.lessonRepository.findManyWithWhere({
+      item: lectureId,
+    });
 
-        return lessons;
-    }
+    return lessons;
+  }
 }

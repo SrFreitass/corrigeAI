@@ -3,17 +3,17 @@ import { Lectures } from '@prisma/client';
 import { BaseClassRepository } from '../../repositories/BaseClass.repository';
 
 export class GetLectureSubjectsUseCase {
-    constructor(
-        private readonly lectureRepository: BaseClassRepository<Lectures>,
-    ) {}
+  constructor(
+    private readonly lectureRepository: BaseClassRepository<Lectures>,
+  ) {}
 
-    async execute(Subjectid: string) {
-        z.string().uuid({ message: 'ID is invalid' }).parse(Subjectid);
+  async execute(Subjectid: string) {
+    z.string().uuid({ message: 'ID is invalid' }).parse(Subjectid);
 
-        const lectures = await this.lectureRepository.findManyWithWhere({
-            item: Subjectid,
-        });
+    const lectures = await this.lectureRepository.findManyWithWhere({
+      item: Subjectid,
+    });
 
-        return lectures;
-    }
+    return lectures;
+  }
 }

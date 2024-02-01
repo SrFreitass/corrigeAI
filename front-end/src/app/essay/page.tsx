@@ -1,14 +1,14 @@
 'use client';
 
 import { PiMinus, PiPlus } from 'react-icons/pi';
-import MenuAside from '../_components/MenuAside';
+import MenuAside from '../components/MenuAside';
 import { ChangeEvent, useState } from 'react';
 import { TbArrowBack } from 'react-icons/tb';
 import { BsArrowReturnLeft, BsArrowReturnRight } from 'react-icons/bs';
-import { Input } from '../_components/utils/input';
-import { TextArea } from '../_components/utils/textarea';
+import { Input } from '../components/utils/input';
+import { TextArea } from '../components/utils/textarea';
 import { FcStatistics } from 'react-icons/fc';
-import { Button } from '../_components/utils/button';
+import { Button } from '../components/utils/button';
 
 export default function essay() {
     const [fontSize, setFontSize] = useState<number>(16);

@@ -1,4 +1,4 @@
 export interface ResponseLessonInputDTO {
-    lessonNumber: number;
-    answer: number;
+  lessonNumber: number;
+  answer: number;
 }

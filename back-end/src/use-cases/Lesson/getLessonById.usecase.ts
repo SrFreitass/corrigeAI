@@ -4,15 +4,15 @@ import { BaseClassRepository } from '../../repositories/BaseClass.repository';
 import { LessonOutputDTO } from '../../dto/Lesson.dto';
 
 export class GetLessonByIdUseCase {
-    constructor(
-        private readonly lessonRepository: BaseClassRepository<Lessons>,
-    ) {}
+  constructor(
+    private readonly lessonRepository: BaseClassRepository<Lessons>,
+  ) {}
 
-    async execute(lessonId: string): Promise<LessonOutputDTO | null> {
-        z.string().uuid().parse(lessonId);
+  async execute(lessonId: string): Promise<LessonOutputDTO | null> {
+    z.string().uuid().parse(lessonId);
 
-        const lesson = this.lessonRepository.findOne({ id: lessonId });
+    const lesson = this.lessonRepository.findOne({ id: lessonId });
 
-        return lesson;
-    }
+    return lesson;
+  }
 }

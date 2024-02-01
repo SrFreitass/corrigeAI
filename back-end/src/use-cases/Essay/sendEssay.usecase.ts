@@ -7,65 +7,64 @@ import { Essays } from '@prisma/client';
 import { EssayInputDTO } from '../../dto/Essay.dto';
 
 interface IResponseEssay {
-    data: {
-        candidates: [
+  data: {
+    candidates: [
+      {
+        content: {
+          parts: [
             {
-                content: {
-                    parts: [
-                        {
-                            text: string;
-                        },
-                    ];
-                };
+              text: string;
             },
-        ];
-    };
+          ];
+        };
+      },
+    ];
+  };
 }
 
 export class SendEssayUseCase {
-    constructor(
-        private readonly essayRepository: BaseClassRepository<Essays>,
-    ) {}
+  constructor(private readonly essayRepository: BaseClassRepository<Essays>) {}
 
-    async execute(essay: EssayInputDTO) {
-        const schemaEssay = z
-            .object({
-                userId: z.string().uuid(),
-                essayContent: z.string().min(80),
-                theme: z.string().min(5),
-            })
-            .strict()
-            .parse(essay);
+  async execute(essay: EssayInputDTO) {
+    const schemaEssay = z
+      .object({
+        userId: z.string().uuid(),
+        essayContent: z.string().min(80),
+        theme: z.string().min(5),
+      })
+      .strict();
 
-        const urlAPI = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${process.env.GEMINI_API_KEY}`;
+    schemaEssay.parse(essay);
 
-        const res = (await axios.post(urlAPI, {
-            contents: [
-                {
-                    parts: [
-                        {
-                            text: `${prompt} Tema: ${essay.theme} \n Redação: ${essay.essayContent}`,
-                        },
-                    ],
-                },
-            ],
-        })) as IResponseEssay;
+    const urlAPI = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${process.env.GEMINI_API_KEY}`;
 
-        const { data } = res;
-        const result = data.candidates[0].content.parts[0].text;
-        const points = Number(result.split('\nNota final:')[1]);
+    const res = (await axios.post(urlAPI, {
+      contents: [
+        {
+          parts: [
+            {
+              text: `${prompt} Tema: ${essay.theme} \n Redação: ${essay.essayContent}`,
+            },
+          ],
+        },
+      ],
+    })) as IResponseEssay;
 
-        if (isNaN(points)) {
-            throw new Error('Points is not number');
-        }
+    const { data } = res;
+    const result = data.candidates[0].content.parts[0].text;
+    const points = Number(result.split('\nNota final:')[1]);
 
-        await this.essayRepository.create({
-            essay: essay.essayContent,
-            user_id: essay.userId,
-            theme: essay.theme,
-            points,
-        } as Essays);
-
-        return result;
+    if (isNaN(points)) {
+      throw new Error('Points is not number');
     }
+
+    await this.essayRepository.create({
+      essay: essay.essayContent,
+      user_id: essay.userId,
+      theme: essay.theme,
+      points,
+    } as Essays);
+
+    return result;
+  }
 }
