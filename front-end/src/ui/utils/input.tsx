@@ -1,15 +1,18 @@
-import React from 'react'
+import { InputHTMLAttributes, forwardRef } from 'react'
 
-type propsInput = React.InputHTMLAttributes<HTMLInputElement>
+type propsInput = InputHTMLAttributes<HTMLInputElement>
 
-export function Input(props: propsInput) {
+export const Input = forwardRef<HTMLInputElement, propsInput>((props, ref) => {
   return (
     <input
       {...props}
+      ref={ref}
       className={`
-      ${props.className}
+      ${props.className || ''}
       p-4 bg-transparent border border-gray-1 rounded-md
       `}
     />
   )
-}
+})
+
+Input.displayName = 'Input'
