@@ -9,14 +9,14 @@ const app = fastify();
 const router = new Router();
 app.register(router.handle);
 app.register(cors, {
-    origin: '*',
-    methods: ['GET', 'PUT', 'DELETE', 'POST'],
+  origin: '*',
+  methods: ['GET', 'PUT', 'DELETE', 'POST'],
 });
 
 app.listen({ port: 8080 }, (err, address) => {
-    try {
-        console.log('Listen', address);
-    } catch (err) {
-        process.exit(1);
-    }
+  try {
+    console.log('Listen', address);
+  } catch (err) {
+    process.exit(1);
+  }
 });

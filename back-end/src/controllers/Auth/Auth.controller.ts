@@ -7,6 +7,18 @@ import { LoginUserUseCase } from '../../use-cases/Auth/login.usecase';
 import { errorHandling } from '../../utils/error/error.function';
 
 class AuthController {
+  async verifyToken(req: FastifyRequest, reply: FastifyReply) {
+    try {
+      return {
+        statusCode: 200,
+        message: 'OK',
+        data: 'Token is valid',
+      };
+    } catch (error) {
+      errorHandling(error, reply);
+    }
+  }
+
   async register(req: FastifyRequest, reply: FastifyReply) {
     try {
       const body = req.body as RegisterInputDTO;

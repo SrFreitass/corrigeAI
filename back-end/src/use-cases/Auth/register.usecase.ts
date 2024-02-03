@@ -10,6 +10,8 @@ import { SendEmailUseCase } from '../Email/sendEmail.usecase';
 export class RegisterUserUseCase {
   constructor(private readonly userRepository: BaseClassRepository<Users>) {}
 
+  regexPassowrd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/g;
+
   async execute({
     email,
     password,
@@ -17,7 +19,7 @@ export class RegisterUserUseCase {
   }: RegisterInputDTO): Promise<RegisterOutputDTO | { error: string }> {
     const userSchema = z.object({
       email: z.string().email(),
-      password: z.string().min(8),
+      password: z.string().min(8).regex(this.regexPassowrd),
       name: z.string().min(6),
     });
 

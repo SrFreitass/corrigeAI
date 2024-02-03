@@ -14,7 +14,7 @@ export function Button({
       className={`
       text-white
       font-semibold
-      p-4
+      p-3
       rounded-md
       ${props.outline ? 'border' : 'bg-secundary'}
       ${props.className} 

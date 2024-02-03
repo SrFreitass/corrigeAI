@@ -7,7 +7,6 @@ export class GetUsersStatisticsUseCase {
   constructor(
     private readonly userRepository: BaseClassRepository<Users>,
     private readonly answerRepository: BaseClassRepository<Answers>,
-    private readonly essaysRepository: BaseClassRepository<EssayRepository>,
   ) {}
 
   async execute(userId: string) {

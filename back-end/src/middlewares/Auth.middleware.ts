@@ -49,7 +49,7 @@ export const auth = (
   done: HookHandlerDoneFunction,
 ) => {
   const { method } = req;
-  const token = req.headers['x-acess-token'] as string;
+  const token = req.headers['x-access-token'] as string;
 
   if (token) {
     try {

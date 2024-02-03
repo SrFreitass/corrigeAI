@@ -1,6 +1,6 @@
-import { Users } from '@prisma/client';
-import { prisma } from '../../../prisma';
-import { BaseClassRepository } from '../BaseClass.repository';
+import { Users } from '@prisma/client'
+import { prisma } from '../../../prisma'
+import { BaseClassRepository } from '../BaseClass.repository'
 
 export class UserRepository extends BaseClassRepository<Users> {
   async create(item: Users) {
@@ -8,13 +8,13 @@ export class UserRepository extends BaseClassRepository<Users> {
       data: {
         ...item,
       },
-    });
+    })
 
-    return userCreated;
+    return userCreated
   }
 
   async createMany(item: Users[]) {
-    throw new Error('Method not implemented.');
+    throw new Error('Method not implemented.')
   }
 
   async update(id: string, { item }: { item?: Users }): Promise<Users> {
@@ -25,36 +25,36 @@ export class UserRepository extends BaseClassRepository<Users> {
       data: {
         ...item,
       },
-    });
+    })
 
-    return userUpdated;
+    return userUpdated
   }
 
   async updateMany(): Promise<Users[]> {
-    throw new Error('Method not implemented.');
+    throw new Error('Method not implemented.')
   }
 
   async delete(id: string) {
-    throw 'Method not implemented';
+    throw new Error('Method not implemented')
   }
 
   async find() {
-    const userFind = await prisma.users.findMany();
-    return userFind;
+    const userFind = await prisma.users.findMany()
+    return userFind
   }
 
   async findManyWithWhere(where: { item: string }): Promise<Users[]> {
-    throw new Error('Method not implemented.');
+    throw new Error('Method not implemented.')
   }
 
   async findOne({
     id,
     item,
   }: {
-    id?: string;
-    item?: string;
+    id?: string
+    item?: string
   }): Promise<Users | null> {
-    console.log(id, item);
+    console.log(id, item)
     const user = await prisma.users.findFirst({
       where: {
         OR: [
@@ -66,8 +66,8 @@ export class UserRepository extends BaseClassRepository<Users> {
           },
         ],
       },
-    });
+    })
 
-    return user;
+    return user
   }
 }

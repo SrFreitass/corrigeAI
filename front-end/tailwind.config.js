@@ -10,6 +10,17 @@ module.exports = {
   ],
   theme: {
     extend: {
+      keyframes: {
+        'appear-from-below': {
+          '0%': { opacity: 0, transform: 'translateY(25px)' },
+          '100%': {
+            opacity: 1,
+          },
+        },
+      },
+      animation: {
+        'appear-from-below': 'appear-from-below 0.3s ease-in-out',
+      },
       colors: {
         global: '#EFF1F3',
         primary: '#32334A',
