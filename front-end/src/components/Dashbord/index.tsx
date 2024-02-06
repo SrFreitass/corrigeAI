@@ -6,9 +6,6 @@ export default function Dashboard() {
       </h1>
       <div>
         <div>
-          <h3>13</h3> <p> Redação enviadas</p>
-        </div>
-        <div>
           <h3>7</h3>
           <p>Aulas concluídas</p>
         </div>
