@@ -70,4 +70,18 @@ export class UserRepository extends BaseClassRepository<Users> {
 
     return user
   }
+
+  async findWithOrderBy(
+    orderBy: { points: 'asc' | 'desc' },
+    offset: number,
+    limit: number,
+  ): Promise<Users[]> {
+    const usersOrderByPoints = await prisma.users.findMany({
+      orderBy: {
+        ...orderBy,
+      },
+    })
+
+    return usersOrderByPoints
+  }
 }

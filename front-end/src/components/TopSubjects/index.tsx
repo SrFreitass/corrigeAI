@@ -42,7 +42,7 @@ export function TopSubjects() {
               />
             </TableCell>
             <TableCell>
-              <div className="text-center  rounded-lg border border-[#0095FF] bg-[#CDE7FF]">
+              <div className="text-center  rounded-lg border border-[#0095FF] bg-[#CDE7FF] dark:text-primary">
                 50%
               </div>
             </TableCell>
@@ -59,7 +59,7 @@ export function TopSubjects() {
               />
             </TableCell>
             <TableCell>
-              <div className="text-center  rounded-lg border border-[#0095FF] bg-[#CDE7FF]">
+              <div className="text-center  rounded-lg border border-[#0095FF] bg-[#CDE7FF] dark:text-primary">
                 50%
               </div>
             </TableCell>
@@ -78,7 +78,7 @@ export function TopSubjects() {
               />
             </TableCell>
             <TableCell>
-              <div className="text-center  rounded-lg border border-[#0095FF] bg-[#CDE7FF]">
+              <div className="text-center  rounded-lg border border-[#0095FF] bg-[#CDE7FF] dark:text-primary">
                 50%
               </div>
             </TableCell>
@@ -97,7 +97,7 @@ export function TopSubjects() {
               />
             </TableCell>
             <TableCell>
-              <div className="text-center  rounded-lg border border-[#0095FF] bg-[#CDE7FF]">
+              <div className="text-center  rounded-lg border border-[#0095FF] bg-[#CDE7FF] dark:text-primary">
                 50%
               </div>
             </TableCell>
@@ -114,7 +114,7 @@ export function TopSubjects() {
               />
             </TableCell>
             <TableCell>
-              <div className="text-center  rounded-lg border border-[#0095FF] bg-[#CDE7FF]">
+              <div className="text-center  rounded-lg border border-[#0095FF] bg-[#CDE7FF] dark:text-primary">
                 50%
               </div>
             </TableCell>

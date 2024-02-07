@@ -4,7 +4,7 @@ import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 import bg from '@/../public/images/bg.png'
 import './globals.css'
-import { createContext, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import { ThemeContext } from './context'
 
 const poppins = Poppins({
@@ -22,7 +22,26 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light')
+  useEffect(() => {
+    if (
+      window.matchMedia('(prefers-color-scheme: dark)').matches ||
+      localStorage.getItem('theme') === 'dark'
+    ) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  }, [])
+
+  const [theme, setTheme] = useState<'light' | 'dark'>(
+    (localStorage.getItem('theme') && localStorage.getItem('theme')
+      ? 'dark'
+      : 'light') || window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light',
+  )
+
+  console.log(theme)
 
   return (
     <ThemeContext.Provider
@@ -31,11 +50,12 @@ export default function RootLayout({
         setTheme,
       }}
     >
-      <html
-        lang="pt-BR"
-        className="bg-[#FAFBFC] dark:bg-[#05071D] bg-bg bg-center bg-cover bg-no-repeat"
-      >
-        <body className={poppins.className}>{children}</body>
+      <html lang="pt-BR" className="bg-[#FAFBFC] ">
+        <body
+          className={`${poppins.className} dark:bg-[#05071D] dark:bg-bg bg-center bg-cover bg-no-repeat w-screen min-h-screen`}
+        >
+          {children}
+        </body>
       </html>
     </ThemeContext.Provider>
   )

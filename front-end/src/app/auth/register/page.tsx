@@ -99,10 +99,10 @@ export default function Register() {
         <section className="flex flex-col items-center gap-4 w-full">
           <form
             onSubmit={handleFormSubmit}
-            className="flex flex-col gap-4 w-1/4 bg-white py-20 px-10 rounded-xl drop-shadow-xl"
+            className="flex flex-col gap-4 w-1/4 bg-white dark:bg-dark py-20 px-10 rounded-xl drop-shadow-xl"
           >
             <div>
-              <h1 className="text-2xl font-bold text-primary text-center">
+              <h1 className="text-2xl font-bold text-primary dark:text-white text-center">
                 Crie uma conta no CorrigiAI
               </h1>
               <h2 className="text-gray-4 text-center">
@@ -114,12 +114,21 @@ export default function Register() {
             </Button>
             <div className="w-full flex items-center gap-4">
               <hr className="w-full border-gray-4" />
-              <p className="font-semibold">OU</p>
+              <p className="font-semibold dark:text-white">OU</p>
               <hr className="w-full border-gray-4" />
             </div>
             <div className="flex flex-row-reverse items-center">
               <span className="absolute p-4">
-                {<MdAccountCircle size={24} color={themes.colors.primary} />}
+                {
+                  <MdAccountCircle
+                    size={24}
+                    color={
+                      document.documentElement.classList.contains('dark')
+                        ? '#ffffff'
+                        : themes.colors.primary
+                    }
+                  />
+                }
               </span>
               <Input
                 ref={nameInputRef}
@@ -141,7 +150,16 @@ export default function Register() {
               ))}
             <div className="flex flex-row-reverse items-center">
               <span className="absolute p-4">
-                {<MdEmail size={24} color={themes.colors.primary} />}
+                {
+                  <MdEmail
+                    size={24}
+                    color={
+                      document.documentElement.classList.contains('dark')
+                        ? '#ffffff'
+                        : themes.colors.primary
+                    }
+                  />
+                }
               </span>
               <Input
                 ref={emailInputRef}
@@ -160,9 +178,23 @@ export default function Register() {
             <div className="flex flex-row-reverse items-center">
               <span className="absolute p-4" onClick={handlePassword}>
                 {showPassword ? (
-                  <FaEye size={24} color={themes.colors.primary} />
+                  <FaEye
+                    size={24}
+                    color={
+                      document.documentElement.classList.contains('dark')
+                        ? '#ffffff'
+                        : themes.colors.primary
+                    }
+                  />
                 ) : (
-                  <FaEyeSlash size={25} color={themes.colors.primary} />
+                  <FaEyeSlash
+                    size={25}
+                    color={
+                      document.documentElement.classList.contains('dark')
+                        ? '#ffffff'
+                        : themes.colors.primary
+                    }
+                  />
                 )}
               </span>
               <Input
@@ -182,11 +214,11 @@ export default function Register() {
                 minúsculas, números e símbolos.
               </ParagraphError>
             )}
-            <Button>Registrar</Button>
-            <p className="text-primary text-center font-medium ">
+            <Button className="dark:bg-third">Registrar</Button>
+            <p className="text-primary dark:text-secundary text-center font-medium ">
               Já tem uma conta?{' '}
               <Link href="./login">
-                <u>Entre aqui.</u>
+                <u className="text-white">Entre aqui.</u>
               </Link>
             </p>
           </form>

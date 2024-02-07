@@ -12,6 +12,12 @@ export class Router {
     fastify.get('/api/v1/status', () => {
       return { status: 'OK' }
     })
+    /* User Routers */
+    fastify.get(
+      'api/v1/users/ranking/:page',
+      { preHandler: [auth] },
+      UserController.getRanking,
+    )
 
     /* Auth Routers */
     fastify.post('/api/v1/auth/register', AuthController.register)

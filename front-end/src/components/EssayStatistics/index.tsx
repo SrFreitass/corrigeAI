@@ -1,13 +1,7 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
 import * as React from 'react'
 import { PieChart } from '@mui/x-charts/PieChart'
-import { useDrawingArea } from '@mui/x-charts/hooks'
-import { styled } from '@mui/material/styles'
-import { Stack } from '@mui/material'
-import { Competence } from './Competence'
-import { Poppins } from 'next/font/google'
 
 const data = [
   { label: 'Copetência 1', value: 200, color: '#1A932E' },

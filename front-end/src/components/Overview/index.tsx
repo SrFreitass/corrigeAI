@@ -6,7 +6,7 @@ import iconPen from '@/../public/icons/Icon4.svg'
 
 export default function Overview() {
   return (
-    <section className="p-8 pb-16 rounded-bg flex flex-col gap-8 bg-white dark:bg-dark shadow-md dark:backdrop-blur-3xl">
+    <section className="p-8 pb-16 rounded-bg flex flex-col justify-between gap-8 bg-white dark:bg-dark shadow-md dark:backdrop-blur-3xl">
       <div className="">
         <h1 className="text-primary dark:text-white text-2xl font-semibold">
           Olá, Guilherme Freitas!
@@ -15,7 +15,7 @@ export default function Overview() {
           Essas são suas atividades na plataforma
         </h2>
       </div>
-      <div className="flex gap-8">
+      <div className="flex self-center gap-8">
         <Card
           className="bg-opaque-red"
           numberStatistics="50"

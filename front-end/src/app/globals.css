@@ -3,6 +3,14 @@
 @tailwind utilities;
 
 
+* {
+    transition: all 0.3s ease-in-out;
+}
+
 tspan {
     @apply fill-primary dark:fill-white;
+}   
+
+textarea {
+    transition: none;
 }

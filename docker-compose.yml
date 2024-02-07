@@ -1,11 +1,4 @@
 services:
-  api:
-    build: ./back-end
-    command: npm run dev
-    volumes:
-      - ./back-end:/usr/app
-    ports:
-      - 8080:8080
   db:
     image: postgres
     ports: 
@@ -15,3 +8,10 @@ services:
     environment:
       - POSTGRES_PASSWORD=admin
       - POSTGRES_DB=corrigiaidb
+  api:
+    build: ./back-end
+    command: npm run dev
+    volumes:
+      - ./back-end:/usr/app
+    ports:
+      - 8080:8080

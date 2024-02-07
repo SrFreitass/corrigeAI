@@ -14,14 +14,14 @@ export default function VerifyEmail() {
           width={500}
           height={200}
         />
-        <h2 className="font-semibold text-center">
+        <h2 className="font-semibold text-center dark:text-white">
           Dê uma olhada nos seus e-mails!
         </h2>
-        <p className="text-center">
+        <p className="text-center dark:text-secundary">
           Para concluir o registro confirme seu e-mail
         </p>
       </div>
-      <Button>Reenviar e-mail</Button>
+      <Button className="bg-third">Reenviar e-mail</Button>
     </main>
   )
 }

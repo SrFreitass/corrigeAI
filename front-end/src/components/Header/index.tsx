@@ -7,11 +7,11 @@ import { useContext, useState } from 'react'
 import { ThemeContext } from '@/app/context'
 
 export function Header() {
-  const { theme, setTheme } = useContext(ThemeContext)
+  const Theme = useContext(ThemeContext)
 
-  const handleTheme = (e: InputEvent) => {
-    setTheme(theme === 'light' ? 'dark' : 'light')
-    if (theme === 'light') {
+  const handleTheme = () => {
+    Theme?.setTheme(Theme.theme === 'light' ? 'dark' : 'light')
+    if (Theme?.theme === 'light') {
       document.documentElement.classList.add('dark')
       localStorage.setItem('theme', 'dark')
     } else {
@@ -20,7 +20,7 @@ export function Header() {
     }
   }
 
-  console.log(theme)
+  console.log()
 
   return (
     <header className="px-10 py-8 w-full flex items-center justify-between">
@@ -37,7 +37,7 @@ export function Header() {
         />
       </div>
       <div className="flex gap-4">
-        <Switch onChange={handleTheme} checked={theme != 'light'} />
+        <Switch onChange={handleTheme} checked={Theme?.theme !== 'light'} />
         <Avatar src={avatar.src} />
         <div className="flex flex-col justify-center">
           <span className="font-medium text-primary dark:text-white">

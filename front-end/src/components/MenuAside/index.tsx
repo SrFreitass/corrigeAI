@@ -24,8 +24,6 @@ import starWhite from '@/../public/icons/MenuAside/ranking-svgrepo-com 1 - white
 import settingsWhite from '@/../public/icons/MenuAside/mdi_cog-outline - white.svg'
 import exitWhite from '@/../public/icons/MenuAside/Sign Out Icon - white.svg'
 
-import { useState } from 'react'
-
 const itemsNav = [
   {
     content: 'Visão geral',
@@ -61,7 +59,7 @@ const itemsNav = [
     content: 'Ranking',
     icon: star,
     iconActive: starWhite,
-    link: '',
+    link: '/ranking',
   },
   {
     content: 'Configurações',
@@ -78,7 +76,6 @@ const itemsNav = [
 ]
 
 export default function MenuAside() {
-  const [minimize, setMinimize] = useState<boolean>(false)
   const path = usePathname()
 
   return (
@@ -95,19 +92,19 @@ export default function MenuAside() {
           return (
             <li
               key={index}
-              className={`flex items-center gap-6 font-medium dark:text-white ${path === item.link ? 'p-3 bg-third rounded-2xl text-white font-semibold' : ''}`}
+              className={`dark:text-white ${path === item.link ? 'p-3 bg-third rounded-2xl text-white font-semibold' : ''}`}
             >
-              <Image
-                className="max-w-6 max-h-6"
-                src={
-                  (path === item.link && item.iconActive) ||
-                  (document.documentElement.classList.keys() &&
-                    item.iconActive) ||
-                  item.icon
-                }
-                alt="Icone"
-              />
-              {item.content}
+              <Link
+                href={item.link}
+                className="flex items-center gap-6 font-medium"
+              >
+                <Image
+                  className="max-w-6 max-h-6"
+                  src={(path === item.link && item.iconActive) || item.icon}
+                  alt="Icone"
+                />
+                {item.content}
+              </Link>
             </li>
           )
         })}
