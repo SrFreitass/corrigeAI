@@ -9,8 +9,11 @@ export const Input = forwardRef<HTMLInputElement, propsInput>((props, ref) => {
       ref={ref}
       className={`
         ${props.className || ''}
-        p-3 bg-transparent border border-gray-1 rounded-md
-        outline-secundary font-medium
+        p-3 bg-transparent border border-gray-1 rounded-lg
+        outline-white font-normal
+        dark:text-white
+        dark:outline-none
+        dark:border-gray-400
         `}
     />
   )

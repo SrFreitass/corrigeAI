@@ -2,14 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-    transition: all 0.3s ease-in-out;
-}
 
-body {
-    background: #EFF1F3;
-}
-
-textarea {
-    transition: none;
+tspan {
+    @apply fill-primary dark:fill-white;
 }

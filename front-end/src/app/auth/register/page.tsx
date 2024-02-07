@@ -9,7 +9,7 @@ import { FormEvent, useRef, useState } from 'react'
 import { postRegister } from '@/app/http/post.register'
 import { useRouter } from 'next/navigation'
 import toast, { Toaster } from 'react-hot-toast'
-import { ParagraphError } from '@/ui/paragraphError'
+import { ParagraphError } from '@/ui/utils/paragraphError'
 
 import { themes } from '@/app/styles/theme'
 import { MdAccountCircle, MdEmail } from 'react-icons/md'
