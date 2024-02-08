@@ -1,81 +1,81 @@
-'use client'
+'use client';
 
-import { Button } from '@/ui/utils/button'
-import { Input } from '@/ui/utils/input'
-import googleLogo from '../../../../public/logo/google_logo.svg'
-import Image from 'next/image'
-import Link from 'next/link'
-import React, { FormEvent, useRef, useState } from 'react'
-import toast, { Toaster } from 'react-hot-toast'
-import { postLogin } from '@/app/http/post.login'
-import { MdEmail } from 'react-icons/md'
-import { FaEye, FaEyeSlash } from 'react-icons/fa'
-import { themes } from '@/app/styles/theme'
-import { useRouter } from 'next/navigation'
-import { ParagraphError } from '@/ui/utils/paragraphError'
+import { Button } from '@/ui/utils/button';
+import { Input } from '@/ui/utils/input';
+import googleLogo from '../../../../public/logo/google_logo.svg';
+import Image from 'next/image';
+import Link from 'next/link';
+import React, { FormEvent, useRef, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
+import { postLogin } from '@/app/http/post.login';
+import { MdEmail } from 'react-icons/md';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { themes } from '@/app/styles/theme';
+import { useRouter } from 'next/navigation';
+import { ParagraphError } from '@/ui/utils/paragraphError';
 
 export default function Login() {
-  const emailInputRef = useRef<HTMLInputElement | null>(null)
-  const passwordInputRef = useRef<HTMLInputElement | null>(null)
-  const checkboxRef = useRef<HTMLInputElement | null>(null)
-  const [errorForm, setErrorForm] = useState<Set<string>>(new Set())
-  const [showPassword, setShowPassword] = useState(false)
-  const router = useRouter()
-  console.log(errorForm)
+  const emailInputRef = useRef<HTMLInputElement | null>(null);
+  const passwordInputRef = useRef<HTMLInputElement | null>(null);
+  const checkboxRef = useRef<HTMLInputElement | null>(null);
+  const [errorForm, setErrorForm] = useState<Set<string>>(new Set());
+  const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
+  console.log(errorForm);
 
   const handlePassword = () => {
-    setShowPassword(!showPassword)
-  }
+    setShowPassword(!showPassword);
+  };
 
   const handleFormSubmit = async (e: FormEvent) => {
-    e.preventDefault()
-    console.log(emailInputRef)
-    console.log(passwordInputRef)
+    e.preventDefault();
+    console.log(emailInputRef);
+    console.log(passwordInputRef);
 
-    let errors = 0
-    const email = emailInputRef.current?.value
-    const password = passwordInputRef.current?.value
-    const checkbox = checkboxRef.current?.checked
+    let errors = 0;
+    const email = emailInputRef.current?.value;
+    const password = passwordInputRef.current?.value;
+    const checkbox = checkboxRef.current?.checked;
 
     if (!email) {
-      setErrorForm((prev) => new Set(prev).add('EMAIL_EMPTY'))
-      errors++
+      setErrorForm((prev) => new Set(prev).add('EMAIL_EMPTY'));
+      errors++;
     }
 
     if (errorForm.has('EMAIL_EMPTY') && email) {
-      errorForm.delete('EMAIL_EMPTY')
-      errors++
+      errorForm.delete('EMAIL_EMPTY');
+      errors++;
     }
 
     if (!password || password?.length < 8) {
-      setErrorForm((prev) => new Set(prev).add('PASSWORD_EMPTY'))
-      errors++
+      setErrorForm((prev) => new Set(prev).add('PASSWORD_EMPTY'));
+      errors++;
     }
 
     if (errorForm.has('PASSWORD_EMPTY') && password && password.length >= 8) {
-      errorForm.delete('PASSWORD_EMPTY')
-      errors++
+      errorForm.delete('PASSWORD_EMPTY');
+      errors++;
     }
 
-    if (errorForm.has('PASSWORD_EMPTY') || errorForm.has('EMAIL_EMPTY')) return
+    if (errorForm.has('PASSWORD_EMPTY') || errorForm.has('EMAIL_EMPTY')) return;
 
-    if (errors > 0) return
+    if (errors > 0) return;
 
     try {
       toast.loading('Carregando...', {
         duration: 1000,
-      })
+      });
       await postLogin({
         email,
         password,
         checkbox,
         setErrorForm,
-      })
-      router.push('/dashboard')
+      });
+      router.push('/dashboard');
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   return (
     <>
@@ -107,16 +107,7 @@ export default function Login() {
 
             <div className="flex flex-row-reverse items-center">
               <span className="absolute p-4">
-                {
-                  <MdEmail
-                    size={24}
-                    color={
-                      document.documentElement.classList.contains('dark')
-                        ? '#ffffff'
-                        : themes.colors.primary
-                    }
-                  />
-                }
+                {<MdEmail size={24} color={themes.colors.primary} />}
               </span>
               <Input
                 ref={emailInputRef}
@@ -138,23 +129,9 @@ export default function Login() {
             <div className="flex flex-row-reverse items-center">
               <span className="absolute p-4" onClick={handlePassword}>
                 {showPassword ? (
-                  <FaEye
-                    size={24}
-                    color={
-                      document.documentElement.classList.contains('dark')
-                        ? '#ffffff'
-                        : themes.colors.primary
-                    }
-                  />
+                  <FaEye size={24} color={themes.colors.primary} />
                 ) : (
-                  <FaEyeSlash
-                    size={25}
-                    color={
-                      document.documentElement.classList.contains('dark')
-                        ? '#ffffff'
-                        : themes.colors.primary
-                    }
-                  />
+                  <FaEyeSlash size={25} color={themes.colors.primary} />
                 )}
               </span>
               <Input
@@ -191,5 +168,5 @@ export default function Login() {
         </section>
       </main>
     </>
-  )
+  );
 }

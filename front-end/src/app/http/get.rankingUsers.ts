@@ -4,10 +4,20 @@ import axios from 'axios';
 export const getRankingUsers = async (page: number) => {
   try {
     const response = await axios<IRankingUsers>(
-      `localhost:8080/api/v1/users/ranking/${page}`,
+      `http://localhost:8080/api/v1/users/ranking/${page}`,
+      {
+        headers: {
+          'x-access-token':
+            (localStorage.getItem('token') && localStorage.getItem('token')) ||
+            sessionStorage.getItem('token'),
+        },
+      },
     );
+
     return response.data;
-  } catch {
+  } catch (err) {
+    console.log(err);
+
     throw new Error('Unexpected Error');
   }
 };

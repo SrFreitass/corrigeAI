@@ -1,96 +1,96 @@
-'use client'
+'use client';
 
-import { Button } from '@/ui/utils/button'
-import { Input } from '@/ui/utils/input'
-import googleLogo from '../../../../public/logo/google_logo.svg'
-import Image from 'next/image'
-import Link from 'next/link'
-import { FormEvent, useRef, useState } from 'react'
-import { postRegister } from '@/app/http/post.register'
-import { useRouter } from 'next/navigation'
-import toast, { Toaster } from 'react-hot-toast'
-import { ParagraphError } from '@/ui/utils/paragraphError'
+import { Button } from '@/ui/utils/button';
+import { Input } from '@/ui/utils/input';
+import googleLogo from '../../../../public/logo/google_logo.svg';
+import Image from 'next/image';
+import Link from 'next/link';
+import { FormEvent, useRef, useState } from 'react';
+import { postRegister } from '@/app/http/post.register';
+import { useRouter } from 'next/navigation';
+import toast, { Toaster } from 'react-hot-toast';
+import { ParagraphError } from '@/ui/utils/paragraphError';
 
-import { themes } from '@/app/styles/theme'
-import { MdAccountCircle, MdEmail } from 'react-icons/md'
-import { FaEye, FaEyeSlash } from 'react-icons/fa'
-import { exec } from 'child_process'
+import { themes } from '@/app/styles/theme';
+import { MdAccountCircle, MdEmail } from 'react-icons/md';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { exec } from 'child_process';
 
 export default function Register() {
-  const nameInputRef = useRef<HTMLInputElement | null>(null)
-  const emailInputRef = useRef<HTMLInputElement | null>(null)
-  const passwordInputRef = useRef<HTMLInputElement | null>(null)
-  const checkboxRef = useRef<HTMLInputElement | null>(null)
-  const [errorForm, setErrorForm] = useState<Set<string>>(new Set([]))
-  const [showPassword, setShowPassword] = useState(false)
-  const router = useRouter()
+  const nameInputRef = useRef<HTMLInputElement | null>(null);
+  const emailInputRef = useRef<HTMLInputElement | null>(null);
+  const passwordInputRef = useRef<HTMLInputElement | null>(null);
+  const checkboxRef = useRef<HTMLInputElement | null>(null);
+  const [errorForm, setErrorForm] = useState<Set<string>>(new Set([]));
+  const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
-  console.log(errorForm)
+  console.log(errorForm);
 
   const handlePassword = () => {
-    setShowPassword(!showPassword)
-  }
+    setShowPassword(!showPassword);
+  };
 
   const handleFormSubmit = async (e: FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    let errors = 0
-    const name = nameInputRef.current?.value
-    const email = emailInputRef.current?.value
-    const password = passwordInputRef.current?.value
-    const checkbox = checkboxRef.current?.checked
-    console.log(name, email, password, checkbox)
+    let errors = 0;
+    const name = nameInputRef.current?.value;
+    const email = emailInputRef.current?.value;
+    const password = passwordInputRef.current?.value;
+    const checkbox = checkboxRef.current?.checked;
+    console.log(name, email, password, checkbox);
 
     if (!name) {
-      setErrorForm((prev) => new Set(prev).add('NAME_EMPTY'))
-      errors++
+      setErrorForm((prev) => new Set(prev).add('NAME_EMPTY'));
+      errors++;
     }
 
     if (name && name?.length < 6) {
-      errorForm.add('NAME_SHORT')
-      errors++
+      errorForm.add('NAME_SHORT');
+      errors++;
     }
 
-    if (name && name?.length >= 6) errorForm.delete('NAME_SHORT')
+    if (name && name?.length >= 6) errorForm.delete('NAME_SHORT');
 
-    if (name) errorForm.delete('NAME_EMPTY')
+    if (name) errorForm.delete('NAME_EMPTY');
 
     if (!email) {
-      setErrorForm((prev) => new Set(prev).add('EMAIL_EMPTY'))
-      errors++
+      setErrorForm((prev) => new Set(prev).add('EMAIL_EMPTY'));
+      errors++;
     }
 
     if (email) {
-      errorForm.delete('EMAIL_EMPTY')
+      errorForm.delete('EMAIL_EMPTY');
 
-      const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/g
+      const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/g;
 
       if (regex.exec(password as string) === null) {
-        setErrorForm((prev) => new Set(prev).add('PASSWORD_LOW_SECURITY'))
-        errors++
+        setErrorForm((prev) => new Set(prev).add('PASSWORD_LOW_SECURITY'));
+        errors++;
       }
 
-      console.log(regex.exec(password as string), 'as')
+      console.log(regex.exec(password as string), 'as');
 
       if (regex.exec(password as string) !== null) {
-        console.log('entrou aqui')
-        errorForm.delete('PASSWORD_LOW_SECURITY')
+        console.log('entrou aqui');
+        errorForm.delete('PASSWORD_LOW_SECURITY');
       }
 
-      if (errors > 0) return
+      if (errors > 0) return;
 
       try {
         toast.loading('Carregando...', {
           duration: 1000,
-        })
+        });
 
-        await postRegister({ name, email, password, setErrorForm })
-        router.push('./verify/email')
+        await postRegister({ name, email, password, setErrorForm, checkbox });
+        router.push('./verify/email');
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
     }
-  }
+  };
 
   return (
     <>
@@ -119,16 +119,7 @@ export default function Register() {
             </div>
             <div className="flex flex-row-reverse items-center">
               <span className="absolute p-4">
-                {
-                  <MdAccountCircle
-                    size={24}
-                    color={
-                      document.documentElement.classList.contains('dark')
-                        ? '#ffffff'
-                        : themes.colors.primary
-                    }
-                  />
-                }
+                {<MdAccountCircle size={24} color={themes.colors.primary} />}
               </span>
               <Input
                 ref={nameInputRef}
@@ -150,16 +141,7 @@ export default function Register() {
               ))}
             <div className="flex flex-row-reverse items-center">
               <span className="absolute p-4">
-                {
-                  <MdEmail
-                    size={24}
-                    color={
-                      document.documentElement.classList.contains('dark')
-                        ? '#ffffff'
-                        : themes.colors.primary
-                    }
-                  />
-                }
+                {<MdEmail size={24} color={themes.colors.primary} />}
               </span>
               <Input
                 ref={emailInputRef}
@@ -178,23 +160,9 @@ export default function Register() {
             <div className="flex flex-row-reverse items-center">
               <span className="absolute p-4" onClick={handlePassword}>
                 {showPassword ? (
-                  <FaEye
-                    size={24}
-                    color={
-                      document.documentElement.classList.contains('dark')
-                        ? '#ffffff'
-                        : themes.colors.primary
-                    }
-                  />
+                  <FaEye size={24} color={themes.colors.primary} />
                 ) : (
-                  <FaEyeSlash
-                    size={25}
-                    color={
-                      document.documentElement.classList.contains('dark')
-                        ? '#ffffff'
-                        : themes.colors.primary
-                    }
-                  />
+                  <FaEyeSlash size={25} color={themes.colors.primary} />
                 )}
               </span>
               <Input
@@ -214,6 +182,13 @@ export default function Register() {
                 minúsculas, números e símbolos.
               </ParagraphError>
             )}
+            <div className="flex gap-2">
+              <Input ref={checkboxRef} type="checkbox" className="w-4" />
+              <p className="font-medium text-primary dark:text-white">
+                Manter conectado
+              </p>
+            </div>
+
             <Button className="dark:bg-third">Registrar</Button>
             <p className="text-primary dark:text-secundary text-center font-medium ">
               Já tem uma conta?{' '}
@@ -225,5 +200,5 @@ export default function Register() {
         </section>
       </main>
     </>
-  )
+  );
 }

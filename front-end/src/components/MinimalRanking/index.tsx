@@ -1,9 +1,8 @@
-import gold from '@/../public/icons/Ranking/medal-gold-winner.svg'
-import silver from '@/../public/icons/Ranking/medal-silver.svg'
-import bronze from '@/../public/icons/Ranking/medal-bronze.svg'
-import photoUser from '@/../public/images/avatar.png'
-import Image from 'next/image'
-import { UserRanking } from './User'
+import gold from '@/../public/icons/Ranking/medal-gold-winner.svg';
+import silver from '@/../public/icons/Ranking/medal-silver.svg';
+import bronze from '@/../public/icons/Ranking/medal-bronze.svg';
+import photoUser from '@/../public/images/avatar.png';
+import { UserRanking } from './User';
 
 export function MinimalRanking() {
   return (
@@ -43,5 +42,5 @@ export function MinimalRanking() {
         <UserRanking position={150} name="Você" userAvatarSrc={photoUser.src} />
       </ul>
     </section>
-  )
+  );
 }

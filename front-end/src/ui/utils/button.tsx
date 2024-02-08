@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 interface propsButton extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  outline?: boolean
+  outline?: boolean;
 }
 
 export function Button({
@@ -16,11 +16,11 @@ export function Button({
       font-semibold
       p-3
       rounded-md
-      ${props.outline ? 'border' : 'bg-secundary'}
+      ${props.outline ? 'border' : 'bg-third'}
       ${props.className} 
       `}
     >
       {children}
     </button>
-  )
+  );
 }

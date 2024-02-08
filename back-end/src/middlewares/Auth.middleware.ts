@@ -1,8 +1,8 @@
-import { FastifyReply, FastifyRequest, HookHandlerDoneFunction } from 'fastify';
-import { verify } from 'jsonwebtoken';
-import { UserRepository } from '../repositories/User/User.repository';
-import { Users } from '@prisma/client';
-import { z } from 'zod';
+import { FastifyReply, FastifyRequest, HookHandlerDoneFunction } from "fastify";
+import { verify } from "jsonwebtoken";
+import { UserRepository } from "../repositories/User/User.repository";
+import { Users } from "@prisma/client";
+import { z } from "zod";
 
 interface IcaseRole {
   user: Users | null;
@@ -16,7 +16,7 @@ const notAuthorized = (reply: FastifyReply) => {
   reply.code(401);
   reply.send({
     statusCode: 401,
-    message: 'Unauthorized',
+    message: "Unauthorized",
   });
 };
 
@@ -26,7 +26,7 @@ const caseRole = {
     done();
   },
   student: ({ user, req, reply, method, done }: IcaseRole) => {
-    if (method.includes('GET')) {
+    if (method.includes("GET")) {
       req.headers.userId = user?.id;
       return done();
     }
@@ -34,7 +34,7 @@ const caseRole = {
     reply.code(403);
     reply.send({
       statusCode: 403,
-      message: 'Forbidden: Students are only allowed to perform GET requests.',
+      message: "Forbidden: Students are only allowed to perform GET requests.",
     });
   },
   teacher: ({ user, req, reply, method, done }: IcaseRole) => {
@@ -49,7 +49,7 @@ export const auth = (
   done: HookHandlerDoneFunction,
 ) => {
   const { method } = req;
-  const token = req.headers['x-access-token'] as string;
+  const token = req.headers["x-access-token"] as string;
 
   if (token) {
     try {
@@ -82,7 +82,7 @@ export const auth = (
 
         if (!currentUser) return notAuthorized(reply);
 
-        const role = currentUser?.role as 'dev' | 'student' | 'teacher';
+        const role = currentUser?.role as "dev" | "student" | "teacher";
 
         if (!role || !Object.keys(caseRole).includes(role)) {
           notAuthorized(reply);
@@ -100,7 +100,7 @@ export const auth = (
       reply.code(500);
       reply.send({
         statusCode: 500,
-        message: 'Internal Server Error',
+        message: "Internal Server Error",
       });
     }
 

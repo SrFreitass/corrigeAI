@@ -1,7 +1,7 @@
-import { IRegister, IRegisterError } from '@/models/auth/register.interface'
-import axios, { AxiosError } from 'axios'
-import { SetStateAction } from 'react'
-import toast from 'react-hot-toast'
+import { IRegister, IRegisterError } from '@/models/auth/register.interface';
+import axios, { AxiosError } from 'axios';
+import { SetStateAction } from 'react';
+import toast from 'react-hot-toast';
 
 export const postRegister = async ({
   name,
@@ -10,11 +10,11 @@ export const postRegister = async ({
   checkbox,
   setErrorForm,
 }: {
-  name?: string
-  email?: string
-  password?: string
-  checkbox?: boolean
-  setErrorForm: React.Dispatch<SetStateAction<Set<string>>>
+  name?: string;
+  email?: string;
+  password?: string;
+  checkbox?: boolean;
+  setErrorForm: React.Dispatch<SetStateAction<Set<string>>>;
 }) => {
   try {
     const res = await axios.post<IRegister>(
@@ -24,23 +24,28 @@ export const postRegister = async ({
         password,
         name,
       },
-    )
+    );
 
-    toast.success('Cadastro efetuado com sucesso!')
-    sessionStorage.setItem('token', res.data.data.token)
+    toast.success('Cadastro efetuado com sucesso!');
+    if (checkbox) {
+      localStorage.setItem('token', res.data.data.token);
+      return;
+    }
 
-    setErrorForm(new Set())
+    sessionStorage.setItem('token', res.data.data.token);
+
+    setErrorForm(new Set());
   } catch (error) {
     if (error instanceof AxiosError) {
-      const errorRes = error.response?.data as IRegisterError
+      const errorRes = error.response?.data as IRegisterError;
 
       if (errorRes.error.issues[0].message === 'E-mail already exists') {
-        setErrorForm(new Set(['EMAIL_ALREDY_EXISTS']))
-        toast.error('E-mail já cadastrado!')
-        return
+        setErrorForm(new Set(['EMAIL_ALREDY_EXISTS']));
+        toast.error('E-mail já cadastrado!');
+        return;
       }
 
-      throw new Error('Unexpected Error')
+      throw new Error('Unexpected Error');
     }
   }
-}
+};

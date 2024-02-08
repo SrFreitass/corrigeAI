@@ -1,5 +1,5 @@
 export const themes = {
   colors: {
-    primary: '#32334A',
+    primary: '#5183cf',
   },
-}
+};

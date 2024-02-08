@@ -1,13 +1,13 @@
-import { Transporter, createTransport } from 'nodemailer';
-import { z } from 'zod';
-import { SendEmailInputDTO } from '../../dto/Email.dto';
+import { Transporter, createTransport } from "nodemailer";
+import { z } from "zod";
+import { SendEmailInputDTO } from "../../dto/Email.dto";
 
 export class SendEmailUseCase {
   private transporter: Transporter;
 
   constructor() {
     this.transporter = createTransport({
-      service: 'Gmail',
+      service: "Gmail",
       auth: {
         user: process.env.CLIENT_EMAIL,
         pass: process.env.CLIENT_EMAIL_PASS,

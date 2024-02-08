@@ -1,18 +1,18 @@
-'use client'
+'use client';
 
-import { MinimalRanking } from '@/components/MinimalRanking'
-import MenuAside from '../components/MenuAside'
-import Overview from '../components/Overview'
-import { TopSubjects } from '@/components/TopSubjects'
-import { EssayStatistics } from '@/components/EssayStatistics'
-import { createTheme, ThemeProvider } from '@mui/material'
-import { Header } from '@/components/Header'
+import { MinimalRanking } from '@/components/MinimalRanking';
+import MenuAside from '../components/MenuAside';
+import Overview from '../components/Overview';
+import { TopSubjects } from '@/components/TopSubjects';
+import { EssayStatistics } from '@/components/EssayStatistics';
+import { createTheme, ThemeProvider } from '@mui/material';
+import { Header } from '@/components/Header';
 
 const theme = createTheme({
   typography: {
     fontFamily: '__POPPINS_91BE14',
   },
-})
+});
 
 export default function Home() {
   return (
@@ -30,5 +30,5 @@ export default function Home() {
         </div>
       </div>
     </ThemeProvider>
-  )
+  );
 }

@@ -1,11 +1,11 @@
-import Image from 'next/image'
+import Image from 'next/image';
 
 type UserRankingProps = {
-  userAvatarSrc: string
-  medalSrc?: string
-  name: string
-  position: number
-}
+  userAvatarSrc: string;
+  medalSrc?: string;
+  name: string;
+  position: number;
+};
 
 export function UserRanking({
   userAvatarSrc,
@@ -27,5 +27,5 @@ export function UserRanking({
         <Image src={medalSrc} width={28} alt="Medalha de primeiro Lugar" />
       )}
     </li>
-  )
+  );
 }
