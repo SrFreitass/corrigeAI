@@ -1,23 +1,21 @@
-import fastify from 'fastify'
-import { Router } from './src/routers/router'
-import cors from '@fastify/cors'
+import fastify from 'fastify';
+import { Router } from './src/routers/router';
+import cors from '@fastify/cors';
+import { Console } from 'console';
 
-const { ADDRESS = 'localhost', PORT = '8080' } = process.env
 // Instace Fastify
-const app = fastify()
+const app = fastify();
 
 // Initialization Routes
-const router = new Router()
-app.register(router.handle)
+const router = new Router();
+app.register(router.handle);
 app.register(cors, {
   origin: '*',
   methods: ['GET', 'PUT', 'DELETE', 'POST'],
-})
+});
 
-app.listen({ host: ADDRESS, port: Number(PORT) }, (err, address) => {
-  try {
-    console.log('Listen', address)
-  } catch (err) {
-    process.exit(1)
-  }
-})
+app.listen({ port: 8080 }, (err, address) => {
+  console.log('Listen', address);
+
+  console.log(err);
+});

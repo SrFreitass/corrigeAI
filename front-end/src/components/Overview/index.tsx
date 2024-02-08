@@ -1,8 +1,8 @@
-import { Card } from './Card'
-import iconQuestion from '@/../public/icons/Icon.svg'
-import iconPaper from '@/../public/icons/Icon2.svg'
-import iconPlay from '@/../public/icons/Icon3.svg'
-import iconPen from '@/../public/icons/Icon4.svg'
+import { Card } from './Card';
+import iconQuestion from '@/../public/icons/Icon.svg';
+import iconPaper from '@/../public/icons/Icon2.svg';
+import iconPlay from '@/../public/icons/icon3.svg';
+import iconPen from '@/../public/icons/Icon4.svg';
 
 export default function Overview() {
   return (
@@ -42,5 +42,5 @@ export default function Overview() {
         />
       </div>
     </section>
-  )
+  );
 }
