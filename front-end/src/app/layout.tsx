@@ -2,10 +2,9 @@
 
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
-import bg from '@/../public/images/bg.png';
+import { useEffect, useState } from 'react';
+import { ThemeContext } from '../context';
 import './globals.css';
-import { createContext, useEffect, useState } from 'react';
-import { ThemeContext } from './context';
 
 const poppins = Poppins({
   subsets: ['devanagari'],
@@ -34,10 +33,7 @@ export default function RootLayout({
   }, []);
 
   const [theme, setTheme] = useState<'light' | 'dark'>(
-    (localStorage.getItem('theme') === 'light' && 'light') ||
-      window.matchMedia('(prefers-color-scheme: light)')
-      ? 'light'
-      : 'dark',
+    window.matchMedia('(prefers-color-scheme: light)') ? 'light' : 'dark',
   );
 
   return (
@@ -49,7 +45,7 @@ export default function RootLayout({
     >
       <html lang="pt-BR" className="bg-[#FAFBFC] ">
         <body
-          className={`${poppins.className} dark:bg-[#05071D] dark:bg-bg bg-center bg-cover bg-no-repeat w-screen min-h-screen`}
+          className={`${poppins.className} dark:bg-[#05071D] dark:bg-bg bg-center bg-cover bg-no-repeat w-full min-h-screen`}
         >
           {children}
         </body>

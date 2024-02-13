@@ -19,15 +19,15 @@ export const prompt = `
     Considere que a cada '\n' é uma quebra de linha.
     
     Peço que formate a redação de acordo com o seguinte padrão:
-    Copetência 1: [Pontuação] | Explique o que você avaliou para dar essa pontuação |
+    Competência 1: [Pontuação] | Explique o que você avaliou para dar essa pontuação |
     
-    Copetência 2: [Pontuação] | Explique o que você avaliou para dar essa pontuação |
+    Competência 2: [Pontuação] | Explique o que você avaliou para dar essa pontuação |
     
-    Copetência 3: [Pontuação] | Explique o que você avaliou para dar essa pontuação |
+    Competência 3: [Pontuação] | Explique o que você avaliou para dar essa pontuação |
     
-    Copetência 4: [Pontuação] | Explique o que você avaliou para dar essa pontuação |
+    Competência 4: [Pontuação] | Explique o que você avaliou para dar essa pontuação |
     
-    Copetência 5: [Pontuação] | Explique o que você avaliou para dar essa pontuação |
+    Competência 5: [Pontuação] | Explique o que você avaliou para dar essa pontuação |
     
     Margem de erro de I.A: [%]
     

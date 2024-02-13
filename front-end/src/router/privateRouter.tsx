@@ -1,33 +1,33 @@
-'use client'
+'use client';
 
-import { verifyToken } from '@/app/http/get.verifyToken'
-import { RedirectType, redirect, useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { verifyToken } from '@/http/get.verifyToken';
+import { RedirectType, redirect } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export function PrivateRouter({ children }: { children: React.ReactNode }) {
-  const [auth, setAuth] = useState('LOADING')
+  const [auth, setAuth] = useState('LOADING');
 
   useEffect(() => {
     const verify = async () => {
-      const tokenSession = sessionStorage.getItem('token')
-      const tokenStorage = localStorage.getItem('token')
+      const tokenSession = sessionStorage.getItem('token');
+      const tokenStorage = localStorage.getItem('token');
 
       try {
         if (tokenSession) {
-          await verifyToken({ token: tokenSession })
-          setAuth('AUTHORIZED')
+          await verifyToken({ token: tokenSession });
+          setAuth('AUTHORIZED');
         }
 
         if (tokenStorage) {
-          await verifyToken({ token: tokenStorage })
-          setAuth('AUTHORIZED')
+          await verifyToken({ token: tokenStorage });
+          setAuth('AUTHORIZED');
         }
       } catch (error) {
-        setAuth('UNAUTHORIZED')
+        setAuth('UNAUTHORIZED');
       }
-    }
-    verify()
-  }, [])
+    };
+    verify();
+  }, []);
 
   return (
     <>
@@ -35,5 +35,5 @@ export function PrivateRouter({ children }: { children: React.ReactNode }) {
       {auth === 'AUTHORIZED' && <>{children}</>}
       {auth === 'UNAUTHORIZED' && redirect('/auth/login', RedirectType.replace)}
     </>
-  )
+  );
 }

@@ -1,15 +1,15 @@
-import { Users } from '@prisma/client';
-import { BaseClassRepository } from '../../repositories/BaseClass.repository';
-import { z } from 'zod';
+import { Users } from "@prisma/client";
+import { z } from "zod";
+import { BaseClassRepository } from "../../repositories/BaseClass.repository";
 
 export class VerifyEmailUseCase {
   constructor(private readonly userRepository: BaseClassRepository<Users>) {}
 
   async execute(userId: string) {
-    z.string().uuid({ message: 'Invalid user' });
+    z.string().uuid({ message: "Invalid user" });
     const user = await this.userRepository.findOne({ id: userId });
 
-    if (user?.email_verified) throw new Error('User is not valid');
+    if (user?.email_verified) throw new Error("User is not valid");
 
     const userVerfied = await this.userRepository.update(userId, {
       item: { email_verified: true },

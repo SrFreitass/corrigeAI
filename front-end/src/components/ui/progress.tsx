@@ -1,15 +1,15 @@
-'use client'
+'use client';
 
-import * as React from 'react'
-import * as ProgressPrimitive from '@radix-ui/react-progress'
+import * as React from 'react';
+import * as ProgressPrimitive from '@radix-ui/react-progress';
 
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/utils';
 
 interface propsProgress extends React.ButtonHTMLAttributes<HTMLDivElement> {
-  bgPrimary: string
-  bgSecundary: string
-  value: number
-  max: number
+  bgPrimary: string;
+  bgSecundary: string;
+  value: number;
+  max: number;
 }
 
 const Progress = React.forwardRef<HTMLDivElement, propsProgress>(
@@ -29,7 +29,7 @@ const Progress = React.forwardRef<HTMLDivElement, propsProgress>(
       />
     </ProgressPrimitive.Root>
   ),
-)
-Progress.displayName = ProgressPrimitive.Root.displayName
+);
+Progress.displayName = ProgressPrimitive.Root.displayName;
 
-export { Progress }
+export { Progress };

@@ -3,14 +3,30 @@
 @tailwind utilities;
 
 
-* {
-    transition: all 0.3s ease-in-out;
-}
+
 
 tspan {
     @apply fill-primary dark:fill-white;
 }   
 
+.dark .css-1u2hdaw-MuiChartsAxisHighlight-root {
+    stroke: white !important;
+}
+
+line {
+    stroke: #05004E !important;
+}
+
+.dark line {
+    stroke: white !important;
+}
+
 textarea {
     transition: none;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    height: 30px;
+    border-radius: 20px;
 }

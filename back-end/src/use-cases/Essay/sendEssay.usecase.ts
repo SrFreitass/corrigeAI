@@ -1,10 +1,10 @@
-import axios from 'axios';
-import { z } from 'zod';
-import { prompt } from './prompt';
-import { BaseClassRepository } from '../../repositories/BaseClass.repository';
+import axios from "axios";
+import { z } from "zod";
+import { BaseClassRepository } from "../../repositories/BaseClass.repository";
+import { prompt } from "./prompt";
 
-import { Essays } from '@prisma/client';
-import { EssayInputDTO } from '../../dto/Essay.dto';
+import { Essays } from "@prisma/client";
+import { EssayInputDTO } from "../../dto/Essay.dto";
 
 interface IResponseEssay {
   data: {
@@ -52,10 +52,10 @@ export class SendEssayUseCase {
 
     const { data } = res;
     const result = data.candidates[0].content.parts[0].text;
-    const points = Number(result.split('\nNota final:')[1]);
+    const points = Number(result.split("\nNota final:")[1]);
 
     if (isNaN(points)) {
-      throw new Error('Points is not number');
+      throw new Error("Points is not number");
     }
 
     await this.essayRepository.create({

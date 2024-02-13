@@ -1,28 +1,28 @@
-'use client'
+'use client';
 
-import Image from 'next/image'
-import Link from 'next/link'
+import Image from 'next/image';
+import Link from 'next/link';
 
-import { usePathname } from 'next/navigation'
+import { usePathname } from 'next/navigation';
 
-import overview from '@/../public/icons/MenuAside/Graph 1.svg'
-import graph from '@/../public/icons/MenuAside/Group.svg'
-import filePlus from '@/../public/icons/MenuAside/file-plus 1.svg'
-import montarboard from '@/../public/icons/MenuAside/mortarboard-svgrepo-com 1.svg'
-import penNewSquare from '@/../public/icons/MenuAside/pen-new-square-svgrepo-com 1.svg'
-import star from '@/../public/icons/MenuAside/ranking-svgrepo-com 1.svg'
-import settings from '@/../public/icons/MenuAside/mdi_cog-outline.svg'
-import exit from '@/../public/icons/MenuAside/Sign Out Icon.svg'
-import logo from '@/../public/logo/dummy logo.svg'
+import overview from '@/../public/icons/MenuAside/Graph 1.svg';
+import graph from '@/../public/icons/MenuAside/Group.svg';
+import exit from '@/../public/icons/MenuAside/Sign Out Icon.svg';
+import filePlus from '@/../public/icons/MenuAside/file-plus 1.svg';
+import settings from '@/../public/icons/MenuAside/mdi_cog-outline.svg';
+import montarboard from '@/../public/icons/MenuAside/mortarboard-svgrepo-com 1.svg';
+import penNewSquare from '@/../public/icons/MenuAside/pen-new-square-svgrepo-com 1.svg';
+import star from '@/../public/icons/MenuAside/ranking-svgrepo-com 1.svg';
+import logo from '@/../public/logo/dummy logo.svg';
 
-import overviewWhite from '@/../public/icons/MenuAside/Graph 1 - white.svg'
-import graphWhite from '@/../public/icons/MenuAside/Group - white.svg'
-import filePlusWhite from '@/../public/icons/MenuAside/file-plus 1 - white.svg'
-import montarboardWhite from '@/../public/icons/MenuAside/mortarboard-svgrepo-com 1 - white.svg'
-import penNewSquareWhite from '@/../public/icons/MenuAside/pen-new-square-svgrepo-com 1 - white.svg'
-import starWhite from '@/../public/icons/MenuAside/ranking-svgrepo-com 1 - white.svg'
-import settingsWhite from '@/../public/icons/MenuAside/mdi_cog-outline - white.svg'
-import exitWhite from '@/../public/icons/MenuAside/Sign Out Icon - white.svg'
+import overviewWhite from '@/../public/icons/MenuAside/Graph 1 - white.svg';
+import graphWhite from '@/../public/icons/MenuAside/Group - white.svg';
+import exitWhite from '@/../public/icons/MenuAside/Sign Out Icon - white.svg';
+import filePlusWhite from '@/../public/icons/MenuAside/file-plus 1 - white.svg';
+import settingsWhite from '@/../public/icons/MenuAside/mdi_cog-outline - white.svg';
+import montarboardWhite from '@/../public/icons/MenuAside/mortarboard-svgrepo-com 1 - white.svg';
+import penNewSquareWhite from '@/../public/icons/MenuAside/pen-new-square-svgrepo-com 1 - white.svg';
+import starWhite from '@/../public/icons/MenuAside/ranking-svgrepo-com 1 - white.svg';
 
 const itemsNav = [
   {
@@ -35,13 +35,13 @@ const itemsNav = [
     content: 'Desempenho',
     icon: graph,
     iconActive: graphWhite,
-    link: '/essay',
+    link: '/performance',
   },
   {
     content: 'Redação',
     icon: filePlus,
     iconActive: filePlusWhite,
-    link: '',
+    link: '/essay',
   },
   {
     content: 'Curso',
@@ -73,17 +73,17 @@ const itemsNav = [
     iconActive: exitWhite,
     link: '',
   },
-]
+];
 
-export default function MenuAside() {
-  const path = usePathname()
+export function MenuAside() {
+  const path = usePathname();
 
   return (
     <aside className={`flex flex-col justify-start gap-12 min-h-screen p-8`}>
-      <div className="flex gap-6 items-center font-bold text-2xl">
+      <div className="flex gap-6 items-center pl-2">
         <Image src={logo} alt="Logo" width={48} height={48} />
-        <h1 className="text-[#151D48] dark:text-white">
-          Corrigi<span className="text-[#247CFF]">AI</span>
+        <h1 className="text-[#151D48] dark:text-white font-bold text-2xl">
+          Estuda<span className="text-[#247CFF]">AI</span>
         </h1>
       </div>
 
@@ -92,7 +92,7 @@ export default function MenuAside() {
           return (
             <li
               key={index}
-              className={`dark:text-white ${path === item.link ? 'p-3 bg-third rounded-2xl text-white font-semibold' : ''}`}
+              className={`dark:text-white pl-2 ${path === item.link ? 'py-3 bg-third rounded-2xl text-white font-semibold' : ''}`}
             >
               <Link
                 href={item.link}
@@ -106,9 +106,9 @@ export default function MenuAside() {
                 {item.content}
               </Link>
             </li>
-          )
+          );
         })}
       </ul>
     </aside>
-  )
+  );
 }

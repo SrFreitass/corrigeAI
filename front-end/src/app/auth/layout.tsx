@@ -1,11 +1,11 @@
-import Image from 'next/image'
-import React from 'react'
-import logo from '../../../public/logo/corrigiAI_logo.svg'
+import Image from 'next/image';
+import React from 'react';
+import logo from '../../../public/logo/corrigiAI_logo.svg';
 
 export default function PageLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <>
@@ -14,5 +14,5 @@ export default function PageLayout({
       </header>
       {children}
     </>
-  )
+  );
 }

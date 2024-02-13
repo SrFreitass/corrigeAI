@@ -1,6 +1,6 @@
-import { z } from 'zod';
-import { BaseClassRepository } from '../../repositories/BaseClass.repository';
-import { Answers } from '@prisma/client';
+import { Answers } from "@prisma/client";
+import { z } from "zod";
+import { BaseClassRepository } from "../../repositories/BaseClass.repository";
 
 export class getAnswerByLectureIdUseCase {
   constructor(

@@ -1,8 +1,8 @@
-import { FastifyReply, FastifyRequest } from 'fastify';
-import { SendEssayUseCase } from '../../use-cases/Essay/sendEssay.usecase';
-import { EssayRepository } from '../../repositories/Essay/Essay.repository';
-import { EssayInputDTO } from '../../dto/Essay.dto';
-import { errorHandling } from '../../utils/error/error.function';
+import { FastifyReply, FastifyRequest } from "fastify";
+import { SendEssayUseCase } from "../../use-cases/Essay/sendEssay.usecase";
+import { EssayRepository } from "../../repositories/Essay/Essay.repository";
+import { EssayInputDTO } from "../../dto/Essay.dto";
+import { errorHandling } from "../../utils/error/error.function";
 
 class EssayController {
   async sendEssay(req: FastifyRequest, reply: FastifyReply) {
@@ -17,7 +17,7 @@ class EssayController {
 
       reply.send({
         statusCode: 200,
-        message: 'Corrected wording',
+        message: "Corrected wording",
         data: output,
       });
     } catch (error) {

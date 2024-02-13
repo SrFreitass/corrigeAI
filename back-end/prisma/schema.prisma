@@ -8,17 +8,17 @@ datasource db {
 }
 
 model Users {
-  id             String           @id @default(uuid())
+  id             String        @id @default(uuid())
   name           String
-  email          String           @unique
+  email          String        @unique
   password       String
-  role           String           @default("student")
-  points         Int              @default(0)
-  createdAt      DateTime         @default(now())
-  email_verified Boolean          @default(false)
+  role           String        @default("student")
+  points         Int           @default(0)
+  createdAt      DateTime      @default(now())
+  email_verified Boolean       @default(false)
   Answers        Answers[]
   Lectures       Lectures[]
-  Essays          Essays[]
+  EssaysUsers    EssaysUsers[]
 }
 
 model Lectures {
@@ -60,11 +60,11 @@ model EnemSubjects {
 }
 
 model SchoolSubjects {
-  id             String           @id @default(uuid())
+  id             String       @id @default(uuid())
   name           String
   enemSubject_id String
   Lectures       Lectures[]
-  enemsubjects   EnemSubjects     @relation(fields: [enemSubject_id], references: [id])
+  enemsubjects   EnemSubjects @relation(fields: [enemSubject_id], references: [id])
 }
 
 model Answers {
@@ -80,12 +80,22 @@ model Answers {
   Users      Users    @relation(fields: [user_id], references: [id])
 }
 
+model EssaysUsers {
+  id        String   @id @default(uuid())
+  user_id   String
+  createdAt DateTime @default(now())
+  theme     String
+  essay     String
+  points    Int
+  Users     Users    @relation(fields: [user_id], references: [id])
+}
+
 model Essays {
-  id         String   @id @default(uuid())
-  user_id    String
-  createdAt  DateTime @default(now())
-  theme      String
-  essay      String
-  points     Int
-  Users      Users    @relation(fields: [user_id], references: [id])
+  id        String   @id @default(uuid())
+  essay_img String
+  title     String
+  texts     String[]
+  year      Int
+  entity    String
+  createdAt DateTime @default(now())
 }

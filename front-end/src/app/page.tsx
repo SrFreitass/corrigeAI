@@ -1,12 +1,12 @@
 'use client';
 
-import { MinimalRanking } from '@/components/MinimalRanking';
-import MenuAside from '../components/MenuAside';
-import Overview from '../components/Overview';
-import { TopSubjects } from '@/components/TopSubjects';
-import { EssayStatistics } from '@/components/EssayStatistics';
+import { EssayStatistics } from '@/app/components/EssayStatistics';
+import { MinimalRanking } from '@/app/components/MinimalRanking';
+import { TopSubjects } from '@/app/components/TopSubjects';
 import { createTheme, ThemeProvider } from '@mui/material';
-import { Header } from '@/components/Header';
+import { Header } from '../components/Header';
+import { MenuAside } from '../components/MenuAside';
+import { Overview } from './components/Overview';
 
 const theme = createTheme({
   typography: {

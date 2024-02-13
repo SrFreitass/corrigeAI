@@ -1,8 +1,8 @@
-import { z } from 'zod';
-import { Lectures } from '@prisma/client';
-import { LectureInputDTO, LectureOutputDTO } from '../../dto/Lecure.dto';
-import { BaseClassRepository } from '../../repositories/BaseClass.repository';
-import { SchoolSubjectRepository } from '../../repositories/SchoolSubjects/SchoolSubjects.repository';
+import { z } from "zod";
+import { Lectures } from "@prisma/client";
+import { LectureInputDTO, LectureOutputDTO } from "../../dto/Lecure.dto";
+import { BaseClassRepository } from "../../repositories/BaseClass.repository";
+import { SchoolSubjectRepository } from "../../repositories/SchoolSubjects/SchoolSubjects.repository";
 
 export class CreateLectureUseCase {
   constructor(

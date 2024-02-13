@@ -1,26 +1,26 @@
-import { Avatar } from '@/ui/utils/avatar'
-import { Input } from '@/ui/utils/input'
-import avatar from '@/../public/images/avatar.png'
-import { PiMagnifyingGlass } from 'react-icons/pi'
-import { Switch } from '@mui/material'
-import { useContext, useState } from 'react'
-import { ThemeContext } from '@/app/context'
+import avatar from '@/../public/images/avatar.png';
+import { Avatar } from '@/components/ui/commons/avatar';
+import { Input } from '@/components/ui/commons/input';
+import { ThemeContext } from '@/context';
+import { Switch } from '@mui/material';
+import { useContext } from 'react';
+import { PiMagnifyingGlass } from 'react-icons/pi';
 
 export function Header() {
-  const Theme = useContext(ThemeContext)
+  const Theme = useContext(ThemeContext);
 
   const handleTheme = () => {
-    Theme?.setTheme(Theme.theme === 'light' ? 'dark' : 'light')
+    Theme?.setTheme(Theme.theme === 'light' ? 'dark' : 'light');
     if (Theme?.theme === 'light') {
-      document.documentElement.classList.add('dark')
-      localStorage.setItem('theme', 'dark')
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
     } else {
-      document.documentElement.classList.remove('dark')
-      localStorage.setItem('theme', 'light')
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
     }
-  }
+  };
 
-  console.log()
+  console.log();
 
   return (
     <header className="px-10 py-8 w-full flex items-center justify-between">
@@ -47,5 +47,5 @@ export function Header() {
         </div>
       </div>
     </header>
-  )
+  );
 }

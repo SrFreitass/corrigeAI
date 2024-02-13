@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import { Button } from '@/ui/utils/button'
-import Image from 'next/image'
+import { Button } from '@/components/ui/commons/button';
+import Image from 'next/image';
 
 export default function VerifyEmail() {
   return (
@@ -23,5 +23,5 @@ export default function VerifyEmail() {
       </div>
       <Button className="bg-third">Reenviar e-mail</Button>
     </main>
-  )
+  );
 }
