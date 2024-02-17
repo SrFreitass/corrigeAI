@@ -2,9 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
-
 tspan {
     @apply fill-primary dark:fill-white;
 }   
