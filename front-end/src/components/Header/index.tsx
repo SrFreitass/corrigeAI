@@ -20,8 +20,6 @@ export function Header() {
     }
   };
 
-  console.log();
-
   return (
     <header className="px-10 py-8 w-full flex items-center justify-between">
       <div>
@@ -43,7 +41,7 @@ export function Header() {
           <span className="font-medium text-primary dark:text-white">
             Freitas
           </span>
-          <span className="text-secundary dark:">Estudante</span>
+          <span className="text-secundary dark:">Desenvolvedor</span>
         </div>
       </div>
     </header>

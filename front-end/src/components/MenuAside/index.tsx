@@ -47,7 +47,7 @@ const itemsNav = [
     content: 'Curso',
     icon: montarboard,
     iconActive: montarboardWhite,
-    link: '',
+    link: '/courses',
   },
   {
     content: 'Simulado',
@@ -92,7 +92,7 @@ export function MenuAside() {
           return (
             <li
               key={index}
-              className={`dark:text-white pl-2 ${path === item.link ? 'py-3 bg-third rounded-2xl text-white font-semibold' : ''}`}
+              className={`text-primary dark:text-white pl-2 ${path === item.link ? 'py-3 bg-third rounded-2xl text-white font-semibold' : ''}`}
             >
               <Link
                 href={item.link}

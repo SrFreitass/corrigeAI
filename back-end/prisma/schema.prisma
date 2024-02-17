@@ -8,48 +8,64 @@ datasource db {
 }
 
 model Users {
-  id             String        @id @default(uuid())
-  name           String
-  email          String        @unique
-  password       String
-  role           String        @default("student")
-  points         Int           @default(0)
-  createdAt      DateTime      @default(now())
-  email_verified Boolean       @default(false)
-  Answers        Answers[]
-  Lectures       Lectures[]
-  EssaysUsers    EssaysUsers[]
+  id               String             @id @default(uuid())
+  name             String
+  email            String             @unique
+  password         String
+  role             String             @default("student")
+  points           Int                @default(0)
+  createdAt        DateTime           @default(now())
+  email_verified   Boolean            @default(false)
+  Answers          AnswersLectures[]
+  Lectures         Lectures[]
+  EssaysUsers      EssaysUsers[]
+  AnswersQuestions AnswersQuestions[]
 }
 
 model Lectures {
-  id               String         @id @default(uuid())
+  id               String            @id @default(uuid())
   title            String
   description      String
   teacher_id       String
-  createdAt        DateTime       @default(now())
+  createdAt        DateTime          @default(now())
   updateAt         DateTime?
   schoolSubject_id String
   enemSubject_id   String
-  Answers          Answers[]
-  enemSubject      EnemSubjects   @relation(fields: [enemSubject_id], references: [id])
-  schoolSubject    SchoolSubjects @relation(fields: [schoolSubject_id], references: [id])
-  Teacher          Users          @relation(fields: [teacher_id], references: [id])
+  Answers          AnswersLectures[]
+  enemSubject      EnemSubjects      @relation(fields: [enemSubject_id], references: [id])
+  schoolSubject    SchoolSubjects    @relation(fields: [schoolSubject_id], references: [id])
+  Teacher          Users             @relation(fields: [teacher_id], references: [id])
   Lessons          Lessons[]
 }
 
 model Lessons {
-  id             String    @id @default(uuid())
+  id             String            @id @default(uuid())
   title          String
   description    String
   lecture_id     String
   image_url      String?
   options        String[]
-  createdAt      DateTime  @default(now())
+  createdAt      DateTime          @default(now())
   answer         Int
   answer_img_url String?
   answer_text    String?
-  Answers        Answers[]
-  lecture        Lectures  @relation(fields: [lecture_id], references: [id])
+  Answers        AnswersLectures[]
+  lecture        Lectures          @relation(fields: [lecture_id], references: [id])
+}
+
+model Questions {
+  id               String             @id @default(uuid())
+  year             Int
+  entity           String
+  question         String
+  description      String[]
+  figures          String[]
+  options          String[]
+  answer           String
+  createdAt        DateTime           @default(now())
+  enemSubject_id   String
+  enemSubject      EnemSubjects       @relation(fields: [enemSubject_id], references: [id])
+  AnswersQuestions AnswersQuestions[]
 }
 
 model EnemSubjects {
@@ -57,6 +73,7 @@ model EnemSubjects {
   name           String
   Lectures       Lectures[]
   SchoolSubjects SchoolSubjects[]
+  Questions      Questions[]
 }
 
 model SchoolSubjects {
@@ -67,7 +84,18 @@ model SchoolSubjects {
   enemsubjects   EnemSubjects @relation(fields: [enemSubject_id], references: [id])
 }
 
-model Answers {
+model AnswersQuestions {
+  id          String    @id @default(uuid())
+  question_id String
+  user_id     String
+  correct     Boolean
+  createdAt   DateTime  @default(now())
+  option      Int
+  Questions   Questions @relation(fields: [question_id], references: [id])
+  Users       Users     @relation(fields: [user_id], references: [id])
+}
+
+model AnswersLectures {
   id         String   @id @default(uuid())
   lesson_id  String
   lecture_id String
@@ -81,13 +109,17 @@ model Answers {
 }
 
 model EssaysUsers {
-  id        String   @id @default(uuid())
-  user_id   String
-  createdAt DateTime @default(now())
-  theme     String
-  essay     String
-  points    Int
-  Users     Users    @relation(fields: [user_id], references: [id])
+  id          String   @id @default(uuid())
+  user_id     String
+  createdAt   DateTime @default(now())
+  theme       String
+  essay       String
+  copetence_1 Int
+  copetence_2 Int
+  copetence_3 Int
+  copetence_4 Int
+  copetence_5 Int
+  Users       Users    @relation(fields: [user_id], references: [id])
 }
 
 model Essays {

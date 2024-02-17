@@ -1,5 +1,6 @@
 import cors from "@fastify/cors";
 import fastifyStatic from "@fastify/static";
+import console from "console";
 import fastify from "fastify";
 import path from "path";
 import { Router } from "./src/routers/router";
