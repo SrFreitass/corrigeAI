@@ -2,7 +2,7 @@
 
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ThemeContext } from '../context';
 import './globals.css';
 
@@ -21,19 +21,20 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  useEffect(() => {
-    if (
-      window.matchMedia('(prefers-color-scheme: dark)').matches ||
-      localStorage.getItem('theme') === 'dark'
-    ) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (
+  //     window.matchMedia('(prefers-color-scheme: dark)').matches ||
+  //     localStorage.getItem('theme') === 'dark'
+  //   ) {
+  //     document.documentElement.classList.add('dark');
+  //   } else {
+  //     document.documentElement.classList.remove('dark');
+  //   }
+  // }, []);
 
   const [theme, setTheme] = useState<'light' | 'dark'>(
-    window.matchMedia('(prefers-color-scheme: light)') ? 'light' : 'dark',
+    'light',
+    // window.matchMedia('(prefers-color-scheme: light)') ? 'light' : 'dark',
   );
 
   return (
