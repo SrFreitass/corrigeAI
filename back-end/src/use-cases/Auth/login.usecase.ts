@@ -1,9 +1,9 @@
-import { z } from 'zod';
-import { LoginInputDTO, LoginOutputDTO } from '../../dto/Auth.dto';
-import { Users } from '@prisma/client';
-import { compareSync } from 'bcrypt';
-import { BaseClassRepository } from '../../repositories/BaseClass.repository';
-import { sign } from 'jsonwebtoken';
+import { Users } from "@prisma/client";
+import { compareSync } from "bcrypt";
+import { sign } from "jsonwebtoken";
+import { z } from "zod";
+import { LoginInputDTO, LoginOutputDTO } from "../../dto/Auth.dto";
+import { BaseClassRepository } from "../../repositories/BaseClass.repository";
 
 export class LoginUserUseCase {
   constructor(private readonly userRepository: BaseClassRepository<Users>) {}
@@ -20,14 +20,14 @@ export class LoginUserUseCase {
 
     const user = await this.userRepository.findOne({ item: email });
 
-    z.string({ errorMap: () => ({ message: 'Email is incorrect' }) }).parse(
+    z.string({ errorMap: () => ({ message: "Email is incorrect" }) }).parse(
       user?.email,
     );
 
     const passwordMatch = compareSync(`${password}`, `${user?.password}`);
 
     z.literal(true, {
-      errorMap: () => ({ message: 'Your password does not match' }),
+      errorMap: () => ({ message: "Your password does not match" }),
     }).parse(passwordMatch);
 
     const token = sign(
@@ -36,10 +36,10 @@ export class LoginUserUseCase {
         email: user?.email,
       },
       `${process.env.SECRET_TOKEN}`,
-      { expiresIn: '1Y' },
+      { expiresIn: "1Y" },
     );
 
-    if (!token) throw new Error('Token was not generated');
+    if (!token) throw new Error("Token was not generated");
 
     return {
       token,

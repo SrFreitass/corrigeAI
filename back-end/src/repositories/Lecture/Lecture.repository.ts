@@ -1,8 +1,27 @@
-import { prisma } from '../../../prisma';
-import { Lectures } from '@prisma/client';
-import { BaseClassRepository } from '../BaseClass.repository';
+import { Lectures } from "@prisma/client";
+import { prisma } from "../../../prisma";
+import { BaseClassRepository } from "../BaseClass.repository";
 
 export class LectureRepository extends BaseClassRepository<Lectures> {
+  findWithOrderBy(
+    orderBy: { [key: string]: "asc" | "desc" } | null,
+    offset: number,
+    limit: number,
+  ): Promise<
+    {
+      id: string;
+      title: string;
+      description: string;
+      video_url: string;
+      teacher_id: string;
+      createdAt: Date;
+      updateAt: Date | null;
+      course_id: string;
+    }[]
+  > {
+    throw new Error("Method not implemented.");
+  }
+
   async create(item: Lectures): Promise<Lectures> {
     const lectureCreated = await prisma.lectures.create({
       data: {
@@ -14,7 +33,7 @@ export class LectureRepository extends BaseClassRepository<Lectures> {
   }
 
   async updateMany(): Promise<Lectures[]> {
-    throw new Error('Method not implemented.');
+    throw new Error("Method not implemented.");
   }
 
   async delete(id: string): Promise<Lectures> {
@@ -44,7 +63,7 @@ export class LectureRepository extends BaseClassRepository<Lectures> {
   }
 
   async createMany(item: Lectures[]): Promise<Lectures[]> {
-    throw new Error('Method not implemented');
+    throw new Error("Method not implemented");
   }
 
   async find(offset: number, limit: number): Promise<Lectures[]> {
@@ -59,14 +78,10 @@ export class LectureRepository extends BaseClassRepository<Lectures> {
   async findManyWithWhere(where: { item: string }): Promise<Lectures[]> {
     const lectures = await prisma.lectures.findMany({
       where: {
-        OR: [
-          {
-            enemSubject_id: where.item,
-          },
-          {
-            schoolSubject_id: where.item,
-          },
-        ],
+        course_id: where.item,
+      },
+      include: {
+        Lessons: true,
       },
     });
 
@@ -80,11 +95,7 @@ export class LectureRepository extends BaseClassRepository<Lectures> {
     id?: string;
     item?: string;
   }): Promise<Lectures | null> {
-    const lecture = await prisma.lectures.findUnique({
-      where: {
-        id,
-      },
-    });
+    const lecture = await prisma.lectures.findUnique({});
 
     return lecture;
   }

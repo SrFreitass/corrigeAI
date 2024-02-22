@@ -1,18 +1,20 @@
 export interface ILogin {
-  statusCode: number
-  message: string
+  statusCode: number;
+  message: string;
   data: {
-    name: string
-    email: string
-    token: string
-    createdAt: Date
-  }
+    name: string;
+    email: string;
+    token: string;
+    createdAt: Date;
+  };
 }
 
 export interface ILoginError {
-  statusCode: number
+  statusCode: number;
   error: {
-    issues: [{ message: 'Your password does not match' | 'Email is incorrect' }]
-  }
-  data: []
+    issues: [
+      { message: 'Your password does not match' | 'Email is incorrect' },
+    ];
+  };
+  data: [];
 }

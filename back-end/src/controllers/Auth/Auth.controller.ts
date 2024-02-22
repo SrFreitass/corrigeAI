@@ -1,18 +1,17 @@
-import { FastifyReply, FastifyRequest } from 'fastify';
-import { LoginInputDTO, RegisterInputDTO } from '../../dto/Auth.dto';
-import { UserRepository } from '../../repositories/User/User.repository';
-import { ZodError } from 'zod';
-import { RegisterUserUseCase } from '../../use-cases/Auth/register.usecase';
-import { LoginUserUseCase } from '../../use-cases/Auth/login.usecase';
-import { errorHandling } from '../../utils/error/error.function';
+import { FastifyReply, FastifyRequest } from "fastify";
+import { LoginInputDTO, RegisterInputDTO } from "../../dto/Auth.dto";
+import { UserRepository } from "../../repositories/User/User.repository";
+import { LoginUserUseCase } from "../../use-cases/Auth/login.usecase";
+import { RegisterUserUseCase } from "../../use-cases/Auth/register.usecase";
+import { errorHandling } from "../../utils/error/error.function";
 
 class AuthController {
   async verifyToken(req: FastifyRequest, reply: FastifyReply) {
     try {
       return {
         statusCode: 200,
-        message: 'OK',
-        data: 'Token is valid',
+        message: "OK",
+        data: "Token is valid",
       };
     } catch (error) {
       errorHandling(error, reply);
@@ -27,7 +26,7 @@ class AuthController {
       reply.code(201);
       return {
         statusCode: 201,
-        message: 'Created',
+        message: "Created",
         data: output,
       };
     } catch (error) {
@@ -43,7 +42,7 @@ class AuthController {
       reply.code(200);
       return {
         statusCode: 200,
-        message: 'OK',
+        message: "OK",
         data: output,
       };
     } catch (error) {

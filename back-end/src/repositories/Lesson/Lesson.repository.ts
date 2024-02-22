@@ -1,8 +1,29 @@
-import { prisma } from '../../../prisma';
-import { BaseClassRepository } from '../BaseClass.repository';
-import { Lessons } from '@prisma/client';
+import { Lessons } from "@prisma/client";
+import { prisma } from "../../../prisma";
+import { BaseClassRepository } from "../BaseClass.repository";
 
 export class LessonRepository implements BaseClassRepository<Lessons> {
+  findWithOrderBy(
+    orderBy: { [key: string]: "asc" | "desc" } | null,
+    offset: number,
+    limit: number,
+  ): Promise<
+    {
+      id: string;
+      title: string;
+      description: string;
+      lecture_id: string;
+      image_url: string | null;
+      options: string[];
+      createdAt: Date;
+      answer: number;
+      answer_img_url: string | null;
+      answer_text: string | null;
+    }[]
+  > {
+    throw new Error("Method not implemented.");
+  }
+
   async find(): Promise<Lessons[]> {
     const lessons = await prisma.lessons.findMany();
 
@@ -29,11 +50,11 @@ export class LessonRepository implements BaseClassRepository<Lessons> {
     id?: string | undefined;
     item?: string | undefined;
   }): Promise<Lessons | null> {
-    throw new Error('Method not implemented.');
+    throw new Error("Method not implemented.");
   }
 
   async create(item: Lessons): Promise<Lessons> {
-    throw new Error('Method not implemented.');
+    throw new Error("Method not implemented.");
   }
 
   async createMany(item: Lessons[]): Promise<Lessons[]> {
@@ -61,7 +82,7 @@ export class LessonRepository implements BaseClassRepository<Lessons> {
   }
 
   async updateMany(): Promise<Lessons[]> {
-    throw new Error('Method not implemented.');
+    throw new Error("Method not implemented.");
   }
 
   async delete(id: string): Promise<Lessons> {

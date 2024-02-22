@@ -1,28 +1,26 @@
-import { FastifyReply, FastifyRequest } from 'fastify';
-import { LessonRepository } from '../../repositories/Lesson/Lesson.repository';
-import { ZodError } from 'zod';
-import { errorHandling } from '../../utils/error/error.function';
-import { CreateLessonsUseCase } from '../../use-cases/Lesson/createLessons.usecase';
-import { LessonInputDTO } from '../../dto/Lesson.dto';
-import { GetLessonByIdUseCase } from '../../use-cases/Lesson/getLessonById.usecase';
-import { GetLessonsByLectureIdUseCase } from '../../use-cases/Lesson/getLessonsByLectureId.usecase';
-import { UpdateLessonUseCase } from '../../use-cases/Lesson/updateLesson.usecase';
-import { DeleteLectureUseCase } from '../../use-cases/Lecture/deleteLecture.usecase';
-import { LectureRepository } from '../../repositories/Lecture/Lecture.repository';
-import { ResponseLessonsOfLectureUseCase } from '../../use-cases/Lesson/ResponseLessonsOfLectureUseCase.usecase';
-import { ResponseLessonInputDTO } from '../../dto/ResponseLesson.dto';
+import { FastifyReply, FastifyRequest } from "fastify";
+import { LessonInputDTO } from "../../dto/Lesson.dto";
+import { ResponseLessonInputDTO } from "../../dto/ResponseLesson.dto";
+import { LectureRepository } from "../../repositories/Lecture/Lecture.repository";
+import { LessonRepository } from "../../repositories/Lesson/Lesson.repository";
+import { DeleteLectureUseCase } from "../../use-cases/Lecture/deleteLecture.usecase";
+import { ResponseLessonsOfLectureUseCase } from "../../use-cases/Lesson/ResponseLessonsOfLectureUseCase.usecase";
+import { CreateLessonsUseCase } from "../../use-cases/Lesson/createLessons.usecase";
+import { GetLessonByIdUseCase } from "../../use-cases/Lesson/getLessonById.usecase";
+import { GetLessonsByLectureIdUseCase } from "../../use-cases/Lesson/getLessonsByLectureId.usecase";
+import { UpdateLessonUseCase } from "../../use-cases/Lesson/updateLesson.usecase";
+import { errorHandling } from "../../utils/error/error.function";
 
 class LessonController {
   async createLessons(req: FastifyRequest, reply: FastifyReply) {
     try {
-      const { lectureId } = req.params as { lectureId: string };
       const body = req.body as LessonInputDTO[];
       const usecase = new CreateLessonsUseCase(new LessonRepository());
-      const output = await usecase.execute(lectureId, { lessons: body });
+      const output = await usecase.execute(body);
       reply.code(201);
       return {
         statusCode: 201,
-        message: 'Created Lessons in lecture',
+        message: "Created Lessons in lecture",
         data: output,
       };
     } catch (error) {
@@ -41,7 +39,7 @@ class LessonController {
       reply.code(201);
       return {
         statusCode: 201,
-        message: 'Created Lessons in lecture',
+        message: "Created Lessons in lecture",
         data: output,
       };
     } catch (error) {
@@ -56,7 +54,7 @@ class LessonController {
       const output = await usecase.execute(lectureId);
       return {
         statusCode: 200,
-        message: 'Deleted Lesson',
+        message: "Deleted Lesson",
         data: output,
       };
     } catch (error) {
@@ -71,7 +69,7 @@ class LessonController {
       const output = await usecase.execute(id);
       return {
         statusCode: 200,
-        message: 'OK',
+        message: "OK",
         data: output,
       };
     } catch (error) {
@@ -86,7 +84,7 @@ class LessonController {
       const output = await usecase.execute(lectureId);
       return {
         statusCode: 200,
-        message: 'OK',
+        message: "OK",
         data: output,
       };
     } catch (error) {
@@ -105,7 +103,7 @@ class LessonController {
       const output = await usecase.execute(userId, lectureId, body);
       return {
         statusCode: 200,
-        message: 'OK',
+        message: "OK",
         data: output,
       };
     } catch (error) {

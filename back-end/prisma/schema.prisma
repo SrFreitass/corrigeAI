@@ -22,19 +22,29 @@ model Users {
   AnswersQuestions AnswersQuestions[]
 }
 
+model Courses {
+  id               String @id @default(uuid())
+  title            String
+  description      String  @default("")
+  createdAt        DateTime  @default(now())
+  schoolSubject_id String
+  updateAt         DateTime?
+  Lectures         Lectures[]
+  schoolSubject    SchoolSubjects    @relation(fields: [schoolSubject_id], references: [id])
+}
+
 model Lectures {
   id               String            @id @default(uuid())
   title            String
   description      String
+  video_url        String            @default("")
   teacher_id       String
   createdAt        DateTime          @default(now())
   updateAt         DateTime?
-  schoolSubject_id String
-  enemSubject_id   String
+  course_id        String
   Answers          AnswersLectures[]
-  enemSubject      EnemSubjects      @relation(fields: [enemSubject_id], references: [id])
-  schoolSubject    SchoolSubjects    @relation(fields: [schoolSubject_id], references: [id])
   Teacher          Users             @relation(fields: [teacher_id], references: [id])
+  Courses          Courses           @relation(fields: [course_id], references: [id])
   Lessons          Lessons[]
 }
 
@@ -71,7 +81,6 @@ model Questions {
 model EnemSubjects {
   id             String           @id @default(uuid())
   name           String
-  Lectures       Lectures[]
   SchoolSubjects SchoolSubjects[]
   Questions      Questions[]
 }
@@ -80,7 +89,7 @@ model SchoolSubjects {
   id             String       @id @default(uuid())
   name           String
   enemSubject_id String
-  Lectures       Lectures[]
+  Courses       Courses[]
   enemsubjects   EnemSubjects @relation(fields: [enemSubject_id], references: [id])
 }
 

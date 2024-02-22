@@ -18,9 +18,21 @@ module.exports = {
             opacity: 1,
           },
         },
+        skeleton: {
+          '0%': {
+            opacity: 0.5,
+          },
+          '50%': {
+            opacity: 1.0,
+          },
+          '100%': {
+            opacity: 0.5,
+          },
+        },
       },
       animation: {
         'appear-from-below': 'appear-from-below 0.3s ease-in-out',
+        skeleton: 'skeleton infinite 1s ease-in-out',
       },
       gridTemplateColumns: {
         layout: '1.25fr 1fr',

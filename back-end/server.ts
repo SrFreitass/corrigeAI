@@ -10,7 +10,7 @@ const app = fastify();
 
 // Initialization Routes
 const router = new Router();
-app.register(router.handle);
+app.register(router.execute);
 app.register(cors, {
   origin: "*",
   methods: ["GET", "PUT", "DELETE", "POST"],

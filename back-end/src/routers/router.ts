@@ -1,14 +1,15 @@
 import { FastifyInstance } from "fastify";
 import AuthController from "../controllers/Auth/Auth.controller";
-import LectureController from "../controllers/Lecture/Lecture.controller";
-import { auth } from "../middlewares/Auth.middleware";
-import LessonController from "../controllers/Lesson/Lesson.controller";
+import CourseController from "../controllers/Course/Course.controller";
 import EmailController from "../controllers/Email/Email.controller";
-import UserController from "../controllers/User/User.controller";
 import EssayController from "../controllers/Essay/Essay.controller";
+import LectureController from "../controllers/Lecture/Lecture.controller";
+import LessonController from "../controllers/Lesson/Lesson.controller";
+import UserController from "../controllers/User/User.controller";
+import { auth } from "../middlewares/Auth.middleware";
 
 export class Router {
-  async handle(fastify: FastifyInstance) {
+  async execute(fastify: FastifyInstance) {
     fastify.get("/api/v1/status", () => {
       return { status: "OK" };
     });
@@ -29,28 +30,30 @@ export class Router {
     );
 
     /* Lectures Routers */
-    fastify.get(
-      "/api/v1/lectures/:page",
-      { preHandler: [auth] },
-      LectureController.getLecturesByPages,
-    );
+    // fastify.get(
+    //   "/api/v1/lectures/:page",
+    //   { preHandler: [auth] },
+    //   LectureController.getLecturesByPages,
+    // );
+
+    // fastify.get(
+    //   "/api/v1/lectures/subjects/:subjectId",
+    //   { preHandler: [auth] },
+    //   LectureController.getLectureBySubjects,
+    // );
 
     fastify.get(
-      "/api/v1/lectures/subjects/:subjectId",
+      "/api/v1/lectures/:courseId",
       { preHandler: [auth] },
-      LectureController.getLectureBySubjects,
+      LectureController.getLecturesByCourseId,
     );
 
-    fastify.get(
-      "/api/v1/lecture/:lectureId",
-      { preHandler: [auth] },
-      LectureController.getLecture,
-    );
     fastify.post(
       "/api/v1/lecture",
       { preHandler: [auth] },
       LectureController.createLecture,
     );
+
     fastify.put(
       "/api/v1/lecture/:lectureId",
       { preHandler: [auth] },
@@ -80,7 +83,7 @@ export class Router {
     );
 
     fastify.post(
-      "/api/v1/lessons/:lectureId",
+      "/api/v1/lessons",
       { preHandler: [auth] },
       LessonController.createLessons,
     );
@@ -111,6 +114,18 @@ export class Router {
       "/api/v1/essay",
       { preHandler: [auth] },
       EssayController.sendEssay,
+    );
+
+    fastify.get(
+      "/api/v1/courses/:page",
+      { preHandler: [auth] },
+      CourseController.getAllCourses,
+    );
+
+    fastify.post(
+      "/api/v1/course",
+      { preHandler: [auth] },
+      CourseController.createCourse,
     );
   }
 }

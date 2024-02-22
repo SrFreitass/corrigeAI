@@ -1,8 +1,8 @@
-import { z } from 'zod';
-import { Lectures } from '@prisma/client';
-import { BaseClassRepository } from '../../repositories/BaseClass.repository';
+import { Lectures } from "@prisma/client";
+import { z } from "zod";
+import { BaseClassRepository } from "../../repositories/BaseClass.repository";
 
-export class getLecturesByPagesUseCase {
+export class GetLecturesByPagesUseCase {
   constructor(
     private readonly lectureRepository: BaseClassRepository<Lectures>,
   ) {}

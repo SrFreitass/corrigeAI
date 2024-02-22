@@ -1,6 +1,6 @@
-import { z } from 'zod';
-import { Lectures } from '@prisma/client';
-import { BaseClassRepository } from '../../repositories/BaseClass.repository';
+import { Lectures } from "@prisma/client";
+import { z } from "zod";
+import { BaseClassRepository } from "../../repositories/BaseClass.repository";
 
 export class GetLectureSubjectsUseCase {
   constructor(
@@ -8,7 +8,7 @@ export class GetLectureSubjectsUseCase {
   ) {}
 
   async execute(Subjectid: string) {
-    z.string().uuid({ message: 'ID is invalid' }).parse(Subjectid);
+    z.string().uuid({ message: "ID is invalid" }).parse(Subjectid);
 
     const lectures = await this.lectureRepository.findManyWithWhere({
       item: Subjectid,

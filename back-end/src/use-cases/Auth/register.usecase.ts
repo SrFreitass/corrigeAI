@@ -1,11 +1,11 @@
-import { z } from 'zod';
-import { RegisterInputDTO, RegisterOutputDTO } from '../../dto/Auth.dto';
-import { BaseClassRepository } from '../../repositories/BaseClass.repository';
-import { sign } from 'jsonwebtoken';
-import { genSaltSync, hashSync } from 'bcrypt';
-import { readFileSync } from 'fs';
-import { Users } from '@prisma/client';
-import { SendEmailUseCase } from '../Email/sendEmail.usecase';
+import { Users } from "@prisma/client";
+import { genSaltSync, hashSync } from "bcrypt";
+import { readFileSync } from "fs";
+import { sign } from "jsonwebtoken";
+import { z } from "zod";
+import { RegisterInputDTO, RegisterOutputDTO } from "../../dto/Auth.dto";
+import { BaseClassRepository } from "../../repositories/BaseClass.repository";
+import { SendEmailUseCase } from "../Email/sendEmail.usecase";
 
 export class RegisterUserUseCase {
   constructor(private readonly userRepository: BaseClassRepository<Users>) {}
@@ -27,7 +27,7 @@ export class RegisterUserUseCase {
 
     const emailExists = await this.userRepository.findOne({ item: email });
     z.literal(undefined, {
-      errorMap: () => ({ message: 'E-mail already exists' }),
+      errorMap: () => ({ message: "E-mail already exists" }),
     }).parse(emailExists?.email);
 
     const salt = genSaltSync(10);
@@ -45,18 +45,18 @@ export class RegisterUserUseCase {
       { data: { userId: userCreated.id, email: user.email } },
       `${process.env.SECRET_TOKEN}`,
       {
-        expiresIn: '1Y',
+        expiresIn: "1Y",
       },
     );
 
-    if (!token) throw new Error('Token was not generated');
+    if (!token) throw new Error("Token was not generated");
 
     try {
-      const emailTemplate = readFileSync('./src/templates/AuthEmail/index.html')
+      const emailTemplate = readFileSync("./src/templates/AuthEmail/index.html")
         .toString()
-        .replace('[name]', user.name)
+        .replace("[name]", user.name)
         .replace(
-          '[link]',
+          "[link]",
           `<a href="http://localhost:8080/api/v1/email/verify/${userCreated.id}" style="text-decoration: none; color: #fff">Clique aqui para verificar seu e-mail</a>`,
         );
 
@@ -64,7 +64,7 @@ export class RegisterUserUseCase {
 
       await sendEmailUseCase.execute({
         from: `CorrigiAI - Auth <${process.env.CLIENT_EMAIL}>`,
-        subject: 'Verficação do seu e-mail',
+        subject: "Verficação do seu e-mail",
         to: user.email,
         html: `${emailTemplate}`,
       });
@@ -72,7 +72,7 @@ export class RegisterUserUseCase {
       console.error(error);
       return {
         error:
-          'Unexpected error: account created, but email verification not sent.',
+          "Unexpected error: account created, but email verification not sent.",
       };
     }
 

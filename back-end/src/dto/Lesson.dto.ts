@@ -2,6 +2,7 @@ export interface LessonInputDTO {
   title: string;
   description: string;
   image_url: string | null;
+  lecture_id: string;
   options: string[];
   answer: number;
   answer_text: string | null;
