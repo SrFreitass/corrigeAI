@@ -1,8 +1,7 @@
 import { Lectures } from "@prisma/client";
 import { prisma } from "../../../prisma";
-import { BaseClassRepository } from "../BaseClass.repository";
 
-export class LectureRepository extends BaseClassRepository<Lectures> {
+export class LectureRepository {
   findWithOrderBy(
     orderBy: { [key: string]: "asc" | "desc" } | null,
     offset: number,
@@ -75,13 +74,39 @@ export class LectureRepository extends BaseClassRepository<Lectures> {
     return lectures;
   }
 
-  async findManyWithWhere(where: { item: string }): Promise<Lectures[]> {
+  async findManyWithWhere(where: {
+    item: string;
+    userId?: string;
+  }): Promise<Lectures[]> {
     const lectures = await prisma.lectures.findMany({
       where: {
         course_id: where.item,
       },
       include: {
-        Lessons: true,
+        Answers: {
+          where: {
+            user_id: where.userId,
+          },
+        },
+        UsersLectureHistory: {
+          where: {
+            user_id: where.userId,
+          },
+        },
+        Teacher: {
+          select: {
+            name: true,
+          },
+        },
+        Lessons: {
+          select: {
+            id: true,
+            title: true,
+            description: true,
+            options: true,
+            image_url: true,
+          },
+        },
       },
     });
 

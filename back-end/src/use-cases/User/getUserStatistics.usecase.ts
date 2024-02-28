@@ -1,9 +1,10 @@
 import { AnswersLectures, Users } from "@prisma/client";
 import { BaseClassRepository } from "../../repositories/BaseClass.repository";
+import {UserRepository} from "../../repositories/User/User.repository";
 
 export class GetUsersStatisticsUseCase {
   constructor(
-    private readonly userRepository: BaseClassRepository<Users>,
+    private readonly userRepository: UserRepository,
     private readonly answerRepository: BaseClassRepository<AnswersLectures>,
   ) {}
 

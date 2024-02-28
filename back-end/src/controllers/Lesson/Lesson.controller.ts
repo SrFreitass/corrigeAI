@@ -1,10 +1,12 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { LessonInputDTO } from "../../dto/Lesson.dto";
 import { ResponseLessonInputDTO } from "../../dto/ResponseLesson.dto";
+import { AnswersLecturesRepository } from "../../repositories/AnswersLectures/Answers.repository";
 import { LectureRepository } from "../../repositories/Lecture/Lecture.repository";
 import { LessonRepository } from "../../repositories/Lesson/Lesson.repository";
+import { UserRepository } from "../../repositories/User/User.repository";
 import { DeleteLectureUseCase } from "../../use-cases/Lecture/deleteLecture.usecase";
-import { ResponseLessonsOfLectureUseCase } from "../../use-cases/Lesson/ResponseLessonsOfLectureUseCase.usecase";
+import { ResponseLessonsLectureUseCase } from "../../use-cases/Lesson/ResponseLessonsLectureUseCase.usecase";
 import { CreateLessonsUseCase } from "../../use-cases/Lesson/createLessons.usecase";
 import { GetLessonByIdUseCase } from "../../use-cases/Lesson/getLessonById.usecase";
 import { GetLessonsByLectureIdUseCase } from "../../use-cases/Lesson/getLessonsByLectureId.usecase";
@@ -95,12 +97,16 @@ class LessonController {
   async responseLessonsOfLecture(req: FastifyRequest, reply: FastifyReply) {
     try {
       const userId = req.headers.userId as string;
-      const { lectureId } = req.params as { lectureId: string };
-      const body = req.body as ResponseLessonInputDTO[];
-      const usecase = new ResponseLessonsOfLectureUseCase(
+      const body = req.body as ResponseLessonInputDTO;
+      const usecase = new ResponseLessonsLectureUseCase(
         new LessonRepository(),
+        new AnswersLecturesRepository(),
+        new UserRepository(),
       );
-      const output = await usecase.execute(userId, lectureId, body);
+      const output = await usecase.execute(userId, {
+        lectureId: body.lectureId,
+        answers: body.answers,
+      });
       return {
         statusCode: 200,
         message: "OK",

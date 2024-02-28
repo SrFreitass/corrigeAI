@@ -11,6 +11,26 @@ export interface ILecture {
       course_id: string;
       createdAt: Date;
       updateAt: Date | null;
+      Answers: {
+        correct: boolean;
+        createdAt: string;
+        id: string;
+        lecture_id: string;
+        lesson_id: string;
+        option: number;
+        user_id: string;
+      }[];
+      UsersLectureHistory: [
+        {
+          id: string;
+          user_id: string;
+          lecture_id: string;
+          course_id: string;
+        },
+      ];
+      Teacher: {
+        name: string;
+      };
       Lessons: [
         {
           id: string;

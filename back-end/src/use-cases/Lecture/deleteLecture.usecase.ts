@@ -1,5 +1,5 @@
-import { Lectures } from '@prisma/client';
-import { BaseClassRepository } from '../../repositories/BaseClass.repository';
+import { Lectures } from "@prisma/client";
+import { BaseClassRepository } from "../../repositories/BaseClass.repository";
 
 export class DeleteLectureUseCase {
   constructor(

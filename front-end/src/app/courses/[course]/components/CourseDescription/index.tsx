@@ -1,5 +1,5 @@
 type CourseDescriptionProps = {
-  description: string;
+  description?: string;
 };
 
 export function CourseDescription({ description }: CourseDescriptionProps) {

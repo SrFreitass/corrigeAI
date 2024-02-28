@@ -1,5 +1,5 @@
 type VideoLessonProps = {
-  src: string;
+  src?: string;
 };
 
 export function VideoCourse({ src }: VideoLessonProps) {

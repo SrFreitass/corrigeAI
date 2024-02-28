@@ -22,17 +22,15 @@ export function Courses() {
     <div className="mt-8 flex gap-8 flex-wrap">
       {data ? (
         data.data.map((item, index) => {
+          const { id, title, description, schoolSubject } = item;
           return (
             <CourseCard
-              courseId={item.id}
-              key={item.id}
-              title={item.title}
-              description={item.description}
-              subject={item.schoolSubject.name}
-              tags={[
-                item.schoolSubject.name,
-                item.schoolSubject.enemsubjects.name,
-              ]}
+              courseId={id}
+              key={id}
+              title={title}
+              description={description}
+              subject={schoolSubject.name}
+              tags={[schoolSubject.name, schoolSubject.enemsubjects.name]}
             />
           );
         })

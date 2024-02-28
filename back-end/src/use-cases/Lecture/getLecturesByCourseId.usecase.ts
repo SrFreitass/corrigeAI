@@ -1,10 +1,9 @@
-import { Lectures } from "@prisma/client";
 import { z } from "zod";
 import { LectureOutputDTO } from "../../dto/Lecure.dto";
-import { BaseClassRepository } from "../../repositories/BaseClass.repository";
+import { LectureRepository } from "../../repositories/Lecture/Lecture.repository";
 
 export class GetLecturesByCourseIdUseCase {
-  constructor(private lectureRepository: BaseClassRepository<Lectures>) {}
+  constructor(private lectureRepository: LectureRepository) {}
 
   async execute(courseId: string): Promise<LectureOutputDTO[] | null> {
     z.string().uuid().parse(courseId);

@@ -8,44 +8,47 @@ datasource db {
 }
 
 model Users {
-  id               String             @id @default(uuid())
-  name             String
-  email            String             @unique
-  password         String
-  role             String             @default("student")
-  points           Int                @default(0)
-  createdAt        DateTime           @default(now())
-  email_verified   Boolean            @default(false)
-  Answers          AnswersLectures[]
-  Lectures         Lectures[]
-  EssaysUsers      EssaysUsers[]
-  AnswersQuestions AnswersQuestions[]
+  id                  String                @id @default(uuid())
+  name                String
+  email               String                @unique
+  password            String
+  role                String                @default("student")
+  points              Int                   @default(0)
+  createdAt           DateTime              @default(now())
+  email_verified      Boolean               @default(false)
+  Answers             AnswersLectures[]
+  Lectures            Lectures[]
+  EssaysUsers         EssaysUsers[]
+  AnswersQuestions    AnswersQuestions[]
+  UsersLectureHistory UsersLectureHistory[]
 }
 
 model Courses {
-  id               String @id @default(uuid())
-  title            String
-  description      String  @default("")
-  createdAt        DateTime  @default(now())
-  schoolSubject_id String
-  updateAt         DateTime?
-  Lectures         Lectures[]
-  schoolSubject    SchoolSubjects    @relation(fields: [schoolSubject_id], references: [id])
+  id                  String                @id @default(uuid())
+  title               String
+  description         String                @default("")
+  createdAt           DateTime              @default(now())
+  schoolSubject_id    String
+  updateAt            DateTime?
+  Lectures            Lectures[]
+  schoolSubject       SchoolSubjects        @relation(fields: [schoolSubject_id], references: [id])
+  UsersLectureHistory UsersLectureHistory[]
 }
 
 model Lectures {
-  id               String            @id @default(uuid())
-  title            String
-  description      String
-  video_url        String            @default("")
-  teacher_id       String
-  createdAt        DateTime          @default(now())
-  updateAt         DateTime?
-  course_id        String
-  Answers          AnswersLectures[]
-  Teacher          Users             @relation(fields: [teacher_id], references: [id])
-  Courses          Courses           @relation(fields: [course_id], references: [id])
-  Lessons          Lessons[]
+  id                  String                @id @default(uuid())
+  title               String
+  description         String
+  video_url           String                @default("")
+  teacher_id          String
+  createdAt           DateTime              @default(now())
+  updateAt            DateTime?
+  course_id           String
+  Answers             AnswersLectures[]
+  Teacher             Users                 @relation(fields: [teacher_id], references: [id])
+  Courses             Courses               @relation(fields: [course_id], references: [id])
+  Lessons             Lessons[]
+  UsersLectureHistory UsersLectureHistory[]
 }
 
 model Lessons {
@@ -89,7 +92,7 @@ model SchoolSubjects {
   id             String       @id @default(uuid())
   name           String
   enemSubject_id String
-  Courses       Courses[]
+  Courses        Courses[]
   enemsubjects   EnemSubjects @relation(fields: [enemSubject_id], references: [id])
 }
 
@@ -139,4 +142,14 @@ model Essays {
   year      Int
   entity    String
   createdAt DateTime @default(now())
+}
+
+model UsersLectureHistory {
+  id         String   @id @default(uuid())
+  user_id    String
+  lecture_id String
+  course_id  String
+  Lecture    Lectures @relation(fields: [lecture_id], references: [id])
+  Users      Users    @relation(fields: [user_id], references: [id])
+  Courses    Courses  @relation(fields: [course_id], references: [id])
 }

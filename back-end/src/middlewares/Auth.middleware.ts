@@ -1,8 +1,8 @@
+import { Users } from "@prisma/client";
 import { FastifyReply, FastifyRequest, HookHandlerDoneFunction } from "fastify";
 import { verify } from "jsonwebtoken";
-import { UserRepository } from "../repositories/User/User.repository";
-import { Users } from "@prisma/client";
 import { z } from "zod";
+import { UserRepository } from "../repositories/User/User.repository";
 
 interface IcaseRole {
   user: Users | null;

@@ -1,7 +1,7 @@
-import { z } from 'zod';
-import { Lectures } from '@prisma/client';
-import { LectureInputDTO, LectureOutputDTO } from '../../dto/Lecure.dto';
-import { BaseClassRepository } from '../../repositories/BaseClass.repository';
+import { Lectures } from "@prisma/client";
+import { z } from "zod";
+import { LectureInputDTO, LectureOutputDTO } from "../../dto/Lecure.dto";
+import { BaseClassRepository } from "../../repositories/BaseClass.repository";
 
 export class UpdateLectureUseCase {
   constructor(

@@ -1,8 +1,7 @@
 import { Courses } from "@prisma/client";
 import { prisma } from "../../../prisma";
-import { BaseClassRepository } from "../BaseClass.repository";
 
-export class CoursesRepository extends BaseClassRepository<Courses> {
+export class CoursesRepository {
   async find(offset: number, limit: number): Promise<Courses[]> {
     return await prisma.courses.findMany({
       skip: offset,
@@ -17,18 +16,26 @@ export class CoursesRepository extends BaseClassRepository<Courses> {
     });
   }
 
-  findManyWithWhere(where: { item: string }): Promise<Courses[] | null> {
-    throw new Error("Method not implemented.");
+  async findManyWithWhere(where: { item: string }) {
+    return await prisma.courses.findMany({
+      where: {
+        schoolSubject_id: where.item,
+      },
+    });
   }
 
-  findOne({
+  async findOne({
     id,
     item,
   }: {
     id?: string | undefined;
     item?: string | undefined;
   }): Promise<Courses | null> {
-    throw new Error("Method not implemented.");
+    return await prisma.courses.findUnique({
+      where: {
+        id,
+      },
+    });
   }
 
   update(
@@ -42,38 +49,17 @@ export class CoursesRepository extends BaseClassRepository<Courses> {
     throw new Error("Method not implemented.");
   }
 
-  findWithOrderBy(
-    orderBy: { [key: string]: "asc" | "desc" } | null,
-    offset: number,
-    limit: number,
-  ): Promise<Courses[]> {
-    throw new Error("Method not implemented.");
-  }
-
-  updateMany(): Promise<
-    {
-      id: string;
-      title: string;
-      createdAt: Date;
-      schoolSubject_id: string;
-      enemSubject_id: string;
-      updateAt: Date | null;
-    }[]
-  > {
-    throw new Error("Method not implemented.");
-  }
-
-  delete(id: string): void {
-    throw new Error("Method not implemented.");
-  }
-
-  async create(item: Courses): Promise<Courses> {
-    return await prisma.courses.create({
-      data: item,
+  async delete(id: string) {
+    return await prisma.courses.delete({
+      where: {
+        id,
+      },
     });
   }
 
-  createMany(item: Courses[]): void {
-    throw new Error("Method not implemented.");
+  async create(item: Courses) {
+    return await prisma.courses.create({
+      data: item,
+    });
   }
 }

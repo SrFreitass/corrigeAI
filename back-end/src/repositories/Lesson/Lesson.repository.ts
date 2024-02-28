@@ -35,9 +35,6 @@ export class LessonRepository implements BaseClassRepository<Lessons> {
       where: {
         lecture_id: where.item,
       },
-      include: {
-        lecture: true,
-      },
     });
 
     return lessons;

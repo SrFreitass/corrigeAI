@@ -1,6 +1,6 @@
-import { Lessons } from '@prisma/client';
-import { LessonInputDTO } from '../../dto/Lesson.dto';
-import { BaseClassRepository } from '../../repositories/BaseClass.repository';
+import { Lessons } from "@prisma/client";
+import { LessonInputDTO } from "../../dto/Lesson.dto";
+import { BaseClassRepository } from "../../repositories/BaseClass.repository";
 
 export class UpdateLessonUseCase {
   constructor(
@@ -10,7 +10,7 @@ export class UpdateLessonUseCase {
   async execute(id: string, data: LessonInputDTO) {
     const lesson = await this.lessonRepository.update(id, {
       item: {
-        ...data,
+        ...(data as Lessons),
       },
     });
 

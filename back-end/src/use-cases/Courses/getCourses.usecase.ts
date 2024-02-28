@@ -1,10 +1,7 @@
-import { Courses } from "@prisma/client";
-import { BaseClassRepository } from "../../repositories/BaseClass.repository";
+import { CoursesRepository } from "../../repositories/Courses/Courses.repository";
 
 export class GetCourseUseCase {
-  constructor(
-    private readonly courseRepository: BaseClassRepository<Courses>,
-  ) {}
+  constructor(private readonly courseRepository: CoursesRepository) {}
 
   async execute(page: number) {
     const limit = page * 20;

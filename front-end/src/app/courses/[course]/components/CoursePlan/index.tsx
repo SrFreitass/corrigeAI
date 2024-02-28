@@ -11,6 +11,26 @@ type Lecture = {
   teacher_id: string;
   course_id: string;
   createdAt: Date;
+  Answers: {
+    correct: boolean;
+    createdAt: string;
+    id: string;
+    lecture_id: string;
+    lesson_id: string;
+    option: number;
+    user_id: string;
+  }[];
+  UsersLectureHistory: [
+    {
+      id: string;
+      user_id: string;
+      lecture_id: string;
+      course_id: string;
+    },
+  ];
+  Teacher: {
+    name: string;
+  };
   Lessons: [
     {
       id: string;
@@ -29,15 +49,20 @@ type Lecture = {
 };
 
 type CoursePlanProps = {
+  lectureIndex: number;
   lectures: Lecture[];
 };
 
-export function CoursePlan({ lectures }: CoursePlanProps) {
+export function CoursePlan({ lectures, lectureIndex }: CoursePlanProps) {
   const [showModules, setShowModules] = useState(true);
   const router = useRouter();
 
   const handleLecture = (number: number) => {
     router.push(`?lecture=${number}`);
+  };
+
+  const handleQuiz = () => {
+    router.push(`?lecture=${lectureIndex + 1}&quiz=true`);
   };
 
   return (
@@ -57,7 +82,7 @@ export function CoursePlan({ lectures }: CoursePlanProps) {
                   />
                 </span>
                 <h3 className="w-20 font-semibold text-primary dark:text-white">
-                  Módulo
+                  Curso
                 </h3>
                 {showModules ? (
                   <IoIosArrowUp color="#151D48" />
@@ -66,12 +91,20 @@ export function CoursePlan({ lectures }: CoursePlanProps) {
                 )}
               </div>
               {showModules && (
-                <div className="animate-appear-from-below flex flex-col gap-4  mt-4 ml-8">
+                <div className="animate-appear-from-below flex flex-col gap-4 mt-4 ml-8">
                   <h2
-                    className="transition-all text-secundary hover:text-third dark:hover:text-zinc-300 "
+                    className="flex transition-all text-secundary hover:text-third dark:hover:text-zinc-300"
                     onClick={() => handleLecture(index + 1)}
                   >
-                    <Link href="#" className="font-medium">
+                    {item.UsersLectureHistory[0] && (
+                      <span className="relative right-8">
+                        <FaRegDotCircle
+                          className="relative right-4"
+                          color="#151D48"
+                        />
+                      </span>
+                    )}
+                    <Link href="#" className={`font-medium relative right-4`}>
                       Aula {index + 1} - {item.title}
                     </Link>
                   </h2>
@@ -80,10 +113,19 @@ export function CoursePlan({ lectures }: CoursePlanProps) {
                       <h2
                         className="transition-all text-secundary hover:text-third dark:hover:text-zinc-300"
                         key={index}
+                        onClick={handleQuiz}
                       >
+                        {item.Answers[index] && (
+                          <span className="relative right-8">
+                            <FaRegDotCircle
+                              className="relative right-4"
+                              color="#151D48"
+                            />
+                          </span>
+                        )}
                         <Link
-                          className="font-medium"
-                          href={`./${item.course_id}/${lesson.id}`}
+                          className="font-medium relative bottom-[1.125rem]"
+                          href="#"
                         >
                           Quiz - {lesson.title}
                         </Link>

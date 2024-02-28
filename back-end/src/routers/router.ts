@@ -14,11 +14,11 @@ export class Router {
       return { status: "OK" };
     });
     /* User Routers */
-    fastify.get(
-      "/api/v1/users/ranking/:page",
-      { preHandler: [auth] },
-      UserController.getRanking,
-    );
+    // fastify.get(
+    //   "/api/v1/users/ranking/:page",
+    //   { preHandler: [auth] },
+    //   UserController.getRanking,
+    // );
 
     /* Auth Routers */
     fastify.post("/api/v1/auth/register", AuthController.register);
@@ -95,7 +95,7 @@ export class Router {
     );
 
     fastify.post(
-      "/api/v1/lecture/response/:lectureId",
+      "/api/v1/lessons/response",
       { preHandler: [auth] },
       LessonController.responseLessonsOfLecture,
     );
@@ -103,10 +103,16 @@ export class Router {
     /* Email Routers */
     fastify.get("/api/v1/email/verify/:userId", EmailController.verifyEmail);
 
-    fastify.get(
-      "/api/v1/user/",
+    // fastify.get(
+    //   "/api/v1/user/",
+    //   { preHandler: [auth] },
+    //   UserController.getUsersStatistics,
+    // );
+
+    fastify.post(
+      "/api/v1/user/lectures/history",
       { preHandler: [auth] },
-      UserController.getUsersStatistics,
+      UserController.postLectureHistory,
     );
 
     /* Essay Routers */

@@ -12,5 +12,6 @@ export const getLecturesByCourse = async (courseId: string) => {
     },
   );
 
+  console.log(lecturesByCouse.data);
   return lecturesByCouse.data;
 };

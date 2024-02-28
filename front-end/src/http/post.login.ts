@@ -1,10 +1,8 @@
-import { ILogin, ILoginError } from '@/models/auth/login.interface'
-import axios, { AxiosError } from 'axios'
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
-import router from 'next/router'
+import { ILogin, ILoginError } from '@/models/auth/login.interface';
+import axios, { AxiosError } from 'axios';
 
-import { SetStateAction } from 'react'
-import toast from 'react-hot-toast'
+import { SetStateAction } from 'react';
+import toast from 'react-hot-toast';
 
 export const postLogin = async ({
   email,
@@ -12,21 +10,21 @@ export const postLogin = async ({
   checkbox,
   setErrorForm,
 }: {
-  email?: string
-  password?: string
-  checkbox?: boolean
-  setErrorForm: React.Dispatch<SetStateAction<Set<string>>>
+  email?: string;
+  password?: string;
+  checkbox?: boolean;
+  setErrorForm: React.Dispatch<SetStateAction<Set<string>>>;
 }) => {
   const handleErrors = {
     'Your password does not match': () => {
-      toast.error('Ops! Sua senha está incorreta!')
-      return 'PASSWORD_INCORRECT'
+      toast.error('Ops! Sua senha está incorreta!');
+      return 'PASSWORD_INCORRECT';
     },
     'Email is incorrect': () => {
-      toast.error('Ops! Seu e-mail está incorreto!')
-      return 'EMAIL_INCORRECT'
+      toast.error('Ops! Seu e-mail está incorreto!');
+      return 'EMAIL_INCORRECT';
     },
-  }
+  };
 
   try {
     const res = await axios.post<ILogin>(
@@ -35,36 +33,36 @@ export const postLogin = async ({
         email,
         password,
       },
-    )
+    );
 
-    setErrorForm(new Set())
+    setErrorForm(new Set());
 
     if (checkbox) {
-      localStorage.setItem('token', res.data.data.token)
-      toast.success('Login efetuado com sucesso!')
-      return
+      localStorage.setItem('token', res.data.data.token);
+      toast.success('Login efetuado com sucesso!');
+      return;
     }
 
-    sessionStorage.setItem('token', res.data.data.token)
-    toast.success('Login efetuado com sucesso!')
+    sessionStorage.setItem('token', res.data.data.token);
+    toast.success('Login efetuado com sucesso!');
   } catch (error) {
     if (error instanceof AxiosError) {
-      const errorRes = error.response?.data as ILoginError
-      console.log(errorRes)
+      const errorRes = error.response?.data as ILoginError;
+      console.log(errorRes);
 
       const err =
         handleErrors[errorRes.error.issues[0].message] &&
-        handleErrors[errorRes.error.issues[0].message]()
+        handleErrors[errorRes.error.issues[0].message]();
 
       if (!err) {
         toast.error(
           'Um erro inesperando aconteceu, tente novamente mais tarde!',
-        )
-        return
+        );
+        return;
       }
 
-      setErrorForm(new Set([err]))
-      throw new Error('Unexpected Error')
+      setErrorForm(new Set([err]));
+      throw new Error('Unexpected Error');
     }
   }
-}
+};
