@@ -3,9 +3,9 @@
 import { EssayStatistics } from '@/app/components/EssayStatistics';
 import { MinimalRanking } from '@/app/components/MinimalRanking';
 import { TopSubjects } from '@/app/components/TopSubjects';
+import { Header } from '@/components/Header';
+import { MenuAside } from '@/components/MenuAside';
 import { createTheme, ThemeProvider } from '@mui/material';
-import { Header } from '../components/Header';
-import { MenuAside } from '../components/MenuAside';
 import { Overview } from './components/Overview';
 
 const theme = createTheme({

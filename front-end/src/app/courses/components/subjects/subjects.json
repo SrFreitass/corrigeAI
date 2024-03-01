@@ -1,0 +1,22 @@
+[
+    {
+        "Ciências Humanas": "e64d5109-70f0-4c6c-ab33-f7ad69c19e57",
+        "Ciências da Natureza": "f9e73a26-4d5f-4187-8cf0-6c8262d245c1",
+        "Matemática": "a9069ffd-0cc2-4d7a-bf55-f173bc7932c6",
+        "Linguagens": "0a7d147b-14dc-44da-b55b-38f4b5551efe"
+      
+    },
+    {
+       "Literatura": "8e4ea2db-70fe-47e3-85f6-fdfe588e369c",
+       "Língua Portuguesa": "91b136f3-f892-4b0e-ba6b-232bf6a2f485",
+       "Artes": "9db56c50-5537-45a0-bb1c-01f5791d1555",
+       "História": "a8157b4c-bd97-43c3-a9ba-eedb14bd1b72",
+       "Geografia": "a78ad27e-cc8b-4891-a5e2-ba0fdcc45ce5",
+       "Filosofia": "05c524c4-9730-4a14-933d-16ffd3a28491",
+       "Sociologia": "fabc858a-0dd6-4b03-b75d-41249bd610b7",
+       "Matemática": "4b9387fd-aba7-4c14-a329-ec7b01a07319",
+       "Biologia": "1653a343-a2df-465b-95a4-dd4bcfe6d4dd",
+       "Química": "0c16f11d-c8f5-49d5-ab1f-d67f78a0e7c7",
+       "Física": "90ffc0ba-e3f2-4b7a-806f-1b0a2644280e"
+    } 
+]

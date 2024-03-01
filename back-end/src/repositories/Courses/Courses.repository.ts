@@ -16,10 +16,34 @@ export class CoursesRepository {
     });
   }
 
-  async findManyWithWhere(where: { item: string }) {
+  async findManyWithWhere({
+    enemSubjectId,
+    schoolSubjectId,
+  }: {
+    schoolSubjectId?: string;
+    enemSubjectId?: string;
+  }) {
     return await prisma.courses.findMany({
       where: {
-        schoolSubject_id: where.item,
+        OR: [
+          {
+            schoolSubject_id: { equals: schoolSubjectId },
+          },
+          {
+            schoolSubject: {
+              enemSubject_id: {
+                equals: enemSubjectId,
+              },
+            },
+          },
+        ],
+      },
+      include: {
+        schoolSubject: {
+          include: {
+            enemsubjects: {},
+          },
+        },
       },
     });
   }

@@ -139,6 +139,7 @@ model Essays {
   essay_img String
   title     String
   texts     String[]
+  figures   String[]
   year      Int
   entity    String
   createdAt DateTime @default(now())

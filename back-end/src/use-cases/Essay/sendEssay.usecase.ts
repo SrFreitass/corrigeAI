@@ -1,6 +1,5 @@
 import axios from "axios";
 import { z } from "zod";
-import { BaseClassRepository } from "../../repositories/BaseClass.repository";
 import { prompt } from "./prompt";
 
 import { Essays } from "@prisma/client";
@@ -23,7 +22,7 @@ interface IResponseEssay {
 }
 
 export class SendEssayUseCase {
-  constructor(private readonly essayRepository: BaseClassRepository<Essays>) {}
+  constructor(private readonly essayUserRepository:) {}
 
   async execute(essay: EssayInputDTO) {
     const schemaEssay = z

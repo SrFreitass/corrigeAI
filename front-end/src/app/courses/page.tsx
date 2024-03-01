@@ -13,7 +13,7 @@ export default function CoursesPage() {
       <MenuAside />
       <main className="w-full">
         <Header />
-        <div className="px-10">
+        <div className="px-10 flex flex-col gap-8">
           <Section>
             <TitleSection>Catálogo</TitleSection>
             <SubTitleSection>

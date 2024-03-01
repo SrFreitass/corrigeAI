@@ -1,12 +1,10 @@
 import { Courses } from "@prisma/client";
 import { z } from "zod";
 import { CourseInputDTO } from "../../dto/Course.dto";
-import { BaseClassRepository } from "../../repositories/BaseClass.repository";
+import { CoursesRepository } from "../../repositories/Courses/Courses.repository";
 
 export class CreateCourseUseCase {
-  constructor(
-    private readonly courseRepository: BaseClassRepository<Courses>,
-  ) {}
+  constructor(private readonly courseRepository: CoursesRepository) {}
 
   async execute(body: CourseInputDTO) {
     const { schoolSubjectId, title } = body;

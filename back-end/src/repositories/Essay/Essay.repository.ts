@@ -1,24 +1,30 @@
-import { Essays } from '@prisma/client';
-import { BaseClassRepository } from '../BaseClass.repository';
-import { prisma } from '../../../prisma';
+import { Essays } from "@prisma/client";
+import { prisma } from "../../../prisma";
+import { EssayThemeInputDTO } from "../../dto/EssayTheme.dto";
 
-export class EssayRepository extends BaseClassRepository<Essays> {
-  find(offset: number, limit: number): Promise<Essays[]> {
-    throw new Error('Method not implemented.');
+export class EssayRepository {
+  async find(offset: number, limit: number) {
+    return await prisma.essays.findMany({
+      skip: offset,
+      take: limit,
+    });
   }
 
   findManyWithWhere(where: { item: string }): Promise<Essays[] | null> {
-    throw new Error('Method not implemented.');
+    throw new Error("Method not implemented.");
   }
 
-  findOne({
-    id,
-    item,
-  }: {
-    id?: string | undefined;
-    item?: string | undefined;
-  }): Promise<Essays | null> {
-    throw new Error('Method not implemented.');
+  async findOne({ id, entity }: { id?: string; entity?: string }) {
+    return await prisma.essays.findUnique({
+      where: {
+        id,
+        AND: [
+          {
+            entity,
+          },
+        ],
+      },
+    });
   }
 
   update(
@@ -29,30 +35,33 @@ export class EssayRepository extends BaseClassRepository<Essays> {
       item?: {} | Essays | undefined;
     },
   ): Promise<Essays> {
-    throw new Error('Method not implemented.');
+    throw new Error("Method not implemented.");
   }
 
   updateMany(): Promise<Essays[]> {
-    throw new Error('Method not implemented.');
+    throw new Error("Method not implemented.");
   }
 
   delete(id: string): void {
-    throw new Error('Method not implemented.');
+    throw new Error("Method not implemented.");
   }
 
-  async create(item: {
-    id: string;
-    user_id: string;
-    theme: string;
-    essay: string;
-    points: number;
-  }): Promise<Essays> {
+  async create({
+    entity,
+    essayImg,
+    texts,
+    title,
+    year,
+    figures,
+  }: EssayThemeInputDTO) {
     const essay = await prisma.essays.create({
       data: {
-        user_id: item.user_id,
-        theme: item.theme,
-        essay: item.essay,
-        points: item.points,
+        title,
+        entity,
+        essay_img: essayImg,
+        year,
+        texts,
+        figures,
       },
     });
 
@@ -68,6 +77,6 @@ export class EssayRepository extends BaseClassRepository<Essays> {
       points: number;
     }[],
   ): void {
-    throw new Error('Method not implemented.');
+    throw new Error("Method not implemented.");
   }
 }

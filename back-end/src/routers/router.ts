@@ -122,10 +122,34 @@ export class Router {
       EssayController.sendEssay,
     );
 
+    fastify.post(
+      "/api/v1/essay/theme",
+      { preHandler: [auth] },
+      EssayController.postEssayTheme,
+    );
+
+    fastify.get(
+      "/api/v1/essays/:page",
+      { preHandler: [auth] },
+      EssayController.getEssays,
+    );
+
+    fastify.get(
+      "/api/v1/essay/:entity/:essayThemeId",
+      { preHandler: [auth] },
+      EssayController.getEssayTheme,
+    );
+
     fastify.get(
       "/api/v1/courses/:page",
       { preHandler: [auth] },
       CourseController.getAllCourses,
+    );
+
+    fastify.get(
+      "/api/v1/courses/subjects/:typeSubject/:subjectId",
+      { preHandler: [auth] },
+      CourseController.findCourseBySubject,
     );
 
     fastify.post(

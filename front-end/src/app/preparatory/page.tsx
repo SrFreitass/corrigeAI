@@ -6,7 +6,7 @@ import { Section } from '@/components/ui/commons/section';
 import { SubTitleSection } from '@/components/ui/commons/subTitleSection';
 import { TitleSection } from '@/components/ui/commons/titleSection';
 import { FaReact } from 'react-icons/fa';
-import { CardSubject } from './components/CardSubject';
+import { CardSubject } from './components/cardSubject';
 
 export default function PreparatoryPage() {
   return (

@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/commons/input';
 import { getLecturesByCourse } from '@/http/get.lecturesByCourse';
 import { postHistoryLectureUser } from '@/http/post.HistoryLectureUser';
 import { ILecture } from '@/models/lectures/lectures.interface';
-import { useParams, useSearchParams } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { CourseDescription } from './components/CourseDescription';
 import { CoursePlan } from './components/CoursePlan';
@@ -21,6 +21,7 @@ export default function CoursePage() {
   const [lectures, setLectures] = useState<ILecture | null>(null);
   const [watched, setWatched] = useState<boolean>(false);
   const quizParams = Boolean(queryParams.get('quiz'));
+  const router = useRouter();
   const currentLecture = lectures?.data[lectureIndex];
 
   const handleWatched = async () => {
@@ -31,6 +32,14 @@ export default function CoursePage() {
     setWatched(true);
     await postHistoryLectureUser(currentLecture?.id || '');
   };
+
+  useEffect(() => {
+    lectures?.data.forEach((lecture, index) => {
+      if (lecture.UsersLectureHistory[0].id) {
+        router.push(`?lecture=${index + 1}`);
+      }
+    });
+  }, [lectures]);
 
   useEffect(() => {
     const lectureParams = Number(queryParams.get('lecture'));
@@ -74,7 +83,7 @@ export default function CoursePage() {
                     lessons={currentLecture?.Lessons}
                     lectureId={currentLecture?.id}
                     sizeListLectures={lectures.data.length}
-                    attended={!!currentLecture?.Answers[0]}
+                    attended={!!currentLecture?.Answers[0].id}
                   />
                 ) : (
                   <VideoCourse src={currentLecture?.video_url} />
@@ -87,8 +96,8 @@ export default function CoursePage() {
               <section className="w-[70%] flex flex-col gap-2">
                 {quizParams ? null : (
                   <>
-                    {lectures.data[lectureIndex]
-                      .UsersLectureHistory[0] ? null : (
+                    {lectures.data[lectureIndex]?.UsersLectureHistory[0]
+                      .id ? null : (
                       <div className="text-end">
                         <Input
                           type="checkbox"

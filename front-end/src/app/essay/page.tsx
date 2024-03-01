@@ -5,7 +5,7 @@ import { MenuAside } from '@/components/MenuAside';
 import { Section } from '@/components/ui/commons/section';
 import { SubTitleSection } from '@/components/ui/commons/subTitleSection';
 import { TitleSection } from '@/components/ui/commons/titleSection';
-import { Aside } from './Components/Aside';
+import { Aside } from './Components/AsideThemes';
 import { CardsInfoEssays } from './Components/CardInfoEssays';
 import { ChartEssays } from './Components/ChartEssays';
 import { ModalNewEssay } from './Components/ModalNewEssay';
