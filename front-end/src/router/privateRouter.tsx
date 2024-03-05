@@ -1,6 +1,6 @@
 'use client';
 
-import { verifyToken } from '@/http/get.verifyToken';
+import { verifyToken } from '@/http/auth/get.verifyToken';
 import { RedirectType, redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
 

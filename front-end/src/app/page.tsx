@@ -6,7 +6,7 @@ import { TopSubjects } from '@/app/components/TopSubjects';
 import { Header } from '@/components/Header';
 import { MenuAside } from '@/components/MenuAside';
 import { createTheme, ThemeProvider } from '@mui/material';
-import { Overview } from './components/Overview';
+import { Overview } from './components/Overview/Overview';
 
 const theme = createTheme({
   typography: {

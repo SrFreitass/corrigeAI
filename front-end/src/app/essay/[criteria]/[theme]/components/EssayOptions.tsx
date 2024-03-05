@@ -1,12 +1,13 @@
 import { Input } from '@/components/ui/commons/input';
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from '@/components/ui/commons/select';
 import { Dispatch, FocusEvent } from 'react';
+import { ImFontSize } from 'react-icons/im';
 
 interface essayOptionsProps {
   serif: boolean;
@@ -36,17 +37,17 @@ export function EssayOptions({
   };
 
   return (
-    <div className="flex gap-6 relative">
-      <div className="flex items-center gap-2 text-primary dark:text-white">
-        <p>Aparecer textos motivadores?</p>{' '}
+    <div className="flex flex-wrap justify-start gap-8 relative bottom-4 border p-2 rounded-md">
+      <div className="flex items-center gap-2 text-primary dark:text-white pr-4 border-r">
+        <p>Textos motivadores</p>
         <Input type="checkbox" onChange={() => setTexts(!texts)} />
       </div>
-      <div className="flex items-center gap-2 text-primary dark:text-white">
-        <p>Fonte serifada?</p>{' '}
+      <div className="flex items-center gap-2 text-primary dark:text-white border-r pr-7">
+        <p>Serifa</p>
         <Input type="checkbox" onChange={() => setSerif(!serif)} />
       </div>
-      <div className="w-32 flex items-center gap-2 text-primary dark:text-white">
-        <p className="min-w-40">Tamanho da fonte </p>
+      <div className="flex items-center gap-2 text-primary dark:text-white">
+        <ImFontSize size={28} />
         <Select>
           <SelectTrigger onFocus={observerSelect}>
             <SelectValue placeholder="16px" />

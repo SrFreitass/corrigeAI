@@ -1,4 +1,4 @@
-import { IRankingUsers } from '@/models/user.interface';
+import { IRankingUsers } from '@/models/user/user.interface';
 import axios from 'axios';
 
 export const getRankingUsers = async (page: number) => {

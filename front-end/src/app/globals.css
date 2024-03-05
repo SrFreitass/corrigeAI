@@ -27,3 +27,11 @@ textarea {
     height: 30px;
     border-radius: 20px;
 }
+
+h2 {
+    @apply text-primary dark:text-white
+}
+
+p {
+    @apply dark:text-gray-200
+}

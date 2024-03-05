@@ -45,4 +45,4 @@ export interface ILectureData {
   ];
 }
 
-export type ILecture = http<ILectureData>;
+export type ILecture = http<ILectureData[]>;

@@ -1,11 +1,11 @@
 import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
 } from '@/components/ui/commons/select';
 import { getCoursesBySubject } from '@/http/courses/get.coursesBySubject';
 import { ICourse } from '@/models/course/course.interface';

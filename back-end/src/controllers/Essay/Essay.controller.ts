@@ -1,14 +1,31 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { EssayInputDTO } from "../../dto/Essay.dto";
 import { EssayThemeInputDTO } from "../../dto/EssayTheme.dto";
+import { EssayUserInputDTO } from "../../dto/EssayUser.dto";
 import { EssayRepository } from "../../repositories/Essay/Essay.repository";
+import { EssayUserRepository } from "../../repositories/EssayUser/EssayUser.repository";
 import { GetEssayThemeByIdUseCase } from "../../use-cases/Essay/getEssayThemeById.usecase";
+import { GetEssayUserByIdUseCase } from "../../use-cases/Essay/getEssayUserById.usecase";
 import { GetEssaysByPage } from "../../use-cases/Essay/getEssaysByPage.usecase";
 import { PostEssayThemeUseCase } from "../../use-cases/Essay/postEssayTheme.usecase";
 import { SendEssayUseCase } from "../../use-cases/Essay/sendEssay.usecase";
 import { errorHandling } from "../../utils/error/error.function";
 
 class EssayController {
+  async getEssayUserById(req: FastifyRequest, reply: FastifyReply) {
+    try {
+      const params = req.params as { id: string };
+      const useCase = new GetEssayUserByIdUseCase(new EssayUserRepository());
+      const output = await useCase.execute(params.id);
+      reply.send({
+        statusCode: 200,
+        message: "Corrected wording",
+        data: output || "",
+      });
+    } catch (error) {
+      errorHandling(error, reply);
+    }
+  }
+
   async getEssayTheme(req: FastifyRequest, reply: FastifyReply) {
     try {
       const params = req.params as { essayThemeId: string; entity: string };
@@ -56,12 +73,17 @@ class EssayController {
 
   async sendEssay(req: FastifyRequest, reply: FastifyReply) {
     try {
-      const { essayContent, userId, theme } = req.body as EssayInputDTO;
-      const useCase = new SendEssayUseCase(new EssayRepository());
+      const userId = req.headers.userId as string;
+      const body = req.body as EssayUserInputDTO;
+      const useCase = new SendEssayUseCase(
+        new EssayUserRepository(),
+        new EssayRepository(),
+      );
       const output = await useCase.execute({
-        essayContent,
-        theme,
         userId,
+        entity: body.entity,
+        essay: body.essay,
+        themeId: body.themeId,
       });
 
       reply.send({

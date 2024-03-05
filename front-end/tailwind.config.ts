@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss';
+import { Config } from 'tailwind-merge';
 
 const config = {
   darkMode: ['class'],
@@ -50,6 +50,46 @@ const config = {
         layout: '1fr 2fr',
       },
       keyframes: {
+        '144': {
+          '0%': {},
+          '5%': {
+            'background-position':
+              ' calc(0*100%/3) 50% ,calc(1*100%/3) 50% ,calc(2*100%/3) 50% ,calc(3*100%/3) 50% ',
+          },
+          '12.5%': {
+            'background-position':
+              ' calc(0*100%/3) 0   ,calc(1*100%/3) 50% ,calc(2*100%/3) 50% ,calc(3*100%/3) 50% ',
+          },
+          '25%': {
+            'background-position':
+              ' calc(0*100%/3) 0   ,calc(1*100%/3) 0   ,calc(2*100%/3) 50% ,calc(3*100%/3) 50% ',
+          },
+          '37.5%': {
+            'background-position':
+              ' calc(0*100%/3) 100%,calc(1*100%/3) 0   ,calc(2*100%/3) 0   ,calc(3*100%/3) 50% ',
+          },
+          '50%': {
+            'background-position':
+              ' calc(0*100%/3) 100%,calc(1*100%/3) 100%,calc(2*100%/3) 0   ,calc(3*100%/3) 0   ',
+          },
+          '62.5%': {
+            'background-position':
+              ' calc(0*100%/3) 50% ,calc(1*100%/3) 100%,calc(2*100%/3) 100%,calc(3*100%/3) 0   ',
+          },
+          '75%': {
+            'background-position':
+              ' calc(0*100%/3) 50% ,calc(1*100%/3) 50% ,calc(2*100%/3) 100%,calc(3*100%/3) 100%',
+          },
+          '87.5%': {
+            'background-position':
+              ' calc(0*100%/3) 50% ,calc(1*100%/3) 50% ,calc(2*100%/3) 50% ,calc(3*100%/3) 100%',
+          },
+          '95%': {},
+          '100%': {
+            'background-position':
+              'calc(0*100%/3) 50% ,calc(1*100%/3) 50% ,calc(2*100%/3) 50% ,calc(3*100%/3) 50%',
+          },
+        },
         'appear-from-below': {
           '0%': { opacity: '0', transform: 'translateY(25px)' },
           '100%': {
@@ -77,6 +117,7 @@ const config = {
         },
       },
       animation: {
+        'loader-essay': 'animation: l44 1s infinite linear alternate',
         'appear-from-below': 'appear-from-below 0.3s ease-in-out',
         skeleton: 'skeleton infinite 1s ease-in-out',
         'accordion-down': 'accordion-down 0.2s ease-out',

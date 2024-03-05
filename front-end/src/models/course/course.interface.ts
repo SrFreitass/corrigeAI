@@ -18,4 +18,4 @@ export interface ICourseData {
   };
 }
 
-export type ICourse = http<ICourseData>;
+export type ICourse = http<ICourseData[]>;

@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/commons/button';
 import { SubTitleSection } from '@/components/ui/commons/subTitleSection';
 import { TitleSection } from '@/components/ui/commons/titleSection';
-import { postAnswerQuiz } from '@/http/post.answerQuiz';
+import { postAnswerQuiz } from '@/http/answers/post.answerQuiz';
 import { IResponseLesson } from '@/models/lesson/responseLesson.interface';
 import { useEffect, useState } from 'react';
 import { LuClock } from 'react-icons/lu';

@@ -3,8 +3,8 @@
 import { Header } from '@/components/Header';
 import { MenuAside } from '@/components/MenuAside';
 import { Input } from '@/components/ui/commons/input';
-import { getLecturesByCourse } from '@/http/get.lecturesByCourse';
-import { postHistoryLectureUser } from '@/http/post.HistoryLectureUser';
+import { postHistoryLectureUser } from '@/http/history/post.HistoryLectureUser';
+import { getLecturesByCourse } from '@/http/lecture/get.lecturesByCourse';
 import { ILecture } from '@/models/lectures/lectures.interface';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';

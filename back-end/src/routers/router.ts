@@ -122,6 +122,12 @@ export class Router {
       EssayController.sendEssay,
     );
 
+    fastify.get(
+      "/api/v1/essay/result/:id",
+      { preHandler: [auth] },
+      EssayController.getEssayUserById,
+    );
+
     fastify.post(
       "/api/v1/essay/theme",
       { preHandler: [auth] },

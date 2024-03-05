@@ -124,14 +124,14 @@ model EssaysUsers {
   id          String   @id @default(uuid())
   user_id     String
   createdAt   DateTime @default(now())
-  theme       String
+  theme_id    String
+  entity      String
+  title       String?
   essay       String
-  copetence_1 Int
-  copetence_2 Int
-  copetence_3 Int
-  copetence_4 Int
-  copetence_5 Int
+  points      Int
+  result      String
   Users       Users    @relation(fields: [user_id], references: [id])
+  Essays      Essays   @relation(fields: [theme_id], references: [id])
 }
 
 model Essays {
@@ -143,6 +143,7 @@ model Essays {
   year      Int
   entity    String
   createdAt DateTime @default(now())
+  EssayUsers EssaysUsers[]
 }
 
 model UsersLectureHistory {

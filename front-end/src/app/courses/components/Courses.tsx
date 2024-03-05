@@ -1,8 +1,8 @@
 import { getCourses } from '@/http/courses/get.courses';
 import { ICourse } from '@/models/course/course.interface';
 import { useEffect, useState } from 'react';
-import { CourseCard } from '../CourseCard';
-import { CourseFilter } from '../CourseFilter';
+import { CourseCard } from './CourseCard';
+import { CourseFilter } from './CourseFilter';
 
 export function Courses() {
   const [courses, setCourses] = useState<ICourse | null>(null);
