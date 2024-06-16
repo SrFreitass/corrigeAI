@@ -15,7 +15,7 @@ export default function QuestionsPage() {
         <main className="w-full gap-8 mx-10">
           <div>
             <Header />
-            <Section className="w-full">
+            <Section>
               <TitleSection>Busca de questões</TitleSection>
               <SubTitleSection>Filtro de questões</SubTitleSection>
             </Section>

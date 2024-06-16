@@ -20,7 +20,9 @@ export default function Home() {
       <div className="flex">
         <MenuAside />
         <div>
-          <Header />
+          <div className="px-10">
+            <Header />
+          </div>
           <main className="grid grid-rows-2 grid-cols-layout gap-8 mx-10">
             <Overview />
             <MinimalRanking />

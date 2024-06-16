@@ -7,7 +7,7 @@ import { errorHandling } from "../../utils/error/error.function";
 class QuestionController {
   async getQuestionsWithFilters(req: FastifyRequest, reply: FastifyReply) {
     try {
-      const body = req.body as FiltersInputDTO;
+      const body = req.query as FiltersInputDTO;
       const useCase = new GetQuestionsWithFiltersUseCase(
         new QuestionRepository(),
       );

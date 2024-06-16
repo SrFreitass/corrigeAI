@@ -7,7 +7,7 @@ export class QuestionRepository {
     test?: string;
   }) {
     const years = props?.year?.map((year) => {
-      return { year };
+      return year === 0 ? { year } : { year: undefined };
     });
     return await prisma.questions.findMany({
       where: {

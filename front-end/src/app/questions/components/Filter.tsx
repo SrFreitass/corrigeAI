@@ -21,7 +21,7 @@ export function Filter({ options, placeHolder, type }: FilterProps) {
       <SubTitleSection>{type}</SubTitleSection>
       <Select>
         <SelectTrigger
-          className="w-52"
+          className="w-64"
           //   onFocus={(e: FocusEvent<HTMLButtonElement>) => handleSelect(0, e)}
         >
           <SelectValue placeholder="Seleciona algo" />

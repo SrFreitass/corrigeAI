@@ -5,6 +5,14 @@ export class GetQuestionsWithFiltersUseCase {
   constructor(private readonly QuestionsRepository: QuestionRepository) {}
 
   async execute(filters: FiltersInputDTO) {
-    return await this.QuestionsRepository.findManyWithWhere(filters);
+    const years = filters.years?.split(" ").map((year) => {
+      return isNaN(Number(year)) ? 0 : Number(year);
+    });
+
+    return await this.QuestionsRepository.findManyWithWhere({
+      year: years,
+      test: filters.test,
+      subjectId: filters.subjectId,
+    });
   }
 }

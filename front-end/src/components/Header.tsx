@@ -21,7 +21,7 @@ export function Header() {
   };
 
   return (
-    <header className="py-8 px-10 w-full flex items-center justify-between">
+    <header className="py-8 w-full flex items-center justify-between">
       <div>
         <PiMagnifyingGlass
           className="absolute mt-3 ml-3"
