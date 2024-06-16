@@ -1,6 +1,6 @@
-import { AnswersLectures, Users } from "@prisma/client";
+import { AnswersLectures } from "@prisma/client";
 import { BaseClassRepository } from "../../repositories/BaseClass.repository";
-import {UserRepository} from "../../repositories/User/User.repository";
+import { UserRepository } from "../../repositories/User/User.repository";
 
 export class GetUsersStatisticsUseCase {
   constructor(

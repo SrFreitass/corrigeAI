@@ -5,6 +5,7 @@ import EmailController from "../controllers/Email/Email.controller";
 import EssayController from "../controllers/Essay/Essay.controller";
 import LectureController from "../controllers/Lecture/Lecture.controller";
 import LessonController from "../controllers/Lesson/Lesson.controller";
+import QuestionController from "../controllers/Questions/Question.controller";
 import UserController from "../controllers/User/User.controller";
 import { auth } from "../middlewares/Auth.middleware";
 
@@ -163,5 +164,7 @@ export class Router {
       { preHandler: [auth] },
       CourseController.createCourse,
     );
+
+    fastify.post("/api/v1/question", QuestionController.test);
   }
 }

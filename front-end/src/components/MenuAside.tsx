@@ -50,10 +50,16 @@ const itemsNav = [
     link: '/courses',
   },
   {
+    content: 'Questões',
+    icon: penNewSquare,
+    iconActive: penNewSquareWhite,
+    link: '/questions',
+  },
+  {
     content: 'Simulado',
     icon: penNewSquare,
     iconActive: penNewSquareWhite,
-    link: '',
+    link: '/mock',
   },
   {
     content: 'Ranking',

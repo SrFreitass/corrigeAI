@@ -54,26 +54,23 @@ export const auth = (
   if (token) {
     try {
       verify(token, `${process.env.SECRET_TOKEN}`, async (err, decoded) => {
+        console.log(decoded, err);
+
         if (err) return notAuthorized(reply);
+
         const tokenVerify = z
           .object({
-            data: z.object({
-              userId: z.string().uuid(),
-              email: z.string().email(),
-            }),
+            userId: z.string().uuid(),
+            email: z.string().email(),
           })
           .safeParse(decoded);
 
         if (!tokenVerify.success) return notAuthorized(reply);
 
-        const { data } = decoded as {
-          data: {
-            userId: string;
-            email: string;
-          };
+        const { email, userId } = decoded as {
+          userId: string;
+          email: string;
         };
-
-        const { userId } = data;
 
         const userRepository = new UserRepository();
         const currentUser = await userRepository.findOne({

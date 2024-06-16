@@ -15,7 +15,7 @@ export function Overview() {
           Essas são suas atividades na plataforma
         </SubTitleSection>
       </div>
-      <div className="flex self-center gap-8">
+      <div className="flex self-center gap-8 mt-6">
         <InfoCard
           className="bg-opaque-red"
           numberStatistics="50"

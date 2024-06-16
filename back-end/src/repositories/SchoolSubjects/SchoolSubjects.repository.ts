@@ -3,6 +3,14 @@ import { prisma } from "../../../prisma";
 import { BaseClassRepository } from "../BaseClass.repository";
 
 export class SchoolSubjectRepository extends BaseClassRepository<SchoolSubjects> {
+  findWithOrderBy(
+    orderBy: { [key: string]: "asc" | "desc" } | null,
+    offset: number,
+    limit: number,
+  ): Promise<{ id: string; name: string; enemSubject_id: string }[]> {
+    throw new Error("Method not implemented.");
+  }
+
   find(offset: number, limit: number): Promise<SchoolSubjects[]> {
     throw new Error("Method not implemented.");
   }
