@@ -12,7 +12,7 @@ export class VerifyEmailUseCase {
     if (user?.email_verified) throw new Error("User is not valid");
 
     const userVerfied = await this.userRepository.update(userId, {
-      item: { email_verified: true },
+      item: { email_verified: true } as Users,
     });
 
     return {

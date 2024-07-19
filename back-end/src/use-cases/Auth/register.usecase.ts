@@ -5,7 +5,7 @@ import { sign } from "jsonwebtoken";
 import { z } from "zod";
 import { RegisterInputDTO, RegisterOutputDTO } from "../../dto/Auth.dto";
 import { BaseClassRepository } from "../../repositories/BaseClass.repository";
-import { SendEmailUseCase } from "../Email/sendEmail.usecase";
+import { sendEmail } from "../../utils/email/sendEmail.function";
 
 export class RegisterUserUseCase {
   constructor(private readonly userRepository: BaseClassRepository<Users>) {}
@@ -45,7 +45,7 @@ export class RegisterUserUseCase {
       { data: { userId: userCreated.id, email: user.email } },
       `${process.env.SECRET_TOKEN}`,
       {
-        expiresIn: "1Y",
+        expiresIn: "1h",
       },
     );
 
@@ -60,9 +60,7 @@ export class RegisterUserUseCase {
           `<a href="http://localhost:8080/api/v1/email/verify/${userCreated.id}" style="text-decoration: none; color: #fff">Clique aqui para verificar seu e-mail</a>`,
         );
 
-      const sendEmailUseCase = new SendEmailUseCase();
-
-      await sendEmailUseCase.execute({
+      await sendEmail({
         from: `CorrigiAI - Auth <${process.env.CLIENT_EMAIL}>`,
         subject: "Verficação do seu e-mail",
         to: user.email,
@@ -70,10 +68,6 @@ export class RegisterUserUseCase {
       });
     } catch (error) {
       console.error(error);
-      return {
-        error:
-          "Unexpected error: account created, but email verification not sent.",
-      };
     }
 
     return {
