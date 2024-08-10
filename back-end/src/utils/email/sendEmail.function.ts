@@ -18,7 +18,7 @@ const transporter = createTransport({
 
 export const sendEmail = async (mailOptions: mailOptions) => {
   z.object({
-    from: z.string().email(),
+    from: z.string().min(10),
     to: z.string().email(),
     subject: z.string().min(4),
     html: z.string(),

@@ -4,7 +4,7 @@ import { TitleSection } from '@/components/ui/commons/titleSection';
 
 export function FilterOverview() {
   return (
-    <Section className="flex flex-col gap-4 w-full">
+    <Section className="flex flex-col gap-4">
       <TitleSection className="text-xl">Filtros aplicados</TitleSection>
       <form className="flex flex-col gap-4">
         <Input

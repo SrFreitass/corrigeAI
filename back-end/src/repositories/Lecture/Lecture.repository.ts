@@ -47,7 +47,7 @@ export class LectureRepository {
 
   async update(
     id: string,
-    { item }: { item?: {} | Lectures | undefined },
+    { item }: { item?: Partial<Lectures> },
   ): Promise<Lectures> {
     const lectureUpdated = await prisma.lectures.update({
       where: {
@@ -120,8 +120,9 @@ export class LectureRepository {
     id?: string;
     item?: string;
   }): Promise<Lectures | null> {
-    const lecture = await prisma.lectures.findUnique({});
+    throw new Error("Method not implemented");
+    // const lecture = await prisma.lectures.findUnique();
 
-    return lecture;
+    // return lecture;
   }
 }

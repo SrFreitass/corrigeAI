@@ -165,6 +165,9 @@ export class Router {
       CourseController.createCourse,
     );
 
-    fastify.get("/api/v1/question", QuestionController.getQuestionsWithFilters);
+    fastify.get(
+      "/api/v1/questions",
+      QuestionController.getQuestionsWithFilters,
+    );
   }
 }
